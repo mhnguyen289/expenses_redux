@@ -11,8 +11,7 @@ rails g migration debts expense:references amount:decimal
 add_column :items, :price, :decimal, :precision => 8, :scale => 2
 
 # custom foreign key
-  add_foreign_key :posts, :users, column: :author_id
-
+add_foreign_key :posts, :users, column: :author_id
 
 # explicit foreign key in associations
 class Store < ActiveRecord::Base
