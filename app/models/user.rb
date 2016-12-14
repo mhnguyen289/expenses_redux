@@ -1,15 +1,17 @@
 class User < ApplicationRecord
-  has_many :products
-  has_and_belongs_to_many :topics, join_table: :users_topics
+  has_many :relationships
+  has_many :settlements
+  has_many :expenses
+  has_many :debts
 
   validates :username, presence: true, length: { minimum: 6 }, uniqueness: true
+  validates :email,    presence: true, length: { minimum: 6 }, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_digest, presence: true
 
   attr_reader :password
 
   def as_json(option={})
-    #super([methods: ])
   end
 
   def password=(password)

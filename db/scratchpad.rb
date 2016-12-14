@@ -17,8 +17,3 @@ add_foreign_key :posts, :users, column: :author_id
 class Store < ActiveRecord::Base
   has_one :person, foreign_key: :foo_bar_store_id
 end
-
-# explicit class names
-class Person < ActiveRecord::Base
-  belongs_to :foo_bar_store, class_name: 'Store'
-end
