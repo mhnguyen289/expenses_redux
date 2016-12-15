@@ -1,5 +1,5 @@
 import expect from 'expect';
-import expenses, * as fromExpenses from './expenses';
+import expenses from './expenses';
 import * as types from '../constants/action_types';
 
 describe('expenses reducer', () => {
@@ -15,34 +15,33 @@ describe('expenses reducer', () => {
   it('should handle ADD_EXPENSE', () => {
     expect(
       expenses({
-        allIds:[],
+        allIds: [],
         byId: {},
       }, {
         type: types.ADD_EXPENSE,
         id: 1,
         response: {
           id: 1,
-          title: "Movies",
-          expense_amount: "30.00",
+          title: 'Movies',
+          expense_amount: '30.00',
           paid_by_id: 3,
-          debt_amount: "15.00",
+          debt_amount: '15.00',
           borrower_id: 1,
-        }
+        },
       })
     ).toEqual({
-      allIds:[1],
+      allIds: [1],
       byId: {
-        "1":
-         {
-            id: 1,
-            title: "Movies",
-            expense_amount: "30.00",
-            paid_by_id: 3,
-            debt_amount: "15.00",
-            borrower_id: 1,
-         }
+        1:
+        {
+          id: 1,
+          title: 'Movies',
+          expense_amount: '30.00',
+          paid_by_id: 3,
+          debt_amount: '15.00',
+          borrower_id: 1,
+        },
       },
     });
   });
-
 });

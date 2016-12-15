@@ -24,7 +24,7 @@ const allIds = (state = [], action) => {
     case types.ADD_EXPENSE:
       return [
         ...state,
-        action.id
+        action.id,
       ];
     case types.RECEIVE_EXPENSES:
       return action.response.map(expense => expense.id);
