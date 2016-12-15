@@ -1,10 +1,9 @@
-rails g migration user username:string password_digest:string email:string
-rails g migration action name:string
-rails g migration relationship
-rails g migration settlement amount:decimal
-rails g migration expenses title:string amount:decimal expense_date:datetime
-rails g migration debts expense:references amount:decimal
-
+rails g migration CreateUsers username:string password_digest:string email:string
+rails g migration CreateActions name:string
+rails g migration CreateRelationships
+rails g migration CreateSettlements amount:decimal
+rails g migration CreateExpenses title:string amount:decimal expense_date:datetime
+rails g migration CreateDebts expense:references amount:decimal
 
 # precision is the total amount of digits
 # scale is the number of digits right of the decimal point
