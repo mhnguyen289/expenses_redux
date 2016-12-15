@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :relationships #, foreign_key: a_user_id
+  has_many :relationships #, foreign_key: b_user_id
   has_many :relationships
   has_many :settlements
   has_many :expenses

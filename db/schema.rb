@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20161214212011) do
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount",       precision: 8, scale: 2, null: false
     t.string   "title",                                null: false
-    t.datetime "expense_date",                         null: false
     t.integer  "paid_by_id",                           null: false
+    t.datetime "expense_date"
   end
 
   create_table "relationships", force: :cascade do |t|
