@@ -1,6 +1,6 @@
 class Api::SessionsController < ApplicationController
 
-  skip_before_action :authenticate_token, only: [:create]
+  # skip_before_action :authenticate_token, only: [:create]
 
   def create
     username = user_params[:username]

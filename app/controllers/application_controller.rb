@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authenticate_token
+
+  # before_action :authenticate_token
 
   def authenticate_token
     render json: {error: "unauthorized"}, status: 401  unless !!current_user

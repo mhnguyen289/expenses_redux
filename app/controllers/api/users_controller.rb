@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
 
-  skip_before_action :authenticate_token, only: [:create]
+  # skip_before_action :authenticate_token, only: [:create]
 
   def create
     user = User.find_by(username: user_params[:username]);

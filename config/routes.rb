@@ -7,11 +7,8 @@ Rails.application.routes.draw do
     post 'login', to: 'sessions#create'
 
     resources :expenses, only: [:create]
-    get 'expenses/:user_id', to: 'expenses#my_expenses'
-    get 'debts/:user_id', to: 'expenses#my_debts'
-
-    resources :friends, only: [:create]
-    get 'friends/:user_id', to: 'friends#my_friends'
-
+    get 'expenses_and_lent/:user_id', to: 'expenses#expenses_and_lent'
+    get 'expenses_and_borrowed/:user_id', to: 'expenses#expenses_and_borrowed'
+    get 'expenses_between/:user_id/:friend_id', to: 'expenses#expenses_and_debts_between'
   end
 end
