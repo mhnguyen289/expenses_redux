@@ -1,4 +1,4 @@
-import combineReducers from 'redux';
+import { combineReducers } from 'redux';
 import * as types from '../constants/action_types';
 
 const byId = (state = {}, action) => {

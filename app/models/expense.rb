@@ -17,7 +17,7 @@ class Expense < ApplicationRecord
   private
 
   def self.sql_expenses_and_lent(user_id)
-    "SELECT e.id, e.title, e.expense_amount, SUM(debt_amount) AS lent
+    "SELECT e.id AS expense_id, e.title, e.expense_amount, SUM(debt_amount) AS lent
     FROM debts d
     INNER JOIN expenses e
     ON d.expense_id = e.id
@@ -26,7 +26,7 @@ class Expense < ApplicationRecord
   end
 
   def self.sql_expenses_and_borrowed(user_id)
-    "SELECT e.id, e.title, e.expense_amount, e.paid_by_id, d.debt_amount
+    "SELECT e.id AS expense_id, e.title, e.expense_amount, e.paid_by_id, d.debt_amount
     FROM debts d
     INNER JOIN expenses e
     ON d.expense_id = e.id
@@ -34,7 +34,7 @@ class Expense < ApplicationRecord
   end
 
   def self.sql_expense_and_debts_between(user_id, friend_id)
-    "SELECT e.id, e.title, e.expense_amount, e.paid_by_id, d.debt_amount, d.borrower_id 
+    "SELECT e.id AS expense_id, e.title, e.expense_amount, e.paid_by_id, d.debt_amount, d.borrower_id 
     FROM debts d
     INNER JOIN expenses e
     ON d.expense_id = e.id
