@@ -1,10 +1,8 @@
 class User < ApplicationRecord
-  has_many :relationships #, foreign_key: a_user_id
-  has_many :relationships #, foreign_key: b_user_id
   has_many :relationships
   has_many :settlements
-  has_many :expenses
-  has_many :debts
+  has_many :expenses, foreign_key: :paid_by_id
+  has_many :debts, foreign_key: :borrower_id
 
   validates :username, presence: true, length: { minimum: 6 }, uniqueness: true
   validates :email,    presence: true, length: { minimum: 6 }, uniqueness: true

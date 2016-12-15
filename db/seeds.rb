@@ -75,23 +75,23 @@ three_and_five.update(action_id: accepted.id)
 
 
 Expense.transaction do
-  meals = Expense.create!(title: "Meals", amount: 350, paid_by_id: one.id)
-  meal_with_three = Debt.create!(expense_id: meals.id, amount: 200, borrower_id: three.id)
+  meals = Expense.create!(title: "Meals", expense_amount: 350, paid_by_id: one.id)
+  meal_with_three = Debt.create!(expense_id: meals.id, debt_amount: 200, borrower_id: three.id)
 end
 
 Expense.transaction do
-  rent = Expense.create!(title: "Rent", amount: 2300, paid_by_id: one.id)
-  rent_with_two = Debt.create!(expense_id: rent.id, amount: 600, borrower_id: two.id)
-  rent_with_three = Debt.create!(expense_id: rent.id, amount: 700, borrower_id: three.id)
+  rent = Expense.create!(title: "Rent", expense_amount: 2300, paid_by_id: one.id)
+  rent_with_two = Debt.create!(expense_id: rent.id, debt_amount: 600, borrower_id: two.id)
+  rent_with_three = Debt.create!(expense_id: rent.id, debt_amount: 700, borrower_id: three.id)
 end
 
-Expense.transaction do 
-  summer_trip = Expense.create!(title: "Summer Trip", amount: 1650, paid_by_id: five.id)
-  trip_with_one = Debt.create!(expense_id: summer_trip.id, amount: 300, borrower_id: one.id)
-  trip_with_two = Debt.create!(expense_id: summer_trip.id, amount: 400, borrower_id: two.id)
-  trip_with_three = Debt.create!(expense_id: summer_trip.id, amount: 500, borrower_id: three.id)
+Expense.transaction do
+  summer_trip = Expense.create!(title: "Summer Trip", expense_amount: 1650, paid_by_id: five.id)
+  trip_with_one = Debt.create!(expense_id: summer_trip.id, debt_amount: 300, borrower_id: one.id)
+  trip_with_two = Debt.create!(expense_id: summer_trip.id, debt_amount: 400, borrower_id: two.id)
+  trip_with_three = Debt.create!(expense_id: summer_trip.id, debt_amount: 500, borrower_id: three.id)
 end
 
-paid_one_by_two = Settlement.create!(amount: 600, from_id: two.id, to_id: one.id)
-paid_one_by_three = Settlement.create!(amount: 800, from_id: three.id, to_id: one.id)
-paid_five_by_one = Settlement.create!(amount: 250, from_id: one.id, to_id: five.id)
+paid_one_by_two = Settlement.create!(settled_amount: 600, from_id: two.id, to_id: one.id)
+paid_one_by_three = Settlement.create!(settled_amount: 800, from_id: three.id, to_id: one.id)
+paid_five_by_one = Settlement.create!(settled_amount: 250, from_id: one.id, to_id: five.id)

@@ -21,15 +21,15 @@ ActiveRecord::Schema.define(version: 20161214212011) do
   end
 
   create_table "debts", force: :cascade do |t|
-    t.decimal "amount",      precision: 8, scale: 2, null: false
+    t.decimal "debt_amount", precision: 8, scale: 2, null: false
     t.integer "borrower_id",                         null: false
     t.integer "expense_id",                          null: false
   end
 
   create_table "expenses", force: :cascade do |t|
-    t.decimal  "amount",       precision: 8, scale: 2, null: false
-    t.string   "title",                                null: false
-    t.integer  "paid_by_id",                           null: false
+    t.decimal  "expense_amount", precision: 8, scale: 2, null: false
+    t.string   "title",                                  null: false
+    t.integer  "paid_by_id",                             null: false
     t.datetime "expense_date"
   end
 
@@ -42,9 +42,9 @@ ActiveRecord::Schema.define(version: 20161214212011) do
   end
 
   create_table "settlements", force: :cascade do |t|
-    t.decimal "amount",  precision: 8, scale: 2, null: false
-    t.integer "from_id",                         null: false
-    t.integer "to_id",                           null: false
+    t.decimal "settled_amount", precision: 8, scale: 2, null: false
+    t.integer "from_id",                                null: false
+    t.integer "to_id",                                  null: false
   end
 
   create_table "users", force: :cascade do |t|
