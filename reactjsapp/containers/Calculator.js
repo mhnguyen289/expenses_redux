@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { splitExpenses } from '../actions/calculator_actions';
 
 class Calculator extends React.Component {
   constructor(props) {
@@ -16,9 +15,40 @@ class Calculator extends React.Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
+  splitEqually(pals, amount) {
+    const split = pals.reduce((acc, item, index, array) => {
+      acc[item] = Math.round(amount / array.length * 100) / 100;
+      return acc;
+    }, {});
+
+    return split;
+  }
+
+  splitByPercent(pals, amount, percentages) {
+    let idx = 0;
+    const split = pals.reduce((acc, item) => {
+      acc[item] = amount * percentages[idx];
+      idx += 1;
+      return acc;
+    }, {});
+
+    return split;
+  }
+
+  splitExpenses(pals, amount, splitType, percentages) {
+    switch (splitType) {
+      case '==':
+        return this.splitEqually(pals, amount);
+      case '%':
+        return this.splitByPercent(pals, amount, percentages);
+      default:
+        return {};
+    }
+  }
+
   log(lookup) {
     const keys = Object.keys(lookup);
-    for (const i = 0; i < keys.length; i++) {
+    for (let i = 0; i < keys.length; i++) {
       const amount = lookup[keys[i]];
       const person = keys[i];
       console.log(`${person} owes ${amount}`);
@@ -31,11 +61,12 @@ class Calculator extends React.Component {
     expense[field] = e.target.value;
     this.setState({ expense });
 
-    const { splitExpenses } = this.props;
+    const amount = this.state.expense.amount;
+    // validate amount is number positive number
     const pals = [2, 3, 5];
     const percentages = [0.32, 0.39, 0.31];
-    log(splitExpenses(pals, 350, "%", percentages));
-    log(splitExpenses(pals, 350, "=="));
+    this.log(this.splitExpenses(pals, amount, '%', percentages));
+    this.log(this.splitExpenses(pals, amount, '=='));
   }
 
   handleSave(e) {
@@ -70,11 +101,14 @@ class Calculator extends React.Component {
   }
 }
 
+Calculator.propTypes = {
+};
+
 const mapStateToProps = (state) => ({
 
 });
 
 export default connect(
   mapStateToProps,
-  { splitExpenses }
+  {}
 )(Calculator);
