@@ -4,4 +4,10 @@ class WelcomeController < ApplicationController
 
   def index
   end
+
+  def static_calculator
+  end
+
+  def static_dashboard
+  end
 end

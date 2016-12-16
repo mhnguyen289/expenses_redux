@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root 'welcome#index'
+  get 'dashboard', to: 'welcome#static_dashboard'
+  get 'calculator', to: 'welcome#static_calculator'
 
   namespace :api, defaults: {format: JSON} do
     get 'dashboard', to: 'users#show'
