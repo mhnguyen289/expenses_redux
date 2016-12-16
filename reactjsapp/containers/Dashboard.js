@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchExpensesBetween } from '../actions/expenses_actions';
+import { fetchFriendsOf, fetchExpensesBetween } from '../actions/expenses_actions';
 import { getAllExpenses } from '../reducers';
 
 class Dashboard extends React.Component {
   componentDidMount() {
+    this.props.fetchFriendsOf(1);
     this.props.fetchExpensesBetween(1, 3);
   }
 
@@ -26,6 +27,7 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
+  fetchFriendsOf: PropTypes.func.isRequired,
   fetchExpensesBetween: PropTypes.func.isRequired,
   expenses: PropTypes.array.isRequired,
 };
@@ -36,5 +38,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { fetchExpensesBetween }
+  { fetchFriendsOf, fetchExpensesBetween }
 )(Dashboard);
