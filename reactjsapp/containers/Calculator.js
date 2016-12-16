@@ -28,7 +28,7 @@ class Calculator extends React.Component {
   splitByPercent(pals, amount, percentages) {
     let idx = 0;
     const split = pals.reduce((acc, item) => {
-      acc[item] = amount * percentages[idx];
+      acc[item] = Math.round(amount * percentages[idx] * 100) / 100;
       idx += 1;
       return acc;
     }, {});
@@ -74,13 +74,12 @@ class Calculator extends React.Component {
     for (let i = 0; i < keys.length; i++) {
       const amount = lookupTable[keys[i]];
       const person = keys[i];
-      console.log(`${person} owes ${amount}`);
       array.push({ id: i, person, amount });
     }
     return (
       <ul>
         {array.map(debt =>
-          <li key={debt.id}>{debt.person} owes {debt.amount} </li>
+          <li key={debt.id}>{debt.person} owes ${debt.amount} </li>
         )}
       </ul>
     );
@@ -105,7 +104,7 @@ class Calculator extends React.Component {
           onChange={this.handleChange}
         />
         <div>
-          <h3>Split equally among </h3>
+          <h3>Split (equally/unequally) among </h3>
           {this.renderSplit()}
         </div>
       </div>
