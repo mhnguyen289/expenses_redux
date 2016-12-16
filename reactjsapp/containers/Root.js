@@ -5,11 +5,13 @@ import App from './App';
 import SignUp from './SignUp';
 import Login from './Login';
 import Dashboard from './Dashboard';
+import Calculator from './Calculator';
 
 const Root = ({ store }) => (
   <Provider store={store} >
     <Router history={hashHistory}>
       <Route path="/" component={App}>
+        <Route path="/calculator" component={Calculator} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/login" component={Login} />
         <Redirect from="/logout" to="/login" />
