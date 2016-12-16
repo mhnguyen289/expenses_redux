@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchFriendsOf, fetchExpensesBetween } from '../actions/expenses_actions';
-import { getAllExpenses } from '../reducers';
+import { fetchExpensesBetween } from '../actions/expenses_actions';
+import { fetchFriendsOf } from '../actions/friends_actions';
+import { getAllFriends, getAllExpenses } from '../reducers';
 
 class Dashboard extends React.Component {
   componentDidMount() {
@@ -10,9 +11,16 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { friends, expenses } = this.props;
     return (
       <div>
+        <ul>
+          {friends.map(f =>
+            <li key={f.id}>
+              Friend: {f.username}
+            </li>
+          )}
+        </ul>
         <ul>
           {expenses.map(e =>
             <li key={e.id}>
@@ -30,10 +38,12 @@ Dashboard.propTypes = {
   fetchFriendsOf: PropTypes.func.isRequired,
   fetchExpensesBetween: PropTypes.func.isRequired,
   expenses: PropTypes.array.isRequired,
+  friends: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: getAllExpenses(state),
+  friends: getAllFriends(state),
 });
 
 export default connect(

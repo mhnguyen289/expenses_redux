@@ -29,7 +29,7 @@ export const receiveFriendsError = (error) => ({
 });
 
 export const fetchFriendsOf = (userId) => (dispatch) => {
-  const url = `api/friends/${userId}/`;
+  const url = `api/friends_of/${userId}/`;
   fetch(url)
       .then(response => response.json())
       .then(json => dispatch(receiveFriends(json)))
