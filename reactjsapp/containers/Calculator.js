@@ -8,6 +8,7 @@ class Calculator extends React.Component {
       expense: {
         title: '',
         amount: 0,
+        split: {},
       },
     };
 
@@ -46,31 +47,43 @@ class Calculator extends React.Component {
     }
   }
 
-  log(lookup) {
-    const keys = Object.keys(lookup);
-    for (let i = 0; i < keys.length; i++) {
-      const amount = lookup[keys[i]];
-      const person = keys[i];
-      console.log(`${person} owes ${amount}`);
-    }
-  }
-
+  // todo : validate amount is number positive number
+  // todo : split options : this.splitExpenses(pals, amount, '=='));
   handleChange(e) {
     const expense = this.state.expense;
     const field = e.target.name;
     expense[field] = e.target.value;
-    this.setState({ expense });
 
-    const amount = this.state.expense.amount;
-    // validate amount is number positive number
+    const amount = expense.amount;
+    const splitOption = '%';
     const pals = [2, 3, 5];
     const percentages = [0.32, 0.39, 0.31];
-    this.log(this.splitExpenses(pals, amount, '%', percentages));
-    this.log(this.splitExpenses(pals, amount, '=='));
+    expense.split = this.splitExpenses(pals, amount, splitOption, percentages);
+
+    this.setState({ expense });
   }
 
   handleSave(e) {
 
+  }
+
+  renderSplit() {
+    const lookupTable = this.state.expense.split;
+    const keys = Object.keys(lookupTable);
+    const array = [];
+    for (let i = 0; i < keys.length; i++) {
+      const amount = lookupTable[keys[i]];
+      const person = keys[i];
+      console.log(`${person} owes ${amount}`);
+      array.push({ id: i, person, amount });
+    }
+    return (
+      <ul>
+        {array.map(debt =>
+          <li key={debt.id}>{debt.person} owes {debt.amount} </li>
+        )}
+      </ul>
+    );
   }
 
   render() {
@@ -93,8 +106,7 @@ class Calculator extends React.Component {
         />
         <div>
           <h3>Split equally among </h3>
-
-
+          {this.renderSplit()}
         </div>
       </div>
     );
