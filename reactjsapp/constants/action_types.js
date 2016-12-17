@@ -8,8 +8,5 @@ export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const RECEIVE_EXPENSES = 'RECEIVE_EXPENSES';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-
-export const ERROR_SIGNUP = 'ERROR_SIGNUP';
 export const ERROR_LOGIN = 'ERROR_LOGIN';
