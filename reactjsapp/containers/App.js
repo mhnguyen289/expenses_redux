@@ -10,8 +10,20 @@ class App extends React.Component {
     const { children } = this.props;
     return (
       <div>
-        <Header />
-        {children}
+        <div className="app-header">
+          <div className="constraint-width">
+            <Header />
+          </div>
+        </div>
+        <div>
+          <div className="main-section constraint-width">
+            <div className="content">
+              <div className="box">
+                {children}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

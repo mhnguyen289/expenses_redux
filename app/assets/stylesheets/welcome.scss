@@ -61,6 +61,7 @@ header, hgroup, main, menu, nav, section, summary {
   justify-content: space-between;
   align-items: center;
   height: 50px;
+  text-align: -webkit-center;
 }
 
 /* logo
@@ -171,24 +172,6 @@ header, hgroup, main, menu, nav, section, summary {
   background: 0;
 }
 
-.modal.fade.in {
-  opacity: 1;
-  top: 50%;
-}
-
-.modal.transparent {
-  box-shadow: none;
-  border: 0;
-}
-
-.modal {
-  position: fixed;
-  left: 50%;
-  z-index: 1050;
-  margin: -250px 0 0 -280px;
-  border-radius: 6px;
-}
-
 .relative-container {
   position: relative;
   min-height: 480px;
@@ -205,17 +188,16 @@ header, hgroup, main, menu, nav, section, summary {
 .main-window, .subview {
   background: #fff;
   width: 350px;
-  border: 1px solid #999;
   overflow: hidden;
 }
 
-.main-window header, .subview header {
-  background: #5cc5a7;
-  color: #fff;
+.main-window header {
+  color: #5cc5a7;
   padding: 10px;
-  border-bottom: 1px solid #36977b;
+  border-bottom: 1px solid #f6f6f6;
   font-size: 18px;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 /* add bill with
@@ -279,7 +261,6 @@ li {
   max-height: 435px;
   position: relative;
   padding: 10px;
-  text-align: center;
   overflow: hidden;
 }
 
@@ -290,8 +271,6 @@ li {
 .subview .body .main-fields {
   position: relative;
   width: 250px;
-  margin: 5px auto;
-  text-align: right;
 }
 
 .main-fields img.category {
@@ -390,8 +369,9 @@ input.cost {
 footer {
   letter-spacing: 3px;
   border-top: 1px solid #eee;
-  text-align: right;
-  padding: 8px 10px;
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 13px;
 }
 
 /* add bill footer buttons
@@ -411,6 +391,7 @@ footer button {
   font-size: 15px;
   line-height: normal;
   border-radius: 5px;
+  margin-right: 5px;
 }
 
 .btn {
@@ -441,11 +422,7 @@ footer button {
 }
 
 .split-details {
-  padding: 10px;
-}
-
-#choose-split .body {
-  text-align: left;
+  padding: 10px 0;
 }
 
 /* choose split button group
