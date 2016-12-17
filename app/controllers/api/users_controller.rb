@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
 
-  # skip_before_action :authenticate_token, only: [:create]
+  skip_before_action :authenticate_token, only: [:create]
 
   def create
     user = User.find_by(username: user_params[:username]);
@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
         if user.save
           render json: {
             jwt: Token.jwt({user: user.id}),
-            user: { username: user.username, has_topics: false}
+            user: user
           }
         else
           render json: user.errors

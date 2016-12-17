@@ -1,5 +1,7 @@
 class Api::ExpensesController < ApplicationController
 
+  skip_before_action :authenticate_token
+
   def expenses_and_borrowed
     @expenses_and_borrowed = Expense.expenses_and_borrowed(params[:user_id])
     render json: @expenses_and_borrowed

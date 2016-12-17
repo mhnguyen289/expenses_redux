@@ -20,7 +20,7 @@ class Header extends React.Component {
           <span><i className="fa fa-plus" aria-hidden="true"></i></span>
         </Link>
         <Link to="/dashboard" className="item" activeClassName="active-item">Dashboard</Link>
-        <Link to="/logout" onClick={logout}>Logout</Link>
+        <Link to="/logout" onClick={this.props.logout}>Logout</Link>
       </div>
     );
   }
@@ -28,7 +28,7 @@ class Header extends React.Component {
   renderAuth() {
     return (
       <div className="account">
-        <button className="demo-button" onClick={demo}>
+        <button className="demo-button" onClick={this.props.demo}>
           <div className="demo-button-container">Demo Login</div>
         </button>
       </div>

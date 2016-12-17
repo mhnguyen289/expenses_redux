@@ -1,6 +1,6 @@
 class Api::SessionsController < ApplicationController
 
-  # skip_before_action :authenticate_token, only: [:create]
+  skip_before_action :authenticate_token, only: [:create]
 
   def create
     username = user_params[:username]
@@ -9,7 +9,7 @@ class Api::SessionsController < ApplicationController
     if !!user
       render json: {
         jwt: Token.jwt({ user: user.id }),
-        user: update_user_has_topics(user)
+        user: user
       }
     else
       render json: { invalid: "Invalid username/password combination" }

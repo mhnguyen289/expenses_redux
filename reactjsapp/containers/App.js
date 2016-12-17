@@ -30,7 +30,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 const mapStateToProps = (state) => ({
