@@ -5,7 +5,7 @@ html {
   height: 100%;
   display: block;
   background-color: #fff;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Lato','Helvetica Neue',Helvetica,Arial,sans-serif !important;
 }
 
 body {
@@ -165,8 +165,8 @@ header, hgroup, main, menu, nav, section, summary {
   ========================================================================== */
 
 #add_bill, #settle_up_form {
-  font-size: 14px,
-  min-height: 480px,inherit;
+  font-size: 14px;
+  min-height: 480px;
   overflow: visible;
   background: 0;
 }
@@ -189,7 +189,7 @@ header, hgroup, main, menu, nav, section, summary {
   border-radius: 6px;
 }
 
-#add_bill .relative-container, #settle_up_form .relative-container {
+.relative-container {
   position: relative;
   min-height: 480px;
 }
@@ -197,15 +197,12 @@ header, hgroup, main, menu, nav, section, summary {
 /* add bill
   ========================================================================== */
 
-#add_bill .main-window, #settle_up_form .main-window {
+.main-window {
   position: relative;
   z-index: 1;
 }
 
-#add_bill .main-window,
-#settle_up_form .main-window,
-#add_bill .subview,
-#settle_up_form .subview {
+.main-window, .subview {
   background: #fff;
   width: 350px;
   border: 1px solid #999;
@@ -228,7 +225,7 @@ header, hgroup, main, menu, nav, section, summary {
   position: relative;
   padding: 4px;
   border-bottom: 98px;
-  padding-left: 98px
+  padding-left: 98px;
   max-height: 250px;
   overflow-y: auto;
 }
@@ -297,6 +294,20 @@ li {
   text-align: right;
 }
 
+.main-fields img.category {
+  float: left;
+  width: 50px;
+  height: 84px;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.img {
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+}
+
 .main-fields input.description {
   height: 24px;
   line-height: 24px;
@@ -345,6 +356,35 @@ input.cost {
   padding-bottom: 0;
   margin-bottom: 0;
   vertical-align: bottom;
+}
+
+.human-summary {
+  clear: both;
+  margin: 15px 0 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.human-summary a {
+  display: inline-block;
+  background: #f6f6f6;
+  border-radius: 10px;
+  height: 18px;
+  line-height: 16px;
+  padding: 2px 5px 0px;
+  border: 1px dashed #ccc;
+  vertical-align: middle;
+  color: #5cc5a7;
+  margin: 0;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.human-summary .details {
+  margin: 3px 0;
+  font-size: 14px;
 }
 
 footer {
@@ -404,7 +444,7 @@ footer button {
   padding: 10px;
 }
 
-#choose_split .body {
+#choose-split .body {
   text-align: left;
 }
 
@@ -471,8 +511,120 @@ footer button {
 /* split method equal
   ========================================================================== */
 
+h3 {
+  font-size: 18px;
+  line-height: 27px;
+  display: block;
+}
+
+.subview .body h3 {
+  margin-bottom: 5px;
+  color: #999;
+}
+
+.split-method-equal {
+  cursor: pointer;
+}
+
+.person {
+  user-select: none;
+  padding: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.person .amount {
+  float: right;
+  margin-top: 8px;
+}
+
+.person .name {
+  display: inline-block;
+  max-width: 170px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 16px;
+  min-height: 18px;
+  cursor: pointer;
+  text-align: left;
+}
+
 /* split method exact amount
 ========================================================================== */
 
+.person div.input-prepend {
+  float: right;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+.input-prepend .add-on:first-child {
+  border-radius: 3px 0 0 3px;
+  margin-right: -1px;
+  display: inline-block;
+  width: auto;
+  height: 18px;
+  min-width: 16px;
+  padding: 4px 5px;
+  font-weight: normal;
+  line-height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+.split-method-unequal .name {
+  max-width: 145px;
+}
+
+.totals {
+  padding: 5px;
+  text-align: left;
+  font-size: 16px;
+  margin-top: 7px;
+}
+
+.subtotals {
+  float: right;
+  margin-top: -7px;
+  text-align: right;
+  font-size: 16px;
+}
+
+.owed-total {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: right;
+}
+
+.remaining, .owed-remaining {
+  font-size: 12px;
+  color: #aaa;
+}
+
 /* split method percent
   ========================================================================== */
+
+.person div.input-append {
+  float: right;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  user-select: none;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.person div.input-append input {
+  width: 45px;
+  border-radius: 3px 0 0 3px;
+  position: relative;
+  margin-bottom: 0;
+  vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}

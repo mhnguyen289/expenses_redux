@@ -34,17 +34,16 @@ class Static extends React.Component {
             type="text"
             className="description"
             placeholder="Enter a description"
-            value=""
+            value
           />
           <div className="cost-container">
             <span className="currency-code">$</span>
-            <input
-              type="text"
-              className="cost"
-              placeholder="0.00"
-              value=""
-            />
+            <input type="text" className="cost" placeholder="0.00" value />
           </div>
+        </div>
+        <div className="human-summary">
+          Paid by <a className="payer">you</a> and split <a className="split">equally</a>
+          <div className="details">($0.00/person)</div>
         </div>
       </div>
     );
@@ -53,9 +52,13 @@ class Static extends React.Component {
   renderAddNotes() {
     return (
       <div className="main-window">
-        <header>Add a bill</header>
+        <header>Add a bill <a className="dismiss" href="#">x</a></header>
         {this.renderWithFields()}
         {this.renderDescriptionAndCost()}
+        <footer>
+          <button className="btn btn-large btn-cancel">Cancel</button>
+          <button className="btn btn-large btn-min submit">Save</button>
+        </footer>
       </div>
     );
   }
@@ -74,7 +77,7 @@ class Static extends React.Component {
 
   renderSplitEqual() {
     return (
-      <div className="split-method-equal" style={{ display: 'none' }}>
+      <div className="split-method-equal" style={{ display: 'block' }}>
         <h3>Split equally</h3>
         <div className="person">
           <span className="amount">$0.00</span>
@@ -94,15 +97,15 @@ class Static extends React.Component {
         <h3>Split by exact amounts</h3>
         <div className="person">
           <div className="input-prepend">
-            <span>$&nbsp;</span>
-            <input type="text" value="" />
+            <span className="currency-symbol">$</span>
+            <input type="text" value />
           </div>
           <span className="name"><strong>cod3r99</strong></span>
         </div>
         <div className="person">
           <div className="input-prepend">
-            <span>$&nbsp;</span>
-            <input type="text" value="" />
+            <span className="add-on currency-symbol">$</span>
+            <input type="text" value />
           </div>
           <span className="name"><strong>jennyfen</strong></span>
         </div>
@@ -121,19 +124,19 @@ class Static extends React.Component {
 
   renderSplitByPercent() {
     return (
-      <div className="split-method-percent" style={{ display: 'block' }}>
+      <div className="split-method-percent" style={{ display: 'none' }}>
         <h3>Split by percentages</h3>
         <div className="person">
           <div className="input-append">
-            <input type="text" value="" />
-            <span className="add-on">&nbsp;%</span>
+            <input type="text" value />
+            <span className="add-on">%</span>
           </div>
           <span className="name"><strong>cod3r99</strong></span>
         </div>
         <div className="person">
           <div className="input-append">
-            <input type="text" value="" />
-            <span className="add-on">&nbsp;%</span>
+            <input type="text" value />
+            <span className="add-on">%</span>
           </div>
           <span className="name"><strong>jennyfen</strong></span>
         </div>
@@ -153,6 +156,7 @@ class Static extends React.Component {
   renderChooseSplit() {
     return (
       <div className="subview active" id="choose-split">
+        <header>Choose split options<a className="dismiss" href="#">x</a></header>
         <div className="body">
           {this.renderSplitOptionsButtons()}
           {this.renderSplitEqual()}
@@ -163,14 +167,6 @@ class Static extends React.Component {
     );
   }
 
-  renderSaveButtonFooter() {
-    return (
-      <footer>
-        <button className="btn btn-large btn-cancel">Cancel</button>
-        <button className="btn btn-large btn-min submit">Save</button>
-      </footer>
-    );
-  }
   render() {
     return (
       <div>
@@ -186,7 +182,6 @@ class Static extends React.Component {
                 <div className="relative-container">
                   {this.renderAddNotes()}
                   {this.renderChooseSplit()}
-                  {this.renderSaveButtonFooter()}
                 </div>
               </div>
             </div>
