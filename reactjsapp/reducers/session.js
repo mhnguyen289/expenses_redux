@@ -2,9 +2,7 @@ import { combineReducers } from 'redux';
 import * as types from '../constants/action_types';
 
 const initialState = {
-  // todo : set authenticated back to localStorage logic
-  authenticated: true, // localStorage.getItem('jwt') ? true : false,
-  currentUser: {},
+  authenticated: localStorage.getItem('jwt') ? true : false,
 };
 
 const authenticated = (
@@ -14,26 +12,7 @@ const authenticated = (
     case types.LOGOUT_SUCCESS:
       return false;
     case types.LOGIN_SUCCESS:
-    case types.SIGNUP_SUCCESS:
       return true;
-    default:
-      return state;
-  }
-};
-
-const currentUser = (state = initialState.currentUser, action) => {
-  switch (action.type) {
-    case types.LOGIN_SUCCESS:
-    case types.SIGNUP_SUCCESS:
-      return action.user;
-    case types.ADD_FOLLOW:
-    case types.REMOVE_FOLLOW:
-      return {
-        ...state,
-        hasTopics: action.user.hasTopics,
-      };
-    case types.LOGOUT_SUCCESS:
-      return {};
     default:
       return state;
   }
@@ -41,10 +20,8 @@ const currentUser = (state = initialState.currentUser, action) => {
 
 const session = combineReducers({
   authenticated,
-  currentUser,
 });
 
 export default session;
 
-export const getCurrentUser = state => state.currentUser;
 export const getAuthenticated = state => state.authenticated;

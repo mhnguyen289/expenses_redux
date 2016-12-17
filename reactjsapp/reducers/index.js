@@ -13,9 +13,6 @@ const rootReducer = combineReducers({
 
 export default rootReducer;
 
-export const getCurrentUser = state =>
-  fromSession.getCurrentUser(state.session);
-
 export const getAuthenticated = state =>
   fromSession.getAuthenticated(state.session);
 

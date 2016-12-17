@@ -2,8 +2,6 @@ import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, hashHistory, Redirect } from 'react-router';
 import App from './App';
-import SignUp from './SignUp';
-import Login from './Login';
 import Dashboard from './Dashboard';
 import Calculator from './Calculator';
 
@@ -11,11 +9,10 @@ const Root = ({ store }) => (
   <Provider store={store} >
     <Router history={hashHistory}>
       <Route path="/" component={App}>
+        <Redirect from="/logout" to="/calculator" />
+        <Redirect from="/demo" to="/calculator" />
         <Route path="/calculator" component={Calculator} />
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/login" component={Login} />
-        <Redirect from="/logout" to="/login" />
-        <Route path="/signup" component={SignUp} />
       </Route>
     </Router>
   </Provider>

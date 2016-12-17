@@ -121,21 +121,34 @@ header, hgroup, main, menu, nav, section, summary {
  color: #fff;
 }
 
-.user-menu {
- display: block;
- padding: 3px 0 3px 6px;
+.demo-button {
+ background: #fff;
+ height: 34px;
+ padding: 0 13px;
+ border-radius: 3px;
+ border: 1px solid #f2f2f2;
+ box-sizing: border-box;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ text-decoration: none!important;
+ margin-right: 10px;
+ font-weight: 600;
+ font-size: 12px;
+ letter-spacing: .6px;
+ line-height: 16px;
+ text-transform: uppercase;
 }
 
-.user-image {
- display: inline-block;
- position: relative;
-}
-
-.user-image-container {
- height: 32px;
- width: 32px;
- position: relative;
- border-radius: 50%;
+.demo-button-container {
+ text-align: center;
+ display: inline-flex;
+ flex-wrap: nowrap;
+ justify-content: center;
+ width: inherit;
+ color: #999;
+ fill: #999;
 }
 
 /* profile menu pop over

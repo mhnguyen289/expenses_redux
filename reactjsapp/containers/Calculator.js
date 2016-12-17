@@ -11,7 +11,7 @@ class Calculator extends React.Component {
         split: {},
       },
     };
-
+    
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
   }
