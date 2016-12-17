@@ -3,14 +3,14 @@ import { Link } from 'react-router';
 
 const ProfileMenu = ({ top, left, logout }) => (
   <div style={{ top, left }} className="popover">
-    <ul className="popoverContent">
+    <ul className="popover-content">
       <li>
-        <div className="menuItemContainer">
+        <div className="menu-item-container">
           <Link to="/">Profile</Link>
         </div>
       </li>
       <li>
-        <div className="menuItemContainer">
+        <div className="menu-item-container">
           <Link to="/logout" onClick={logout}>Logout</Link>
         </div>
       </li>
