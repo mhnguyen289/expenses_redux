@@ -11,14 +11,14 @@ class Calculator extends React.Component {
         split: {},
       },
     };
-    
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
   }
 
   splitEqually(pals, amount) {
     const split = pals.reduce((acc, item, index, array) => {
-      acc[item] = Math.round(amount / array.length * 100) / 100;
+      acc[item] = (amount / array.length * 100) / 100;
       return acc;
     }, {});
 
@@ -28,7 +28,7 @@ class Calculator extends React.Component {
   splitByPercent(pals, amount, percentages) {
     let idx = 0;
     const split = pals.reduce((acc, item) => {
-      acc[item] = Math.round(amount * percentages[idx] * 100) / 100;
+      acc[item] = (amount * percentages[idx] * 100) / 100;
       idx += 1;
       return acc;
     }, {});
@@ -249,11 +249,6 @@ class Calculator extends React.Component {
       <div className="relative-container">
         {this.renderAddNotes()}
         {this.renderChooseSplit()}
-
-        <div>
-          <h3>Split (equally/unequally) among </h3>
-          {this.renderSplit()}
-        </div>
       </div>
     );
   }

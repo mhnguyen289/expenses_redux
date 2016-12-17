@@ -9,8 +9,8 @@ const Root = ({ store }) => (
   <Provider store={store} >
     <Router history={hashHistory}>
       <Route path="/" component={App}>
-        <Redirect from="/logout" to="/calculator" />
-        <Redirect from="/demo" to="/calculator" />
+        <Redirect from="/logout" to="/" />
+        <Redirect from="/demo" to="/dashboard" />
         <Route path="/calculator" component={Calculator} />
         <Route path="/dashboard" component={Dashboard} />
       </Route>

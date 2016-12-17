@@ -16,11 +16,18 @@ class Header extends React.Component {
   renderAccount() {
     return (
       <div className="account">
+        <Link
+          to="/logout"
+          className="item"
+          activeClassName="active-item"
+          onClick={this.props.logout}
+        >
+          Logout
+        </Link>
+        <Link to="/dashboard" className="item" activeClassName="active-item">Dashboard</Link>        
         <Link to="/calculator" className="item" activeClassName="active-item">
           <span><i className="fa fa-plus" aria-hidden="true"></i></span>
         </Link>
-        <Link to="/dashboard" className="item" activeClassName="active-item">Dashboard</Link>
-        <Link to="/logout" onClick={this.props.logout}>Logout</Link>
       </div>
     );
   }
