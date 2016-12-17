@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import * as types from '../constants/action_types';
 
 const initialState = {
-  authenticated: localStorage.getItem('jwt') ? true : false,
+  // todo : set authenticated back to localStorage logic
+  authenticated: true, // localStorage.getItem('jwt') ? true : false,
   currentUser: {},
 };
 

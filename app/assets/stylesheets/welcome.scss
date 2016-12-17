@@ -64,7 +64,7 @@ header, hgroup, main, menu, nav, section, summary {
   text-align: -webkit-center;
 }
 
-/* logo
+/* logo and header
   ========================================================================== */
 
 .logo {
@@ -80,11 +80,62 @@ header, hgroup, main, menu, nav, section, summary {
 }
 
 .logo-text {
-  color: #da552f;
+  color: #5cc5a7;
   font-size: 20px;
   font-weight: 200;
   letter-spacing: .2px;
   line-height: 24px;
+}
+
+.account {
+ display: flex;
+ align-items: center;
+}
+
+.auth-link {
+ font-size: 14px;
+ margin: 0 15px 0 0;
+ color: #999;
+ line-height: 18px;
+ text-decoration: none;
+ cursor: auto;
+}
+
+.add-button {
+ padding: 5px 6px;
+ outline: 0;
+ background-color: transparent;
+}
+
+.item {
+ padding: 0 20px;
+ display: block;
+ height: 50px;
+ line-height: 50px;
+ color: #999;
+ font-size: 14px;
+}
+
+.active-item {
+ background: #5cc5a7;
+ color: #fff;
+}
+
+.user-menu {
+ display: block;
+ padding: 3px 0 3px 6px;
+}
+
+.user-image {
+ display: inline-block;
+ position: relative;
+}
+
+.user-image-container {
+ height: 32px;
+ width: 32px;
+ position: relative;
+ border-radius: 50%;
 }
 
 /* main-section
