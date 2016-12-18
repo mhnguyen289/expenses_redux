@@ -142,7 +142,7 @@ header, hgroup, main, menu, nav, section, summary {
   background-color: #f2f2f2;
 }
 
-/* add bill, add settlement
+/* add bill
   ========================================================================== */
 
 .container {
@@ -193,9 +193,9 @@ header, hgroup, main, menu, nav, section, summary {
   padding-left: 3px;
   padding-right: 3px;
   border-bottom: 1px dashed #ccc !important;
-  color: #999;
-  font-size: 16px;
-  font-weight: 400;
+  color: #666;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .main-fields input {
@@ -204,10 +204,12 @@ header, hgroup, main, menu, nav, section, summary {
   box-shadow: none !important;
   text-align: left;
   width: 177px;
-  color: #999;
   border-radius: 0;
   padding-bottom: 2px;
   background-color: #fff;
+  color: #666;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 div.cost-container {
@@ -221,7 +223,7 @@ div.cost-container {
 
 span.currency-code {
   font-size: 20px;
-  color: #999;
+  color: #666;
   display: inline-block;
   padding: 15px 3px 7px;
   vertical-align: bottom;
@@ -229,7 +231,7 @@ span.currency-code {
 }
 
 input.cost {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 600;
   height: 40px;
   line-height: 40px;

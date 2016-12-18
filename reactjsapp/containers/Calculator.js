@@ -102,7 +102,7 @@ class Calculator extends React.Component {
             value={this.state.expense.title}
             name="title"
             className="description"
-            placeholder="Enter a description"
+            placeholder="Title"
             onChange={this.handleChange}
           />
           <div className="cost-container">
