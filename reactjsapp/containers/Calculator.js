@@ -6,8 +6,15 @@ class Calculator extends React.Component {
     super(props);
     this.state = {
       expense: {
+        allMemberIds: [2, 3, 5],
+        members: [
+          {id: 2, username: 'cod3r99'},
+          {id: 3, username: 'jennyfen'},
+          {id: 5, username: 'billy'}
+        ],
         title: '',
         amount: 0,
+        percentages: [],
         split: {},
       },
     };
@@ -53,18 +60,14 @@ class Calculator extends React.Component {
     const expense = this.state.expense;
     const field = e.target.name;
     expense[field] = e.target.value;
-
+    const palsIds = this.state.expense.allMemberIds;
     const amount = expense.amount;
     const splitOption = '%';
-    const pals = [2, 3, 5];
-    const percentages = [0.32, 0.39, 0.31];
-    expense.split = this.splitExpenses(pals, amount, splitOption, percentages);
+
+    const percentages = [10.00, 30.00, 60.00];
+    expense.split = this.splitExpenses(palsIds, amount, splitOption, percentages);
 
     this.setState({ expense });
-  }
-
-  handleSave(e) {
-
   }
 
   renderSplit() {
@@ -185,20 +188,23 @@ class Calculator extends React.Component {
     return (
       <div className="split-method-percent">
         <h3>Split by percentages</h3>
-        <div className="person">
-          <span className="name"><strong>cod3r99</strong></span>
-          <div className="amount">
-            <input type="text" value="" />
-            <span className="add-on">&nbsp;%</span>
-          </div>
-        </div>
-        <div className="person">
-          <span className="name"><strong>jennyfen</strong></span>
-          <div className="amount">
-            <input type="text" value="" />
-            <span className="add-on">&nbsp;%</span>
-          </div>
-        </div>
+        <ul>
+          {this.state.expense.members.map(m =>
+            <li key={m.id}>
+              <div className="person">
+                <span className="name"><strong>{m.username}</strong></span>
+                <div className="amount">
+                  <input
+                    name={m.username}
+                    type="text"
+                    value=""
+                  />
+                  <span className="add-on">&nbsp;%</span>
+                </div>
+              </div>
+            </li>
+          )}
+        </ul>
         <div className="totals">
           <strong>TOTAL</strong>
           <div className="subtotals">
@@ -226,11 +232,19 @@ class Calculator extends React.Component {
     );
   }
 
+  handleSave(e) {
+    console.log(this.state.expense)
+  }
+
   renderSaveButtonFooter() {
     return (
       <footer>
         <button className="btn btn-large btn-cancel">Cancel</button>
-        <button className="btn btn-large btn-min submit">Save</button>
+        <button
+          onClick={this.handleSave}
+          className="btn btn-large btn-min submit">
+          Save
+        </button>
       </footer>
     );
   }
