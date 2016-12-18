@@ -105,7 +105,7 @@ header, hgroup, main, menu, nav, section, summary {
   background: transparent;
 }
 
-.active-item {
+.active-item, button.submit {
   color: #fff;
   background: #5cc5a7;
 }
@@ -154,15 +154,15 @@ header, hgroup, main, menu, nav, section, summary {
   margin: 0 0 20px;
 }
 
-.main-window, .subview {
+.add-notes, .subview {
   background: #fff;
   width: 350px;
   overflow: hidden;
   padding: 20px;
-  margin: 20px 0;
+  margin: 0 0 20px;
 }
 
-.main-window header {
+.add-notes header {
   color: #5cc5a7;
   padding: 10px;
   border-bottom: 1px solid #f6f6f6;
@@ -175,36 +175,15 @@ header, hgroup, main, menu, nav, section, summary {
   padding: 10px;
 }
 
-.main-window .body,
+.add-notes .body,
 .subview .body {
   max-height: 435px;
-  position: relative;
   padding: 10px;
   overflow: hidden;
 }
 
 /* add bill inputs
   ========================================================================== */
-
-.main-window .body .main-fields,
-.subview .body .main-fields {
-  position: relative;
-  width: 250px;
-}
-
-.main-fields img.category {
-  float: left;
-  width: 50px;
-  height: 84px;
-  margin-right: 16px;
-  cursor: pointer;
-}
-
-.img {
-  max-width: 100%;
-  vertical-align: middle;
-  border: 0;
-}
 
 .main-fields input.description {
   height: 24px;
@@ -214,6 +193,9 @@ header, hgroup, main, menu, nav, section, summary {
   padding-left: 3px;
   padding-right: 3px;
   border-bottom: 1px dashed #ccc !important;
+  color: #999;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .main-fields input {
@@ -222,7 +204,7 @@ header, hgroup, main, menu, nav, section, summary {
   box-shadow: none !important;
   text-align: left;
   width: 177px;
-  color: #333;
+  color: #999;
   border-radius: 0;
   padding-bottom: 2px;
   background-color: #fff;
@@ -236,9 +218,10 @@ div.cost-container {
   border-bottom: 1px dashed #ccc;
   white-space: nowrap;
 }
+
 span.currency-code {
   font-size: 20px;
-  color: #333;
+  color: #999;
   display: inline-block;
   padding: 15px 3px 7px;
   vertical-align: bottom;
@@ -247,7 +230,7 @@ span.currency-code {
 
 input.cost {
   font-size: 36px;
-  font-weight: bold;
+  font-weight: 600;
   height: 40px;
   line-height: 40px;
   width: 120px;

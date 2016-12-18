@@ -123,7 +123,7 @@ class Calculator extends React.Component {
 
   renderAddNotes() {
     return (
-      <div className="main-window">
+      <div className="add-notes">
         <header>ADD A BILL</header>
         {this.renderWithFields()}
         {this.renderDescriptionAndCost()}
