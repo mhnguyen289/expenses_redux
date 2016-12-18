@@ -17,11 +17,7 @@ class App extends React.Component {
         </div>
         <div>
           <div className="main-section constraint-width">
-            <div className="content">
-              <div className="box">
-                {children}
-              </div>
-            </div>
+            {children}
           </div>
         </div>
       </div>

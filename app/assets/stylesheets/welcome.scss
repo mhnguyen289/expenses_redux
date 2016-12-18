@@ -136,104 +136,30 @@ header, hgroup, main, menu, nav, section, summary {
   ========================================================================== */
 
 .main-section {
-  margin-top: 30px;
-  padding: 0 15px;
   display: flex;
-  flex: 1;
+  margin: 0;
+  padding: 30px 15px;
+  background-color: #f2f2f2;
 }
 
-.main-section .content {
+/* add bill, add settlement
+  ========================================================================== */
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: none;
+  justify-content: center;
   width: 100%;
-}
-
-.main-section .box {
   margin: 0 0 20px;
-}
-
-/* text
-  ========================================================================== */
-
-.text {
- font-weight: 400;
- font-size: 14px;
- line-height: 18px;
-}
-
-.subtle {
- color: #999;
-}
-
-.featured {
- font-size: 20px;
- font-weight: 200;
- letter-spacing: .2px;
- line-height: 24px;
-}
-
-.default {
- color: #000;
-}
-
-.base {
- margin: 0;
-}
-
-.secondary-text {
- font-size: 12px;
- font-weight: 400;
- letter-spacing: .6px;
- line-height: 16px;
- text-transform: uppercase;
-}
-
-/* user-message
-  ========================================================================== */
-
-.user-message {
- color: #999;
- font-size: 20px;
- font-weight: 200;
- letter-spacing: .2px;
- line-height: 24px;
- margin-left: auto;
- text-align: center;
-}
-
-.input-error {
- color: #da552f;;
- font-weight: 600;
- font-size: 12px;
- letter-spacing: .6px;
- line-height: 16px;
-}
-
-/* modal
-  ========================================================================== */
-
-#add_bill, #settle_up_form {
-  font-size: 14px;
-  min-height: 480px;
-  overflow: visible;
-  background: 0;
-}
-
-.relative-container {
-  position: relative;
-  min-height: 480px;
-}
-
-/* add bill
-  ========================================================================== */
-
-.main-window {
-  position: relative;
-  z-index: 1;
 }
 
 .main-window, .subview {
   background: #fff;
   width: 350px;
   overflow: hidden;
+  padding: 20px;
+  margin: 20px 0;
 }
 
 .main-window header {
@@ -245,60 +171,8 @@ header, hgroup, main, menu, nav, section, summary {
   text-transform: uppercase;
 }
 
-/* add bill with
-  ========================================================================== */
-
-.main-window .with-field, .sbuview .with-field {
-  position: relative;
-  padding: 4px;
-  border-bottom: 98px;
-  padding-left: 98px;
-  max-height: 250px;
-  overflow-y: auto;
-}
-
-.main-window .with-field .with {
-  position: absolute;
-  left: 10px;
-  top: 11px;
-}
-
-ul.token-input-list {
-  overflow: hidden;
-  height: auto !important;
-  cursor: text;
-  font-size: 12px;
-  min-height: 1px;
-  z-index: 999999;
-  margin: 0;
-  padding: 3px;
-  background: transparent;
-}
-
-ul {
-  list-style: disc;
-}
-
-ul.token-input-list li {
-  list-style-type: none;
-  white-space: nowrap;
-  overflow: visible;
-  padding-right: 6px;
-  font-size: 14px;
-  line-height: 18px;
-  height: 18px;
-  margin: 3px;
-  padding: 0 8px;
-  background: 0;
-  background-color: #f6f6f6;
-  color: #000;
-  cursor: default;
-  border: 1px solid #bbb;
-  float: left;
-}
-
-li {
-  display: list-item;
+.with-field {
+  padding: 10px;
 }
 
 .main-window .body,
@@ -415,8 +289,8 @@ footer {
   letter-spacing: 3px;
   border-top: 1px solid #eee;
   text-align: center;
-  margin-top: 20px;
-  padding-top: 13px;
+  margin-top: 10px;
+  padding-top: 20px;
 }
 
 /* add bill footer buttons
@@ -453,38 +327,13 @@ footer button {
   color: #fff;
 }
 
-/* choose split options
-  ========================================================================== */
-
-#choose_split {
-  width: 350px;
-}
-
-.subview.active {
-  left: 370px;
-  opacity: 1.0;
-  pointer-events: auto;
-}
-
-.split-details {
-  padding: 10px 0;
-}
-
 /* choose split button group
   ========================================================================== */
 
-#split-method {
-  margin: -5px 0 10px;
-  text-align: center;
-  display: block;
-}
-
-.btn-group.btn-group-inline {
-  vertical-align: -8px;
-}
-
-.btn-group {
-  position: relative;
+.split-details {
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
 }
 
 .split-button {
@@ -494,43 +343,20 @@ footer button {
   height: 30px;
 }
 
-.btn-group>.btn:first-child {
-  margin-left: 0;
-  border-bottom-left-radius: 4px;
-}
-
-.btn-group>.btn {
-  position: relative;
-  float: left;
-  border-radius: 0;
-}
-
 .btn-gray {
   color: #666;
 }
 
 .btn {
-  border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
-  display: inline-block;
-  margin-bottom: 0;
-  text-align: center;
-  vertical-align: middle;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   cursor: pointer;
   background-color: #f5f5f5;
-  outline: 0;
+  padding: 10px;
+  margin: 0.5px;
+  width: 100px;
 }
 
-.split-button.unequal {
-  font-size: 16px;
-  padding-top: 2px;
-}
-
-.split-button.percent {
-  font-size: 20px;
-  padding-top: 2px;
-}
-
-/* split method equal
+/* split method
   ========================================================================== */
 
 h3 {
@@ -540,15 +366,20 @@ h3 {
 }
 
 .subview .body h3 {
-  margin-bottom: 5px;
   color: #999;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
 }
 
-.split-method-equal {
-  cursor: pointer;
+.split-method-percent {
+  display: flex;
+  flex-direction: column;
 }
 
 .person {
+  display: flex;
+  justify-content: space-between;
   user-select: none;
   padding: 5px;
   overflow: hidden;
@@ -558,12 +389,14 @@ h3 {
 }
 
 .person .amount {
-  float: right;
   margin-top: 8px;
 }
 
+.person .amount input {
+  width: 40px;
+}
+
 .person .name {
-  display: inline-block;
   max-width: 170px;
   overflow-x: hidden;
   text-overflow: ellipsis;
@@ -573,55 +406,28 @@ h3 {
   min-height: 18px;
   cursor: pointer;
   text-align: left;
-}
-
-/* split method exact amount
-========================================================================== */
-
-.person div.input-prepend {
-  float: right;
-  margin-top: 4px;
-  margin-bottom: 2px;
-}
-
-.input-prepend .add-on:first-child {
-  border-radius: 3px 0 0 3px;
-  margin-right: -1px;
-  display: inline-block;
-  width: auto;
-  height: 18px;
-  min-width: 16px;
-  padding: 4px 5px;
-  font-weight: normal;
-  line-height: 18px;
-  text-align: center;
-  vertical-align: middle;
-  background-color: #eee;
-  border: 1px solid #ccc;
-}
-
-.split-method-unequal .name {
-  max-width: 145px;
+  margin-top: 8px;
 }
 
 .totals {
+  display: flex;
+  justify-content: space-between;
   padding: 5px;
-  text-align: left;
   font-size: 16px;
-  margin-top: 7px;
+  margin-top: 20px;
 }
 
 .subtotals {
-  float: right;
+  display: flex;
+  flex-direction: column;
   margin-top: -7px;
-  text-align: right;
   font-size: 16px;
+  align-items: flex-end;
 }
 
 .owed-total {
   font-weight: bold;
   font-size: 16px;
-  text-align: right;
 }
 
 .remaining, .owed-remaining {
@@ -649,4 +455,95 @@ h3 {
   vertical-align: middle;
   background-color: #fff;
   border: 1px solid #ccc;
+}
+
+/* split method exact amount
+========================================================================== */
+
+.split-method-unequal .name {
+  max-width: 145px;
+}
+
+.person div.input-prepend {
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+.input-prepend .add-on:first-child {
+  border-radius: 3px 0 0 3px;
+  margin-right: -1px;
+  width: auto;
+  height: 18px;
+  min-width: 16px;
+  padding: 4px 5px;
+  font-weight: normal;
+  line-height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+/* split equal amount
+========================================================================== */
+
+.split-method-equal {
+  cursor: pointer;
+}
+
+/* text
+  ========================================================================== */
+
+.text {
+ font-weight: 400;
+ font-size: 14px;
+ line-height: 18px;
+}
+
+.subtle {
+ color: #999;
+}
+
+.featured {
+ font-size: 20px;
+ font-weight: 200;
+ letter-spacing: .2px;
+ line-height: 24px;
+}
+
+.default {
+ color: #000;
+}
+
+.base {
+ margin: 0;
+}
+
+.secondary-text {
+ font-size: 12px;
+ font-weight: 400;
+ letter-spacing: .6px;
+ line-height: 16px;
+ text-transform: uppercase;
+}
+
+/* user-message
+  ========================================================================== */
+
+.user-message {
+ color: #999;
+ font-size: 20px;
+ font-weight: 200;
+ letter-spacing: .2px;
+ line-height: 24px;
+ margin-left: auto;
+ text-align: center;
+}
+
+.input-error {
+ color: #da552f;;
+ font-weight: 600;
+ font-size: 12px;
+ letter-spacing: .6px;
+ line-height: 16px;
 }

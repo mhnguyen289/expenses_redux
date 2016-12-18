@@ -88,7 +88,7 @@ class Calculator extends React.Component {
   renderWithFields() {
     return (
       <div className="with-field">
-        <span className="with">With &nbsp;<strong>you</strong>&nbsp;and:</span>
+        <span className="with">With <strong>you</strong> and: </span>
       </div>
     );
   }
@@ -147,11 +147,11 @@ class Calculator extends React.Component {
     return (
       <div className="split-method-equal" style={{ display: 'none' }}>
         <h3>Split equally</h3>
-        <div className="person">
+        <div className="text subtle person">
           <span className="amount">$0.00</span>
           <span className="name"><strong>cod3r99</strong></span>
         </div>
-        <div className="person">
+        <div className="text subtle person">
           <span className="amount">$0.00</span>
           <span className="name"><strong>jennyfen</strong></span>
         </div>
@@ -163,14 +163,14 @@ class Calculator extends React.Component {
     return (
       <div className="split-method-unequal" style={{ display: 'none' }}>
         <h3>Split by exact amounts</h3>
-        <div className="person">
+        <div className="text subtle person">
           <div className="input-prepend">
             <span>$&nbsp;</span>
             <input type="text" value="" />
           </div>
           <span className="name"><strong>cod3r99</strong></span>
         </div>
-        <div className="person">
+        <div className="text subtle person">
           <div className="input-prepend">
             <span>$&nbsp;</span>
             <input type="text" value="" />
@@ -192,21 +192,21 @@ class Calculator extends React.Component {
 
   renderSplitByPercent() {
     return (
-      <div className="split-method-percent" style={{ display: 'block' }}>
+      <div className="split-method-percent">
         <h3>Split by percentages</h3>
         <div className="person">
-          <div className="input-append">
+          <span className="name"><strong>cod3r99</strong></span>
+          <div className="amount">
             <input type="text" value="" />
             <span className="add-on">&nbsp;%</span>
           </div>
-          <span className="name"><strong>cod3r99</strong></span>
         </div>
         <div className="person">
-          <div className="input-append">
+          <span className="name"><strong>jennyfen</strong></span>
+          <div className="amount">
             <input type="text" value="" />
             <span className="add-on">&nbsp;%</span>
           </div>
-          <span className="name"><strong>jennyfen</strong></span>
         </div>
         <div className="totals">
           <strong>TOTAL</strong>
@@ -246,9 +246,11 @@ class Calculator extends React.Component {
 
   render() {
     return (
-      <div className="relative-container">
-        {this.renderAddNotes()}
-        {this.renderChooseSplit()}
+      <div className="container">
+        <div className="add-bill">
+          {this.renderAddNotes()}
+          {this.renderChooseSplit()}
+        </div>
       </div>
     );
   }
