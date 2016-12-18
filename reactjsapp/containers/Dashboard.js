@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { fetchExpensesBetween } from '../actions/expenses_actions';
 import { fetchFriendsOf } from '../actions/friends_actions';
 import { getAllFriends, getAllExpenses } from '../reducers';
+import FriendsList from '../components/FriendsList';
+import ExpensesList from '../components/ExpensesList';
 
 class Dashboard extends React.Component {
   componentDidMount() {
@@ -13,22 +15,13 @@ class Dashboard extends React.Component {
   render() {
     const { friends, expenses } = this.props;
     return (
-      <div>
-        <ul>
-          {friends.map(f =>
-            <li key={f.id}>
-              Friend: {f.username}
-            </li>
-          )}
-        </ul>
-        <ul>
-          {expenses.map(e =>
-            <li key={e.id}>
-              Expense Amount: {e.expense_amount},
-              Title: {e.title}
-            </li>
-          )}
-        </ul>
+      <div className="dashboard container">
+        <div className="friends-list">
+          <FriendsList friends={friends} />
+        </div>
+        <div className="expenses-list">
+          <ExpensesList expenses={expenses} />
+        </div>
       </div>
     );
   }

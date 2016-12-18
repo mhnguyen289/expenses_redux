@@ -3,7 +3,7 @@
 
 html {
   height: 100%;
-  font-family: 'Lato','Helvetica Neue',Helvetica,Arial,sans-serif !important;
+  font-family: 'Lato','Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 
 body {
@@ -136,23 +136,110 @@ header, hgroup, main, menu, nav, section, summary {
   ========================================================================== */
 
 .main-section {
-  display: flex;
   margin: 0;
   padding: 30px 15px;
-  background-color: #f2f2f2;
+  background-color: #f9f9f9;
 }
-
-/* add bill
-  ========================================================================== */
 
 .container {
   display: flex;
   flex-direction: row;
-  flex-wrap: none;
-  justify-content: center;
   width: 100%;
   margin: 0 0 20px;
 }
+
+/* dashboard
+  ========================================================================== */
+
+.dashboard .friends-list {
+  flex: auto;
+}
+
+.navigation {
+  margin: 0 0 30px;
+}
+
+.navigation span {
+  font-weight: 600;
+}
+
+.navigation ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation a {
+  align-items: center;
+  border-bottom: 1px solid #f2f2f2;
+  color: #999;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  text-align: center;
+  font-weight: 300;
+}
+
+.dashboard .expenses-list {
+  flex: 0 0 70%;
+  background-color: #fff;
+  border: 1px solid #f2f2f2;
+  min-height: 550px;
+  padding: 0 20px;
+}
+
+.expenses-list .header {
+  align-items: baseline;
+  border-bottom: 1px #f6f6f6;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+
+.header span {
+  color: #5cc5a7;
+}
+
+.content .list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.list li {
+  padding: 25px;
+  border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  background-color: transparent;
+}
+
+.list-item .expense-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.list-item {
+  height: 50px;
+  padding: 0 20px;
+  overflow: hidden;
+  position: relative;
+  display: block;
+}
+
+/* add page
+  ========================================================================== */
+
+.add.container {
+  justify-content: center;
+}
+
+
+/* add bill
+  ========================================================================== */
 
 .add-notes, .subview {
   background: #fff;
@@ -502,6 +589,7 @@ h3 {
 
 .base {
  margin: 0;
+ font-family: 'Lato','Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 
 .secondary-text {

@@ -85,14 +85,6 @@ class Calculator extends React.Component {
     );
   }
 
-  renderWithFields() {
-    return (
-      <div className="with-field">
-        <span className="with">With <strong>you</strong> and: </span>
-      </div>
-    );
-  }
-
   renderDescriptionAndCost() {
     return (
       <div className="body">
@@ -125,7 +117,6 @@ class Calculator extends React.Component {
     return (
       <div className="add-notes">
         <header>ADD A BILL</header>
-        {this.renderWithFields()}
         {this.renderDescriptionAndCost()}
       </div>
     );
@@ -246,7 +237,7 @@ class Calculator extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="add container">
         <div className="add-bill">
           {this.renderAddNotes()}
           {this.renderChooseSplit()}
