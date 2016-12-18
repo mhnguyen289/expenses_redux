@@ -24,7 +24,7 @@ class Header extends React.Component {
         >
           Logout
         </Link>
-        <Link to="/dashboard" className="item" activeClassName="active-item">Dashboard</Link>        
+        <Link to="/dashboard" className="item" activeClassName="active-item">Dashboard</Link>
         <Link to="/calculator" className="item" activeClassName="active-item">
           <span><i className="fa fa-plus" aria-hidden="true"></i></span>
         </Link>
@@ -36,7 +36,7 @@ class Header extends React.Component {
     return (
       <div className="account">
         <button className="demo-button" onClick={this.props.demo}>
-          <div className="demo-button-container">Demo Login</div>
+          Demo Login
         </button>
       </div>
     );
