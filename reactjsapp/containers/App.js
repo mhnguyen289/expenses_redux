@@ -15,10 +15,8 @@ class App extends React.Component {
             <Header />
           </div>
         </div>
-        <div>
-          <div className="main-section constraint-width">
-            {children}
-          </div>
+        <div className="main-section constraint-width">
+          {children}
         </div>
       </div>
     );

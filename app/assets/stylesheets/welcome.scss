@@ -1,4 +1,4 @@
-/* react client application
+/* app
   ========================================================================== */
 
 html {
@@ -13,6 +13,7 @@ body {
   display: block;
   line-height: 22px;
   color: #333;
+  background-color: #f9f9f9;
   text-rendering: optimizeLegibility;
 }
 
@@ -29,9 +30,6 @@ header, hgroup, main, menu, nav, section, summary {
 .div {
   display: block;
 }
-
-/* app
-  ========================================================================== */
 
 .root-main {
   margin: 0;
@@ -138,7 +136,6 @@ header, hgroup, main, menu, nav, section, summary {
 .main-section {
   margin: 0;
   padding: 30px 15px;
-  background-color: #f9f9f9;
 }
 
 .container {
@@ -156,7 +153,7 @@ header, hgroup, main, menu, nav, section, summary {
 }
 
 .navigation {
-  margin: 0 0 30px;
+  margin: 0 10px 20px 30px;
 }
 
 .navigation span {
@@ -181,7 +178,7 @@ header, hgroup, main, menu, nav, section, summary {
 }
 
 .dashboard .expenses-list {
-  flex: 0 0 70%;
+  flex: 0 0 75%;
   background-color: #fff;
   border: 1px solid #f2f2f2;
   min-height: 550px;
