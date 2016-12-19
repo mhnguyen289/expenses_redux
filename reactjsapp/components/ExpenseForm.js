@@ -47,6 +47,24 @@ class ExpenseForm extends React.Component {
     );
   }
 
+  renderSplitEqually(friends) {
+    return (
+      <div className="split-method split-method-equal">
+        <h3>Split equally</h3>
+        <ul>
+          {friends.map(friend =>
+            <li key={friend.id}>
+              <div className="person">
+                <span className="name"><strong>{friend.username}</strong></span>
+                <span className="amount">${friend.owed}</span>
+              </div>
+            </li>
+          )}
+        </ul>
+      </div>
+    );
+  }
+
   renderSplitByExactAmount(handleChange, friends, owed, remaining) {
     return (
       <div className="split-method split-method-unequal" style={{ display: 'none' }}>
@@ -85,7 +103,7 @@ class ExpenseForm extends React.Component {
 
   renderSplitByPercent(handleChange, friends, owed, remaining) {
     return (
-      <div className="split-method split-method-percent">
+      <div className="split-method split-method-percent" style={{ display: 'none' }}>
         <h3>Split by percentages</h3>
         <ul>
           {friends.map(friend =>
@@ -135,6 +153,7 @@ class ExpenseForm extends React.Component {
           {this.renderSplitOptionsButtons()}
           {this.renderSplitByPercent(handleChange, friends, owed, remaining)}
           {this.renderSplitByExactAmount(handleChange, friends, owed, remaining)}
+          {this.renderSplitEqually(friends)}
           {this.renderFooter(handleSave)}
         </div>
       </div>

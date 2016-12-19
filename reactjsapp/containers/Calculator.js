@@ -26,7 +26,7 @@ class Calculator extends React.Component {
   }
 
   makeDecimal(number) {
-    return (number * 100) / 100;
+    return ((number * 100) / 100);
   }
 
   splitByPercent(friends, amount) {
@@ -86,15 +86,25 @@ class Calculator extends React.Component {
 
   handleChange(e) {
     let expense = this.state.expense;
+    const splitType = options.SPLIT_EQUALLY;
+
     const field = e.target.name;
     if (field == 'title' || field == 'amount') {
-      expense[field] = e.target.value;
+      expense[field] = e.target.value.trim();
     }
-    const friendId = e.target.name;
-    const owedValue = e.target.value;
-    const splitOption = options.SPLIT_BY_PERCENT;
-    expense = this.updateOwed(splitOption, friendId, owedValue, expense);
-    expense.split = this.splitExpenses(splitOption, expense);
+
+    if (splitType == options.SPLIT_EQUALLY) {
+      expense.split = this.splitExpenses(splitType, expense);
+      expense.friends.forEach(friend => {
+        friend.owed = expense.split[friend.id];
+      });
+    } else {
+      const friendId = e.target.name;
+      const owedValue = e.target.value.trim();
+      expense = this.updateOwed(splitType, friendId, owedValue, expense);
+      expense.split = this.splitExpenses(splitType, expense);
+    }
+
     this.logSplit();
     this.setState({ expense });
   }
