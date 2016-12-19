@@ -81,9 +81,7 @@ class Calculator extends React.Component {
 
   updateSplitAmount(expense) {
     const splitOption = '%';
-    const friends = expense.friends;
-    const amount = expense.amount;
-    const owed = expense.owed;
+    const { friends, amount, owed } = this.state.expense;
     expense.split = this.splitExpenses(friends, amount, splitOption, owed);
 
     return expense;
@@ -103,16 +101,16 @@ class Calculator extends React.Component {
   }
 
   render() {
-    const expense = this.state.expense;
+    const { title, amount, friends, owed, remaining } = this.state.expense;
     return (
       <ExpenseForm
-        title={expense.title}
-        amount={expense.amount}
+        title={title}
+        amount={amount}
         handleChange={this.handleChange}
         handleSave={this.handleSave}
-        friends={expense.friends}
-        owed={expense.owed}
-        remaining={expense.remaining}
+        friends={friends}
+        owed={owed}
+        remaining={remaining}
       />
     );
   }
