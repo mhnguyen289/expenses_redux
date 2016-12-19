@@ -49,7 +49,7 @@ class ExpenseForm extends React.Component {
 
   renderSplitEqually(friends) {
     return (
-      <div className="split-method split-method-equal">
+      <div className="split-method split-method-equal" style={{ display: 'none' }}>
         <h3>Split equally</h3>
         <ul>
           {friends.map(friend =>
@@ -67,7 +67,7 @@ class ExpenseForm extends React.Component {
 
   renderSplitByExactAmount(handleChange, friends, owed, remaining) {
     return (
-      <div className="split-method split-method-unequal" style={{ display: 'none' }}>
+      <div className="split-method split-method-unequal">
         <h3>Split by exact amounts</h3>
         <ul>
           {friends.map(friend =>
