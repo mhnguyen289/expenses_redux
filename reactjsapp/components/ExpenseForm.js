@@ -45,9 +45,44 @@ class ExpenseForm extends React.Component {
     );
   }
 
+  renderSplitByExactAmount(handleChange, friends, owed, remaining) {
+    return (
+      <div className="split-method split-method-unequal">
+        <h3>Split by exact amounts</h3>
+        <ul>
+          {friends.map(friend =>
+            <li key={friend.id}>
+              <div className="person">
+                <span className="name"><strong>{friend.username}</strong></span>
+                <div className="amount">
+                  <span className="add-on">$&nbsp;</span>
+                  <input
+                    name={friend.id}
+                    type="text"
+                    value={friend.owed}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            </li>
+          )}
+        </ul>
+        <div className="totals">
+          <strong>TOTAL</strong>
+          <div className="subtotals">
+            <span className="owed-total">${owed}</span>
+            <div className="remaining">
+              <span className="owed-remaining">${remaining} left</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   renderSplitByPercent(handleChange, friends, owed, remaining) {
     return (
-      <div className="split-method-percent">
+      <div className="split-method split-method-percent" style={{ display: 'none' }}>
         <h3>Split by percentages</h3>
         <ul>
           {friends.map(friend =>
@@ -80,21 +115,23 @@ class ExpenseForm extends React.Component {
     );
   }
 
+  renderFooter(handleSave) {
+    return (
+      <footer>
+        <button className="btn btn-large btn-cancel">Cancel</button>
+        <button onClick={handleSave} className="btn btn-large btn-min submit">Save</button>
+      </footer>
+    );
+  }
+
   renderChooseSplitAndSave(handleChange, handleSave, friends, owed, remaining) {
     return (
       <div className="subview active" id="choose-split">
         <div className="body">
           {this.renderSplitOptionsButtons()}
           {this.renderSplitByPercent(handleChange, friends, owed, remaining)}
-          <footer>
-            <button className="btn btn-large btn-cancel">Cancel</button>
-            <button
-              onClick={handleSave}
-              className="btn btn-large btn-min submit"
-            >
-              Save
-            </button>
-          </footer>
+          {this.renderSplitByExactAmount(handleChange, friends, owed, remaining)}
+          {this.renderFooter(handleSave)}
         </div>
       </div>
     );
