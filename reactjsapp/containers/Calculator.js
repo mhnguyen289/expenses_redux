@@ -44,10 +44,11 @@ class Calculator extends React.Component {
       { selectedSplitOption },
       { expense: {
         ...this.state.expense,
-        owed: owed.toString(),
-        },
+        owed: owed.toString() },
       }
     ));
+
+    this.updateDetails(e, selectedSplitOption, this.state.expense);
   }
 
   makeDecimal(number) {
@@ -111,16 +112,7 @@ class Calculator extends React.Component {
     return expense;
   }
 
-  handleChange(e) {
-    let expense = this.state.expense;
-    const splitOption = this.state.selectedSplitOption;
-    console.log(`${splitOption}`);
-    const field = e.target.name;
-    if (field == 'amount') {
-      expense[field] = e.target.value.trim();
-    } else {
-      expense[field] = e.target.value;
-    }
+  updateDetails(e, splitOption, expense) {
     if (splitOption == options.SPLIT_EQUALLY) {
       expense.split = this.splitExpenses(splitOption, expense);
       expense.friends.forEach(friend => {
@@ -134,6 +126,19 @@ class Calculator extends React.Component {
     }
     this.logSplit();
     this.setState({ expense });
+  }
+
+  handleChange(e) {
+    let expense = this.state.expense;
+    const splitOption = this.state.selectedSplitOption;
+    console.log(`${splitOption}`);
+    const field = e.target.name;
+    if (field == 'amount') {
+      expense[field] = e.target.value.trim();
+    } else {
+      expense[field] = e.target.value;
+    }
+    this.updateDetails(e, splitOption, expense);
   }
 
   validForm() {
