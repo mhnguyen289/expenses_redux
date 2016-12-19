@@ -6,7 +6,7 @@ const FriendsList = ({ friends }) => (
     <ol>
       {friends.map(f =>
         <li key={f.id}>
-          <Link to='/' className="text default base" activeClassName="text default base active">
+          <Link to="/" className="text default base" activeClassName="text default base active">
             <span>{f.username}</span>
           </Link>
         </li>

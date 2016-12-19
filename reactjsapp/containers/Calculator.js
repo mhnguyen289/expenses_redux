@@ -25,7 +25,7 @@ class Calculator extends React.Component {
   }
 
   makeDecimal(number) {
-    return Math.round((number * 100) / 100);
+    return (number * 100) / 100;
   }
 
   splitEqually(friends, amount) {
@@ -83,44 +83,35 @@ class Calculator extends React.Component {
   handleChange(e) {
     let expense = this.state.expense;
     const field = e.target.name;
-    if (field == 'title' || field == 'amount') {
-      expense[field] = e.target.value;
-    } else {
-      const friendId = e.target.name;
-      const owedValue = e.target.value;
-      expense = this.updateExpense(friendId, owedValue, expense);
-    }
+    expense[field] = e.target.value;
+
+    const friendId = e.target.name;
+    const owedValue = e.target.value;
+    expense = this.updateExpense(friendId, owedValue, expense);
+    this.logSplit();
+
     this.setState({ expense });
   }
 
   handleSave() {
     console.log(this.state.expense);
     if (this.state.expense.remaining == 0) {
-      const { title, amount } = this.state.expense;
-      const arrays = this.makeArrays();
-      const ids = arrays[0];
-      const debts = arrays[1];
+      const { title, amount, split } = this.state.expense;
+      const ids = Object.keys(split);
+      const debts = Object.values(split);
       const expense = { title, amount, ids, debts };
       this.props.addExpense(expense);
     }
   }
 
-  makeArrays() {
+  logSplit() {
     const lookupTable = this.state.expense.split;
     const keys = Object.keys(lookupTable);
-    const ids = [];
-    const debts = [];
     for (let i = 0; i < keys.length; i++) {
       const debt = lookupTable[keys[i]];
       const id = keys[i];
       console.log(`${id} owes ${debt}`);
-      ids.push(id);
-      debts.push(debt);
     }
-    const arrays = [];
-    arrays.push(ids);
-    arrays.push(debts);
-    return arrays;
   }
 
   render() {
