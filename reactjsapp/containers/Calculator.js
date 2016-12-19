@@ -92,7 +92,7 @@ class Calculator extends React.Component {
     }
     const friendId = e.target.name;
     const owedValue = e.target.value;
-    const splitOption = options.SPLIT_EXACT_AMOUNT;
+    const splitOption = options.SPLIT_BY_PERCENT;
     expense = this.updateOwed(splitOption, friendId, owedValue, expense);
     expense.split = this.splitExpenses(splitOption, expense);
     this.logSplit();
