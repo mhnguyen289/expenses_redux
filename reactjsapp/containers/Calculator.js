@@ -1,20 +1,20 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import ExpenseForm from '../components/ExpenseForm';
 
 class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       expense: {
-        allMemberIds: [2, 3, 5],
-        members: [
-          {id: 2, username: 'cod3r99'},
-          {id: 3, username: 'jennyfen'},
-          {id: 5, username: 'billy'}
+        friends: [
+          { id: 2, username: 'andy', owed: 60.00 },
+          { id: 3, username: 'bonnie', owed: 40.00 },
         ],
+        owed: 100.00,
+        remaining: 0.00,
         title: '',
         amount: 0,
-        percentages: [],
         split: {},
       },
     };
@@ -54,214 +54,72 @@ class Calculator extends React.Component {
     }
   }
 
-  // todo : validate amount is number positive number
-  // todo : split options : this.splitExpenses(pals, amount, '=='));
-  handleChange(e) {
-    const expense = this.state.expense;
-    const field = e.target.name;
-    expense[field] = e.target.value;
-    const palsIds = this.state.expense.allMemberIds;
-    const amount = expense.amount;
-    const splitOption = '%';
+  updateUIFields(event, expense) {
+    const field = event.target.name;
+    expense[field] = event.target.value;
 
-    const percentages = [10.00, 30.00, 60.00];
-    expense.split = this.splitExpenses(palsIds, amount, splitOption, percentages);
+    return expense;
+  }
+
+  updateOwed(expense) {
+    const id = '2';
+    const owed = 55.56; // %
+    expense.friends.forEach((item) => {
+      if (item.id == id) {
+        item.owed = owed;
+      }
+    });
+    let total = 0;
+    expense.friends.forEach((item) => {
+      total += item.owed;
+    });
+    expense.owed = total;
+    expense.remaining = Math.round((100.00 - total) * 100) / 100;
+
+    return expense;
+  }
+
+  updateSplitAmount(expense) {
+    const splitOption = '%';
+    const friends = expense.friends;
+    const amount = expense.amount;
+    const owed = expense.owed;
+    expense.split = this.splitExpenses(friends, amount, splitOption, owed);
+
+    return expense;
+  }
+
+  handleChange(event) {
+    let expense = this.state.expense;
+    expense = this.updateUIFields(event, expense);
+    expense = this.updateOwed(expense);
+    expense = this.updateSplitAmount(expense);
 
     this.setState({ expense });
   }
 
-  renderSplit() {
-    const lookupTable = this.state.expense.split;
-    const keys = Object.keys(lookupTable);
-    const array = [];
-    for (let i = 0; i < keys.length; i++) {
-      const amount = lookupTable[keys[i]];
-      const person = keys[i];
-      array.push({ id: i, person, amount });
-    }
-    return (
-      <ul>
-        {array.map(debt =>
-          <li key={debt.id}>{debt.person} owes ${debt.amount} </li>
-        )}
-      </ul>
-    );
-  }
-
-  renderDescriptionAndCost() {
-    return (
-      <div className="body">
-        <div className="main-fields">
-          <input
-            type="text"
-            value={this.state.expense.title}
-            name="title"
-            className="description"
-            placeholder="Title"
-            onChange={this.handleChange}
-          />
-          <div className="cost-container">
-            <span className="currency-code">$</span>
-            <input
-              type="text"
-              value={this.state.expense.amount}
-              name="amount"
-              className="cost"
-              placeholder="0.00"
-              onChange={this.handleChange}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  renderAddNotes() {
-    return (
-      <div className="add-notes">
-        <header>ADD A BILL</header>
-        {this.renderDescriptionAndCost()}
-      </div>
-    );
-  }
-
-  renderSplitOptionsButtons() {
-    return (
-      <div className="split-details">
-        <div className="btn-group btn-group-inline" id="split-method">
-          <button className="split_button btn btn-gray equal active">=</button>
-          <button className="split_button btn btn-gray unequal">1.23</button>
-          <button className="split_button btn btn-gray percent">%</button>
-        </div>
-      </div>
-    );
-  }
-
-  renderSplitEqual() {
-    return (
-      <div className="split-method-equal" style={{ display: 'none' }}>
-        <h3>Split equally</h3>
-        <div className="text subtle person">
-          <span className="amount">$0.00</span>
-          <span className="name"><strong>cod3r99</strong></span>
-        </div>
-        <div className="text subtle person">
-          <span className="amount">$0.00</span>
-          <span className="name"><strong>jennyfen</strong></span>
-        </div>
-      </div>
-    );
-  }
-
-  renderSplitByExactAmount() {
-    return (
-      <div className="split-method-unequal" style={{ display: 'none' }}>
-        <h3>Split by exact amounts</h3>
-        <div className="text subtle person">
-          <div className="input-prepend">
-            <span>$&nbsp;</span>
-            <input type="text" value="" />
-          </div>
-          <span className="name"><strong>cod3r99</strong></span>
-        </div>
-        <div className="text subtle person">
-          <div className="input-prepend">
-            <span>$&nbsp;</span>
-            <input type="text" value="" />
-          </div>
-          <span className="name"><strong>jennyfen</strong></span>
-        </div>
-        <div className="totals">
-          <strong>TOTAL</strong>
-          <div className="subtotals">
-            <span className="owed-total">$0.00</span>
-            <div className="remaining">
-              <span className="owed-remaining">$0.00 left</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  renderSplitByPercent() {
-    return (
-      <div className="split-method-percent">
-        <h3>Split by percentages</h3>
-        <ul>
-          {this.state.expense.members.map(m =>
-            <li key={m.id}>
-              <div className="person">
-                <span className="name"><strong>{m.username}</strong></span>
-                <div className="amount">
-                  <input
-                    name={m.username}
-                    type="text"
-                    value=""
-                  />
-                  <span className="add-on">&nbsp;%</span>
-                </div>
-              </div>
-            </li>
-          )}
-        </ul>
-        <div className="totals">
-          <strong>TOTAL</strong>
-          <div className="subtotals">
-            <span className="owed-total">0.00 %</span>
-            <div className="remaining">
-              <span className="owed-remaining">100.00% left</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  renderChooseSplit() {
-    return (
-      <div className="subview active" id="choose-split">
-        <div className="body">
-          {this.renderSplitOptionsButtons()}
-          {this.renderSplitEqual()}
-          {this.renderSplitByExactAmount()}
-          {this.renderSplitByPercent()}
-          {this.renderSaveButtonFooter()}
-        </div>
-      </div>
-    );
-  }
-
   handleSave(e) {
-    console.log(this.state.expense)
-  }
-
-  renderSaveButtonFooter() {
-    return (
-      <footer>
-        <button className="btn btn-large btn-cancel">Cancel</button>
-        <button
-          onClick={this.handleSave}
-          className="btn btn-large btn-min submit">
-          Save
-        </button>
-      </footer>
-    );
+    console.log(this.state.expense);
   }
 
   render() {
+    const expense = this.state.expense;
     return (
-      <div className="add container">
-        <div className="add-bill">
-          {this.renderAddNotes()}
-          {this.renderChooseSplit()}
-        </div>
-      </div>
+      <ExpenseForm
+        title={expense.title}
+        amount={expense.amount}
+        handleChange={this.handleChange}
+        handleSave={this.handleSave}
+        friends={expense.friends}
+        owed={expense.owed}
+        remaining={expense.remaining}
+      />
     );
   }
 }
 
 Calculator.propTypes = {
+
 };
 
 const mapStateToProps = (state) => ({
