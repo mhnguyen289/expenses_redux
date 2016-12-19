@@ -96,10 +96,32 @@ class Calculator extends React.Component {
 
   handleSave() {
     console.log(this.state.expense);
-    if (this.state.remaining == 0) {
+    if (this.state.expense.remaining == 0) {
       const { title, amount, split } = this.state.expense;
-      this.props.addExpense({ title, amount, split });
+      const arrays = this.makeArrays();
+      const ids = arrays[0];
+      const debts = arrays[1];
+      const expense = { title, amount, ids, debts };
+      this.props.addExpense(expense);
     }
+  }
+
+  makeArrays() {
+    const lookupTable = this.state.expense.split;
+    const keys = Object.keys(lookupTable);
+    const ids = [];
+    const debts = [];
+    for (let i = 0; i < keys.length; i++) {
+      const debt = lookupTable[keys[i]];
+      const id = keys[i];
+      console.log(`${id} owes ${debt}`);
+      ids.push(id);
+      debts.push(debt);
+    }
+    const arrays = []
+    arrays.push(ids);
+    arrays.push(debts);
+    return arrays;
   }
 
   logSplit() {
