@@ -54,21 +54,13 @@ class Calculator extends React.Component {
     }
   }
 
-  updateUIFields(event, expense) {
-    const field = event.target.name;
-    expense[field] = event.target.value;
-
-    return expense;
-  }
-
-  updateOwed(expense) {
-    const id = '2';
-    const owed = 55.56; // %
+  updateOwed(id, owedValue, expense) {
     expense.friends.forEach((item) => {
       if (item.id == id) {
-        item.owed = owed;
+        item.owed = owedValue;
       }
     });
+
     let total = 0;
     expense.friends.forEach((item) => {
       total += item.owed;
@@ -79,7 +71,7 @@ class Calculator extends React.Component {
     return expense;
   }
 
-  updateSplitAmount(expense) {
+  updateSplit(expense) {
     const splitOption = '%';
     const { friends, amount, owed } = this.state.expense;
     expense.split = this.splitExpenses(friends, amount, splitOption, owed);
@@ -87,11 +79,15 @@ class Calculator extends React.Component {
     return expense;
   }
 
-  handleChange(event) {
+  handleChange(e) {
     let expense = this.state.expense;
-    expense = this.updateUIFields(event, expense);
-    expense = this.updateOwed(expense);
-    expense = this.updateSplitAmount(expense);
+    const field = e.target.name;
+    expense[field] = e.target.value;
+
+    const id = e.target.name; //'2'
+    const owedValue = e.target.value; // 55.56 // %
+    expense = this.updateOwed(id, owedValue, expense);
+    expense = this.updateSplit(expense);
 
     this.setState({ expense });
   }
