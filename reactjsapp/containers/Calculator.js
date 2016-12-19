@@ -11,6 +11,7 @@ class Calculator extends React.Component {
         friends: [
           { id: 2, username: 'andy', owed: '' },
           { id: 3, username: 'bonnie', owed: '' },
+          { id: 5, username: 'jeffrey', owed: '' },
         ],
         owed: '0.00',
         remaining: '100.00',
@@ -52,26 +53,30 @@ class Calculator extends React.Component {
     return split;
   }
 
-  splitExpenses(splitType, friends, amount) {
+  splitExpenses(splitType, expense) {
+    const { friends, amount } = expense;
+    let split = {};
     switch (splitType) {
       case '==':
-        return this.splitEqually(friends, amount);
+        split = this.splitEqually(friends, amount);
       case '%':
-        return this.splitByPercent(friends, amount);
+        split = this.splitByPercent(friends, amount);
       case '1.23':
-        return this.splitByExactAmount(friends);
+        split = this.splitByExactAmount(friends);
       default:
-        return {};
+        split = {};
     }
-  }
-
-  updateSplit(expense, splitOption) {
-    const { friends, amount } = this.state.expense;
-    expense.split = this.splitExpenses(splitOption, friends, amount);
+    expense.split = split;
     return expense;
   }
 
-  updateRemaining(amount, friendId, owedValue, expense) {
+  updateOwed(splitType, friendId, owedValue, expense) {
+    expense.friends.forEach((item) => {
+      if (item.id == friendId) {
+        item.owed = owedValue;
+      }
+    });
+    const amount = (splitType == '%') ? 100.00 : expense.amount;
     let total = 0;
     expense.friends.forEach((item) => {
       total += Number(item.owed);
@@ -82,34 +87,23 @@ class Calculator extends React.Component {
     return expense;
   }
 
-  updateOwedRemaining(splitType, friendId, owedValue, expense) {
-    expense.friends.forEach((item) => {
-      if (item.id == friendId) {
-        item.owed = owedValue;
-      }
-    });
-    let amount = 0;
-    switch (splitType) {
-      case '%':
-        amount = 100.00;
-        break;
-      default:
-        amount = expense.amount;
-    }
-    expense = this.updateRemaining(amount, friendId, owedValue, expense);
-    return expense;
-  }
-
   handleChange(e) {
     let expense = this.state.expense;
     const field = e.target.name;
-    expense[field] = e.target.value;
+    if (field == 'title' || field == 'amount') {
+      expense[field] = e.target.value;
+    }
     const friendId = e.target.name;
     const owedValue = e.target.value;
-    expense = this.updateOwedRemaining('%', friendId, owedValue, expense);
-    expense = this.updateSplit('%', expense);
-    this.logSplit();
+    console.log(`${this.state.expense.friends}`);
 
+    expense = this.updateOwed('%', friendId, owedValue, expense);
+    console.log(`${this.state.expense.friends}`);
+
+    expense = this.splitExpenses('%', expense);
+    console.log(`${this.state.expense.friends}`);
+
+    this.logSplit();
     this.setState({ expense });
   }
 
@@ -136,6 +130,7 @@ class Calculator extends React.Component {
 
   render() {
     const { title, amount, friends, owed, remaining } = this.state.expense;
+    console.log(`${this.state.expense.friends}`);
     return (
       <ExpenseForm
         title={title}

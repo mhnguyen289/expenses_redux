@@ -10,6 +10,7 @@ class ExpenseForm extends React.Component {
           <div className="main-fields">
             <input
               type="text"
+              autoFocus="true"
               value={title}
               name="title"
               className="description"
@@ -20,6 +21,7 @@ class ExpenseForm extends React.Component {
               <span className="currency-code">$</span>
               <input
                 type="text"
+                autoFocus="true"
                 value={amount}
                 name="amount"
                 className="cost"
@@ -58,6 +60,7 @@ class ExpenseForm extends React.Component {
                   <span className="add-on">$&nbsp;</span>
                   <input
                     name={friend.id}
+                    autoFocus="true"
                     type="text"
                     value={friend.owed}
                     onChange={handleChange}
@@ -92,6 +95,7 @@ class ExpenseForm extends React.Component {
                 <div className="amount">
                   <input
                     name={friend.id}
+                    autoFocus="true"
                     type="text"
                     value={friend.owed}
                     onChange={handleChange}
