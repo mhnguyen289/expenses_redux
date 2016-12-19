@@ -35,10 +35,14 @@ class Calculator extends React.Component {
 
   handleClick(e) {
     const selectedSplitOption = this.state.options[e.target.name];
-    this.setState({
-      ...this.state,
-      selectedSplitOption,
-    });
+    const owed = (selectedSplitOption == options.SPLIT_BY_PERCENT)
+                  ? 100.00 : this.state.expense.amount;
+
+    this.setState(Object.assign({},
+      { ...this.state },
+      { selectedSplitOption },
+      { expense: { ...this.state.expense, owed: owed.toString() } }
+    ));
   }
 
   makeDecimal(number) {
@@ -106,14 +110,12 @@ class Calculator extends React.Component {
     let expense = this.state.expense;
     const splitOption = this.state.selectedSplitOption;
     console.log(`${splitOption}`);
-
     const field = e.target.name;
     if (field == 'amount') {
       expense[field] = e.target.value.trim();
     } else {
       expense[field] = e.target.value;
     }
-
     if (splitOption == options.SPLIT_EQUALLY) {
       expense.split = this.splitExpenses(splitOption, expense);
       expense.friends.forEach(friend => {
@@ -125,7 +127,6 @@ class Calculator extends React.Component {
       expense = this.updateOwed(splitOption, friendId, owedValue, expense);
       expense.split = this.splitExpenses(splitOption, expense);
     }
-
     this.logSplit();
     this.setState({ expense });
   }
@@ -134,16 +135,17 @@ class Calculator extends React.Component {
     const expense = this.state.expense;
     let error = this.state.error;
     let valid = true;
-
     const amount = Number(expense.amount);
     if (expense.title.length < 2) {
       error = 'Enter a title (min. 2)';
     } else if (amount <= 0) {
-      error = 'Enter an amount';
+      error = 'Enter an amount.';
     } else if (expense.friends.length <= 0) {
-      error = 'Enter a friend';
+      error = 'Enter a friend.';
     } else if (expense.remaining > 0) {
-      error = 'Total remaining is not zero';
+      error = 'Total remaining should be zero.';
+    } else {
+      error = '';
     }
     if (error.length > 0) {
       valid = false;
