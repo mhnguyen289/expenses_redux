@@ -1,4 +1,3 @@
-
 export const INVITE_FRIEND = 'INVITE_FRIEND';
 export const ACCEPT_FRIEND = 'ACCEPT_FRIEND';
 export const DECLINE_FRIEND = 'DECLINE_FRIEND';

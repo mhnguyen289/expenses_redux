@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from '../components/ExpenseForm';
 import { addExpense } from '../actions/expenses_actions';
+import * as options from '../constants/split_options';
 
 class Calculator extends React.Component {
   constructor(props) {
@@ -14,19 +15,26 @@ class Calculator extends React.Component {
           { id: 5, username: 'jeffrey', owed: '' },
         ],
         owed: '0.00',
-        remaining: '100.00',
+        remaining: '0.00',
         title: '',
         amount: '',
         split: {},
       },
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
   }
 
   makeDecimal(number) {
     return (number * 100) / 100;
+  }
+
+  splitByPercent(friends, amount) {
+    const split = friends.reduce((acc, item) => {
+      acc[item.id] = this.makeDecimal(amount * item.owed / 100);
+      return acc;
+    }, {});
+    return split;
   }
 
   splitByExactAmount(friends) {
@@ -45,29 +53,18 @@ class Calculator extends React.Component {
     return split;
   }
 
-  splitByPercent(friends, amount) {
-    const split = friends.reduce((acc, item) => {
-      acc[item.id] = this.makeDecimal(amount * item.owed / 100);
-      return acc;
-    }, {});
-    return split;
-  }
-
   splitExpenses(splitType, expense) {
     const { friends, amount } = expense;
-    let split = {};
     switch (splitType) {
-      case '==':
-        split = this.splitEqually(friends, amount);
-      case '%':
-        split = this.splitByPercent(friends, amount);
-      case '1.23':
-        split = this.splitByExactAmount(friends);
+      case options.SPLIT_BY_PERCENT:
+        return this.splitByPercent(friends, amount);
+      case options.SPLIT_EXACT_AMOUNT:
+        return this.splitByExactAmount(friends);
+      case options.SPLIT_EQUALLY:
+        return this.splitEqually(friends, amount);
       default:
-        split = {};
+        return {};
     }
-    expense.split = split;
-    return expense;
   }
 
   updateOwed(splitType, friendId, owedValue, expense) {
@@ -76,7 +73,7 @@ class Calculator extends React.Component {
         item.owed = owedValue;
       }
     });
-    const amount = (splitType == '%') ? 100.00 : expense.amount;
+    const amount = (splitType == options.SPLIT_BY_PERCENT) ? 100.00 : expense.amount;
     let total = 0;
     expense.friends.forEach((item) => {
       total += Number(item.owed);
@@ -95,14 +92,9 @@ class Calculator extends React.Component {
     }
     const friendId = e.target.name;
     const owedValue = e.target.value;
-    console.log(`${this.state.expense.friends}`);
-
-    expense = this.updateOwed('%', friendId, owedValue, expense);
-    console.log(`${this.state.expense.friends}`);
-
-    expense = this.splitExpenses('%', expense);
-    console.log(`${this.state.expense.friends}`);
-
+    const splitOption = options.SPLIT_EXACT_AMOUNT;
+    expense = this.updateOwed(splitOption, friendId, owedValue, expense);
+    expense.split = this.splitExpenses(splitOption, expense);
     this.logSplit();
     this.setState({ expense });
   }
@@ -130,7 +122,6 @@ class Calculator extends React.Component {
 
   render() {
     const { title, amount, friends, owed, remaining } = this.state.expense;
-    console.log(`${this.state.expense.friends}`);
     return (
       <ExpenseForm
         title={title}
