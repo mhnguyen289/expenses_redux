@@ -8,6 +8,7 @@ class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      nameOfButtonClicked: 'equal',
       error: '',
       selectedSplitOption: options.SPLIT_EQUALLY,
       options: {
@@ -37,11 +38,15 @@ class Calculator extends React.Component {
     const selectedSplitOption = this.state.options[e.target.name];
     const owed = (selectedSplitOption == options.SPLIT_BY_PERCENT)
                   ? 100.00 : this.state.expense.amount;
-
     this.setState(Object.assign({},
       { ...this.state },
+      { nameOfButtonClicked: e.target.name },
       { selectedSplitOption },
-      { expense: { ...this.state.expense, owed: owed.toString() } }
+      { expense: {
+        ...this.state.expense,
+        owed: owed.toString(),
+        },
+      }
     ));
   }
 
@@ -195,6 +200,7 @@ class Calculator extends React.Component {
         handleClick={this.handleClick}
         selectedSplitOption={this.state.selectedSplitOption}
         error={error}
+        nameOfButtonClicked={this.state.nameOfButtonClicked}
       />
     );
   }

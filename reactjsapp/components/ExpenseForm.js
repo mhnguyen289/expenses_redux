@@ -37,24 +37,32 @@ class ExpenseForm extends React.Component {
     );
   }
 
-  renderSplitOptionsButtons(handleClick) {
+  renderSplitOptionsButtons(handleClick, nameOfButtonClicked) {
+    const className = 'split_button btn btn-gray';
+    const activeClassName = `${className} active`;
+    const buttonStyles = {
+      equal: className,
+      exact: className,
+      percent: className,
+    };
+    buttonStyles[nameOfButtonClicked] = activeClassName;
     return (
       <div className="split-details">
         <div className="btn-group btn-group-inline" id="split-method">
           <button
             onClick={handleClick}
             name="equal"
-            className="split_button btn btn-gray equal active"
+            className={buttonStyles.equal}
           >=</button>
           <button
             onClick={handleClick}
             name="exact"
-            className="split_button btn btn-gray unequal"
+            className={buttonStyles.exact}
           >1.23</button>
           <button
             onClick={handleClick}
             name="percent"
-            className="split_button btn btn-gray percent"
+            className={buttonStyles.percent}
           >%</button>
         </div>
       </div>
@@ -63,7 +71,6 @@ class ExpenseForm extends React.Component {
 
   renderSubview(splitProps) {
     const { friends, handleChange, selectedSplitOption, owed, remaining } = splitProps;
-
     const isSplitByPercent = selectedSplitOption == options.SPLIT_BY_PERCENT;
     const isSplitByExact = selectedSplitOption == options.SPLIT_EXACT_AMOUNT;
     const isSplitEqually = selectedSplitOption == options.SPLIT_EQUALLY;
@@ -103,11 +110,11 @@ class ExpenseForm extends React.Component {
     );
   }
 
-  renderChooseSplitAndSave(handleClick, handleSave, splitProps) {
+  renderChooseSplitAndSave(handleClick, handleSave, splitProps, nameOfButtonClicked) {
     return (
       <div className="subview active" id="choose-split">
         <div className="body">
-          {this.renderSplitOptionsButtons(handleClick)}
+          {this.renderSplitOptionsButtons(handleClick, nameOfButtonClicked)}
           {this.renderSubview(splitProps)}
           {this.renderFooter(handleSave)}
         </div>
@@ -117,7 +124,7 @@ class ExpenseForm extends React.Component {
 
   render() {
     const { title, amount, handleClick, selectedSplitOption, handleChange,
-      handleSave, friends, owed, remaining, error } = this.props;
+      handleSave, friends, owed, remaining, error, nameOfButtonClicked } = this.props;
     const splitProps = { friends, handleChange, selectedSplitOption, owed, remaining };
 
     return (
@@ -129,7 +136,8 @@ class ExpenseForm extends React.Component {
             </div>
           }
           {this.renderAddBillDetails(title, amount, handleChange)}
-          {this.renderChooseSplitAndSave(handleClick, handleSave, splitProps)}
+          {this.renderChooseSplitAndSave(handleClick, handleSave,
+            splitProps, nameOfButtonClicked)}
         </div>
       </div>
     );
@@ -147,6 +155,7 @@ ExpenseForm.propTypes = {
   handleClick: PropTypes.func.isRequired,
   selectedSplitOption: PropTypes.string.isRequired,
   error: PropTypes.string,
+  nameOfButtonClicked: PropTypes.string,
 };
 
 export default ExpenseForm;
