@@ -14,7 +14,7 @@ class Calculator extends React.Component {
         owed: 100.00,
         remaining: 0.00,
         title: '',
-        amount: 0,
+        amount: '',
         split: {},
       },
     };
@@ -23,77 +23,90 @@ class Calculator extends React.Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
-  splitEqually(pals, amount) {
-    const split = pals.reduce((acc, item, index, array) => {
-      acc[item] = (amount / array.length * 100) / 100;
+  makeDecimal(number) {
+    return Math.round((number * 100) / 100);
+  }
+
+  splitEqually(friends, amount) {
+    const split = friends.reduce((acc, item, index, array) => {
+      acc[item.id] = this.makeDecimal(amount / array.length);
       return acc;
     }, {});
-
     return split;
   }
 
-  splitByPercent(pals, amount, percentages) {
-    let idx = 0;
-    const split = pals.reduce((acc, item) => {
-      acc[item] = (amount * percentages[idx] * 100) / 100;
-      idx += 1;
+  splitByPercent(friends, amount) {
+    const split = friends.reduce((acc, item) => {
+      acc[item.id] = this.makeDecimal(amount * item.owed / 100);
       return acc;
     }, {});
-
     return split;
   }
 
-  splitExpenses(pals, amount, splitType, percentages) {
+  splitExpenses(friends, amount, splitType) {
     switch (splitType) {
       case '==':
-        return this.splitEqually(pals, amount);
+        return this.splitEqually(friends, amount);
       case '%':
-        return this.splitByPercent(pals, amount, percentages);
+        return this.splitByPercent(friends, amount);
       default:
         return {};
     }
   }
 
-  updateOwed(id, owedValue, expense) {
+  updateSplit(expense) {
+    const splitOption = '%';
+    const { friends, amount } = this.state.expense;
+    expense.split = this.splitExpenses(friends, amount, splitOption);
+    return expense;
+  }
+
+  updateExpense(friendId, owedValue, expense) {
     expense.friends.forEach((item) => {
-      if (item.id == id) {
+      if (item.id == friendId) {
         item.owed = owedValue;
       }
     });
-
     let total = 0;
     expense.friends.forEach((item) => {
       total += item.owed;
     });
     expense.owed = total;
-    expense.remaining = Math.round((100.00 - total) * 100) / 100;
+    expense.remaining = this.makeDecimal(100.00 - total);
 
-    return expense;
-  }
-
-  updateSplit(expense) {
-    const splitOption = '%';
-    const { friends, amount, owed } = this.state.expense;
-    expense.split = this.splitExpenses(friends, amount, splitOption, owed);
-
+    expense = this.updateSplit(expense);
     return expense;
   }
 
   handleChange(e) {
     let expense = this.state.expense;
     const field = e.target.name;
-    expense[field] = e.target.value;
+    if (field == 'title' || field == 'amount') {
+      expense[field] = e.target.value;
+    }
 
-    const id = e.target.name; //'2'
-    const owedValue = e.target.value; // 55.56 // %
-    expense = this.updateOwed(id, owedValue, expense);
-    expense = this.updateSplit(expense);
+    const friendId = e.target.name; //'2'
+    const owedValue = Number(e.target.value); // 55 // %
+    expense = this.updateExpense(friendId, owedValue, expense);
 
     this.setState({ expense });
+    this.logSplit();
   }
 
   handleSave(e) {
     console.log(this.state.expense);
+  }
+
+  logSplit() {
+    const lookupTable = this.state.expense.split;
+    const keys = Object.keys(lookupTable);
+    const array = [];
+    for (let i = 0; i < keys.length; i++) {
+      const amount = lookupTable[keys[i]];
+      const person = keys[i];
+      array.push({ person, amount });
+    }
+    array.map(debt => console.log(`${debt.person} owes ${debt.amount}`));
   }
 
   render() {

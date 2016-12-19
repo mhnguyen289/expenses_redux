@@ -115,7 +115,7 @@ class ExpenseForm extends React.Component {
 
 ExpenseForm.propTypes = {
   title: PropTypes.string,
-  amount: PropTypes.number,
+  amount: PropTypes.string,
   handleSave: PropTypes.func,
   handleChange: PropTypes.func,
   friends: PropTypes.array,
