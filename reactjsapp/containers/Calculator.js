@@ -8,6 +8,12 @@ class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedSplitOption: options.SPLIT_EQUALLY,
+      options: {
+        equal: options.SPLIT_EQUALLY,
+        exact: options.SPLIT_EXACT_AMOUNT,
+        percent: options.SPLIT_BY_PERCENT,
+      },
       expense: {
         friends: [
           { id: 2, username: 'andy', owed: '' },
@@ -23,12 +29,21 @@ class Calculator extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    const selectedSplitOption = this.state.options[e.target.name];
+    this.setState({
+      ...this.state,
+      selectedSplitOption,
+    });
   }
 
   makeDecimal(number) {
-    number = Math.trunc(number * 100);
-    number /= 100;
-    return number;
+    let num = Math.trunc(number * 100);
+    num /= 100;
+    return num;
   }
 
   splitByPercent(friends, amount) {
@@ -88,7 +103,8 @@ class Calculator extends React.Component {
 
   handleChange(e) {
     let expense = this.state.expense;
-    const splitType = options.SPLIT_EXACT_AMOUNT;
+    const splitOption = this.state.selectedSplitOption;
+    console.log(`${splitOption}`);
 
     const field = e.target.name;
     if (field == 'amount') {
@@ -97,16 +113,16 @@ class Calculator extends React.Component {
       expense[field] = e.target.value;
     }
 
-    if (splitType == options.SPLIT_EQUALLY) {
-      expense.split = this.splitExpenses(splitType, expense);
+    if (splitOption == options.SPLIT_EQUALLY) {
+      expense.split = this.splitExpenses(splitOption, expense);
       expense.friends.forEach(friend => {
         friend.owed = expense.split[friend.id];
       });
     } else {
       const friendId = e.target.name;
       const owedValue = e.target.value.trim();
-      expense = this.updateOwed(splitType, friendId, owedValue, expense);
-      expense.split = this.splitExpenses(splitType, expense);
+      expense = this.updateOwed(splitOption, friendId, owedValue, expense);
+      expense.split = this.splitExpenses(splitOption, expense);
     }
 
     this.logSplit();
@@ -145,6 +161,8 @@ class Calculator extends React.Component {
         friends={friends}
         owed={owed}
         remaining={remaining}
+        handleClick={this.handleClick}
+        selectedSplitOption={this.state.selectedSplitOption}
       />
     );
   }

@@ -1,4 +1,8 @@
 import React, { PropTypes } from 'react';
+import * as options from '../constants/split_options';
+import SubviewSplitEqual from './SubviewSplitEqual';
+import SubviewSplitByExact from './SubviewSplitByExact';
+import SubviewSplitByPercent from './SubviewSplitByPercent';
 
 class ExpenseForm extends React.Component {
 
@@ -35,104 +39,59 @@ class ExpenseForm extends React.Component {
     );
   }
 
-  renderSplitOptionsButtons() {
+  renderSplitOptionsButtons(handleClick) {
     return (
       <div className="split-details">
         <div className="btn-group btn-group-inline" id="split-method">
-          <button className="split_button btn btn-gray equal active">=</button>
-          <button className="split_button btn btn-gray unequal">1.23</button>
-          <button className="split_button btn btn-gray percent">%</button>
+          <button
+            onClick={handleClick}
+            name="equal"
+            className="split_button btn btn-gray equal active"
+          >=</button>
+          <button
+            onClick={handleClick}
+            name="exact"
+            className="split_button btn btn-gray unequal"
+          >1.23</button>
+          <button
+            onClick={handleClick}
+            name="percent"
+            className="split_button btn btn-gray percent"
+          >%</button>
         </div>
       </div>
     );
   }
 
-  renderSplitEqually(friends) {
-    return (
-      <div className="split-method split-method-equal" style={{ display: 'none' }}>
-        <h3>Split equally</h3>
-        <ul>
-          {friends.map(friend =>
-            <li key={friend.id}>
-              <div className="person">
-                <span className="name"><strong>{friend.username}</strong></span>
-                <span className="amount">${friend.owed}</span>
-              </div>
-            </li>
-          )}
-        </ul>
-      </div>
-    );
-  }
+  renderSubview(splitProps) {
+    const { friends, handleChange, selectedSplitOption, owed, remaining } = splitProps;
 
-  renderSplitByExactAmount(handleChange, friends, owed, remaining) {
+    const isSplitByPercent = selectedSplitOption == options.SPLIT_BY_PERCENT;
+    const isSplitByExact = selectedSplitOption == options.SPLIT_EXACT_AMOUNT;
+    const isSplitEqually = selectedSplitOption == options.SPLIT_EQUALLY;
     return (
-      <div className="split-method split-method-unequal">
-        <h3>Split by exact amounts</h3>
-        <ul>
-          {friends.map(friend =>
-            <li key={friend.id}>
-              <div className="person">
-                <span className="name"><strong>{friend.username}</strong></span>
-                <div className="amount">
-                  <span className="add-on">$&nbsp;</span>
-                  <input
-                    name={friend.id}
-                    autoFocus="true"
-                    type="text"
-                    value={friend.owed}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-            </li>
-          )}
-        </ul>
-        <div className="totals">
-          <strong>TOTAL</strong>
-          <div className="subtotals">
-            <span className="owed-total">${owed}</span>
-            <div className="remaining">
-              <span className="owed-remaining">${remaining} left</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  renderSplitByPercent(handleChange, friends, owed, remaining) {
-    return (
-      <div className="split-method split-method-percent" style={{ display: 'none' }}>
-        <h3>Split by percentages</h3>
-        <ul>
-          {friends.map(friend =>
-            <li key={friend.id}>
-              <div className="person">
-                <span className="name"><strong>{friend.username}</strong></span>
-                <div className="amount">
-                  <input
-                    name={friend.id}
-                    autoFocus="true"
-                    type="text"
-                    value={friend.owed}
-                    onChange={handleChange}
-                  />
-                  <span className="add-on">&nbsp;%</span>
-                </div>
-              </div>
-            </li>
-          )}
-        </ul>
-        <div className="totals">
-          <strong>TOTAL</strong>
-          <div className="subtotals">
-            <span className="owed-total">{owed} %</span>
-            <div className="remaining">
-              <span className="owed-remaining">{remaining}% left</span>
-            </div>
-          </div>
-        </div>
+      <div>
+        {isSplitByPercent &&
+          <SubviewSplitByPercent
+            handleChange={handleChange}
+            friends={friends}
+            owed={owed}
+            remaining={remaining}
+          />
+        }
+        {isSplitByExact &&
+          <SubviewSplitByExact
+            handleChange={handleChange}
+            friends={friends}
+            owed={owed}
+            remaining={remaining}
+          />
+        }
+        {isSplitEqually &&
+          <SubviewSplitEqual
+            friends={friends}
+          />
+        }
       </div>
     );
   }
@@ -146,14 +105,12 @@ class ExpenseForm extends React.Component {
     );
   }
 
-  renderChooseSplitAndSave(handleChange, handleSave, friends, owed, remaining) {
+  renderChooseSplitAndSave(handleClick, handleSave, splitProps) {
     return (
       <div className="subview active" id="choose-split">
         <div className="body">
-          {this.renderSplitOptionsButtons()}
-          {this.renderSplitByPercent(handleChange, friends, owed, remaining)}
-          {this.renderSplitByExactAmount(handleChange, friends, owed, remaining)}
-          {this.renderSplitEqually(friends)}
+          {this.renderSplitOptionsButtons(handleClick)}
+          {this.renderSubview(splitProps)}
           {this.renderFooter(handleSave)}
         </div>
       </div>
@@ -161,12 +118,14 @@ class ExpenseForm extends React.Component {
   }
 
   render() {
-    const { title, amount, handleChange, handleSave, friends, owed, remaining } = this.props;
+    const { title, amount, handleClick, selectedSplitOption, handleChange,
+      handleSave, friends, owed, remaining } = this.props;
+    const splitProps = { friends, handleChange, selectedSplitOption, owed, remaining };
     return (
       <div className="add container">
         <div className="add-bill">
           {this.renderAddBillDetails(title, amount, handleChange)}
-          {this.renderChooseSplitAndSave(handleChange, handleSave, friends, owed, remaining)}
+          {this.renderChooseSplitAndSave(handleClick, handleSave, splitProps)}
         </div>
       </div>
     );
@@ -176,11 +135,13 @@ class ExpenseForm extends React.Component {
 ExpenseForm.propTypes = {
   title: PropTypes.string,
   amount: PropTypes.string,
-  handleSave: PropTypes.func,
-  handleChange: PropTypes.func,
   friends: PropTypes.array,
   owed: PropTypes.string,
   remaining: PropTypes.string,
+  handleSave: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  selectedSplitOption: PropTypes.string.isRequired,
 };
 
 export default ExpenseForm;
