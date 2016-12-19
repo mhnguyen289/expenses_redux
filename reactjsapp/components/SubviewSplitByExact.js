@@ -12,7 +12,6 @@ const SubviewSplitByExact = ({ handleChange, friends, owed, remaining }) => (
               <span className="add-on">$&nbsp;</span>
               <input
                 name={friend.id}
-                autoFocus="true"
                 type="text"
                 value={friend.owed}
                 onChange={handleChange}
@@ -38,6 +37,7 @@ SubviewSplitByExact.propTypes = {
   friends: PropTypes.array,
   owed: PropTypes.string,
   remaining: PropTypes.string,
+  errorRemaining: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
 };
 

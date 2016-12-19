@@ -8,6 +8,7 @@ class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: '',
       selectedSplitOption: options.SPLIT_EQUALLY,
       options: {
         equal: options.SPLIT_EQUALLY,
@@ -129,15 +130,42 @@ class Calculator extends React.Component {
     this.setState({ expense });
   }
 
-  handleSave() {
-    console.log(this.state.expense);
-    if (this.state.expense.remaining == 0) {
-      const { title, amount, split } = this.state.expense;
-      const ids = Object.keys(split);
-      const debts = Object.values(split);
-      const expense = { title, amount, ids, debts };
-      this.props.addExpense(expense);
+  validForm() {
+    const expense = this.state.expense;
+    let error = this.state.error;
+    let valid = true;
+
+    const amount = Number(expense.amount);
+    if (expense.title.length < 2) {
+      error = 'Enter a title (min. 2)';
+    } else if (amount <= 0) {
+      error = 'Enter an amount';
+    } else if (expense.friends.length <= 0) {
+      error = 'Enter a friend';
+    } else if (expense.remaining > 0) {
+      error = 'Total remaining is not zero';
     }
+    if (error.length > 0) {
+      valid = false;
+    }
+    this.setState({
+      ...this.state,
+      error,
+    });
+    console.log(this.state);
+    return valid;
+  }
+
+  handleSave() {
+    console.log(this.state);
+    if (!this.validForm()) {
+      return;
+    }
+    const { title, amount, split } = this.state.expense;
+    const ids = Object.keys(split);
+    const debts = Object.values(split);
+    const expense = { title, amount, ids, debts };
+    this.props.addExpense(expense);
   }
 
   logSplit() {
@@ -152,18 +180,28 @@ class Calculator extends React.Component {
 
   render() {
     const { title, amount, friends, owed, remaining } = this.state.expense;
+    const { error } = this.state;
     return (
-      <ExpenseForm
-        title={title}
-        amount={amount}
-        handleChange={this.handleChange}
-        handleSave={this.handleSave}
-        friends={friends}
-        owed={owed}
-        remaining={remaining}
-        handleClick={this.handleClick}
-        selectedSplitOption={this.state.selectedSplitOption}
-      />
+      <div>
+        {error.length > 0 &&
+          <div className="inputError">
+            {error}
+          </div>
+        }
+        <ExpenseForm
+          title={title}
+          amount={amount}
+          handleChange={this.handleChange}
+          handleSave={this.handleSave}
+          friends={friends}
+          owed={owed}
+          remaining={remaining}
+          handleClick={this.handleClick}
+          selectedSplitOption={this.state.selectedSplitOption}
+          error={error}
+        />
+      </div>
+
     );
   }
 }

@@ -14,7 +14,6 @@ class ExpenseForm extends React.Component {
           <div className="main-fields">
             <input
               type="text"
-              autoFocus="true"
               value={title}
               name="title"
               className="description"
@@ -25,7 +24,6 @@ class ExpenseForm extends React.Component {
               <span className="currency-code">$</span>
               <input
                 type="text"
-                autoFocus="true"
                 value={amount}
                 name="amount"
                 className="cost"
@@ -121,6 +119,7 @@ class ExpenseForm extends React.Component {
     const { title, amount, handleClick, selectedSplitOption, handleChange,
       handleSave, friends, owed, remaining } = this.props;
     const splitProps = { friends, handleChange, selectedSplitOption, owed, remaining };
+
     return (
       <div className="add container">
         <div className="add-bill">
