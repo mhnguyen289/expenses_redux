@@ -96,7 +96,7 @@ class Calculator extends React.Component {
   handleSave() {
     console.log(this.state.expense);
     if (this.state.expense.remaining == 0) {
-      const { title, amount, split } = this.state.expense;
+      const { title, amount } = this.state.expense;
       const arrays = this.makeArrays();
       const ids = arrays[0];
       const debts = arrays[1];
@@ -117,7 +117,7 @@ class Calculator extends React.Component {
       ids.push(id);
       debts.push(debt);
     }
-    const arrays = []
+    const arrays = [];
     arrays.push(ids);
     arrays.push(debts);
     return arrays;
@@ -143,8 +143,7 @@ Calculator.propTypes = {
   addExpense: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-
+const mapStateToProps = () => ({
 });
 
 export default connect(
