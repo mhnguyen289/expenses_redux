@@ -182,26 +182,18 @@ class Calculator extends React.Component {
     const { title, amount, friends, owed, remaining } = this.state.expense;
     const { error } = this.state;
     return (
-      <div>
-        {error.length > 0 &&
-          <div className="inputError">
-            {error}
-          </div>
-        }
-        <ExpenseForm
-          title={title}
-          amount={amount}
-          handleChange={this.handleChange}
-          handleSave={this.handleSave}
-          friends={friends}
-          owed={owed}
-          remaining={remaining}
-          handleClick={this.handleClick}
-          selectedSplitOption={this.state.selectedSplitOption}
-          error={error}
-        />
-      </div>
-
+      <ExpenseForm
+        title={title}
+        amount={amount}
+        handleChange={this.handleChange}
+        handleSave={this.handleSave}
+        friends={friends}
+        owed={owed}
+        remaining={remaining}
+        handleClick={this.handleClick}
+        selectedSplitOption={this.state.selectedSplitOption}
+        error={error}
+      />
     );
   }
 }

@@ -117,12 +117,17 @@ class ExpenseForm extends React.Component {
 
   render() {
     const { title, amount, handleClick, selectedSplitOption, handleChange,
-      handleSave, friends, owed, remaining } = this.props;
+      handleSave, friends, owed, remaining, error } = this.props;
     const splitProps = { friends, handleChange, selectedSplitOption, owed, remaining };
 
     return (
       <div className="add container">
         <div className="add-bill">
+          {error.length > 0 &&
+            <div className="input-error">
+              {error}
+            </div>
+          }
           {this.renderAddBillDetails(title, amount, handleChange)}
           {this.renderChooseSplitAndSave(handleClick, handleSave, splitProps)}
         </div>
@@ -141,6 +146,7 @@ ExpenseForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
   selectedSplitOption: PropTypes.string.isRequired,
+  error: PropTypes.string,
 };
 
 export default ExpenseForm;
