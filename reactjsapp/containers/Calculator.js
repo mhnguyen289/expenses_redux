@@ -91,7 +91,6 @@ class Calculator extends React.Component {
       expense = this.updateExpense(friendId, owedValue, expense);
     }
     this.setState({ expense });
-    this.logSplit();
   }
 
   handleSave() {
@@ -122,18 +121,6 @@ class Calculator extends React.Component {
     arrays.push(ids);
     arrays.push(debts);
     return arrays;
-  }
-
-  logSplit() {
-    const lookupTable = this.state.expense.split;
-    const keys = Object.keys(lookupTable);
-    const array = [];
-    for (let i = 0; i < keys.length; i++) {
-      const amount = lookupTable[keys[i]];
-      const person = keys[i];
-      array.push({ person, amount });
-    }
-    array.map(debt => console.log(`${debt.person} owes ${debt.amount}`));
   }
 
   render() {
