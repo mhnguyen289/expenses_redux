@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from '../components/ExpenseForm';
+import { addExpense } from '../actions/expenses_actions';
 
 class Calculator extends React.Component {
   constructor(props) {
@@ -8,11 +9,11 @@ class Calculator extends React.Component {
     this.state = {
       expense: {
         friends: [
-          { id: 2, username: 'andy', owed: 60.00 },
-          { id: 3, username: 'bonnie', owed: 40.00 },
+          { id: 2, username: 'andy', owed: '' },
+          { id: 3, username: 'bonnie', owed: '' },
         ],
-        owed: 100.00,
-        remaining: 0.00,
+        owed: '0.00',
+        remaining: '100.00',
         title: '',
         amount: '',
         split: {},
@@ -69,10 +70,11 @@ class Calculator extends React.Component {
     });
     let total = 0;
     expense.friends.forEach((item) => {
-      total += item.owed;
+      total += Number(item.owed);
     });
-    expense.owed = total;
-    expense.remaining = this.makeDecimal(100.00 - total);
+    expense.owed = total.toString();
+    const remaining = this.makeDecimal(100.00 - total);
+    expense.remaining = remaining.toString();
 
     expense = this.updateSplit(expense);
     return expense;
@@ -83,18 +85,21 @@ class Calculator extends React.Component {
     const field = e.target.name;
     if (field == 'title' || field == 'amount') {
       expense[field] = e.target.value;
+    } else {
+      const friendId = e.target.name;
+      const owedValue = e.target.value;
+      expense = this.updateExpense(friendId, owedValue, expense);
     }
-
-    const friendId = e.target.name; //'2'
-    const owedValue = Number(e.target.value); // 55 // %
-    expense = this.updateExpense(friendId, owedValue, expense);
-
     this.setState({ expense });
     this.logSplit();
   }
 
-  handleSave(e) {
+  handleSave() {
     console.log(this.state.expense);
+    if (this.state.remaining == 0) {
+      const { title, amount, split } = this.state.expense;
+      this.props.addExpense({ title, amount, split });
+    }
   }
 
   logSplit() {
@@ -126,7 +131,7 @@ class Calculator extends React.Component {
 }
 
 Calculator.propTypes = {
-
+  addExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -135,5 +140,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { addExpense }
 )(Calculator);

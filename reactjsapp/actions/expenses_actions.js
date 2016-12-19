@@ -1,6 +1,6 @@
 import * as types from '../constants/action_types';
 
-export const addExpense = (response) => ({
+export const addExpenseSuccess = (response) => ({
   type: types.ADD_EXPENSE,
   id: response.id,
   response,
@@ -22,4 +22,9 @@ export const fetchExpensesBetween = (userId, friendId) => (dispatch) => {
       .then(response => response.json())
       .then(json => dispatch(receiveExpenses(json)))
       .catch(error => dispatch(receiveExpensesError(error)));
+};
+
+export const addExpense = (expense) => (dispatch) => {
+  const url = 'api/expense';
+
 };

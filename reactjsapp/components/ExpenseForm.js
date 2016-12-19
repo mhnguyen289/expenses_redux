@@ -119,8 +119,8 @@ ExpenseForm.propTypes = {
   handleSave: PropTypes.func,
   handleChange: PropTypes.func,
   friends: PropTypes.array,
-  owed: PropTypes.number,
-  remaining: PropTypes.number,
+  owed: PropTypes.string,
+  remaining: PropTypes.string,
 };
 
 export default ExpenseForm;
