@@ -2,9 +2,9 @@ puts "usage: [$rails db:purge db:migrate db:seed]"
 
 puts "demo users"
 one = User.create!(username: "madeline", email: "DemoUserOne@example.com", password: "DemoUser1Here")
-two = User.create!(username: "andy", email: "DemoUserTwo@example.com",password: "DemoUser2Here")
+two = User.create!(username: "andy123", email: "DemoUserTwo@example.com",password: "DemoUser2Here")
 three = User.create!(username: "bonnie", email: "DemoUserThree@example.com",password: "DemoUser3Here")
-four = User.create!(username: "jamie", email: "DemoUserFour@example.com",password: "DemoUser4Here")
+four = User.create!(username: "jamiek", email: "DemoUserFour@example.com",password: "DemoUser4Here")
 five = User.create!(username: "jeffrey", email: "DemoUserFive@example.com",password: "DemoUser5Here")
 
 puts "actions"

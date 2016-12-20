@@ -105,21 +105,51 @@ class Calculator extends React.Component {
     }
   }
 
-  updateOwed(splitType, friendId, owedValue, expense) {
+  updateByCalculator(splitOption, expense) {
+    expense.split = this.splitExpenses(splitOption, expense);
+    expense.friends.forEach(friend => {
+      friend.owed = expense.split[friend.id];
+    });
+    const amount = expense.amount;
+    let totalOwed = 0;
+    expense.friends.forEach((item) => {
+      totalOwed += Number(item.owed);
+    });
+    const remaining = this.makeDecimal(Number(amount) - totalOwed);
+    expense.owed = totalOwed.toString();
+    expense.remaining = remaining.toString();
+    console.log(expense.remaining);
+    return expense;
+  }
+
+  updateByInput(splitOption, expense, friendId, owedValue) {
     expense.friends.forEach((item) => {
       if (item.id == friendId) {
         item.owed = owedValue;
       }
     });
-    const amount = (splitType == options.SPLIT_BY_PERCENT) ? 100.00 : expense.amount;
-    let total = 0;
+    const amount = (splitOption == options.SPLIT_BY_PERCENT) ? '100.00' : expense.amount;
+    let totalOwed = 0;
     expense.friends.forEach((item) => {
-      total += Number(item.owed);
+      totalOwed += Number(item.owed);
     });
-    expense.owed = total.toString();
-    const remaining = this.makeDecimal(amount - total);
+    const remaining = this.makeDecimal(Number(amount) - totalOwed);
+    expense.owed = totalOwed.toString();
     expense.remaining = remaining.toString();
+    expense.split = this.splitExpenses(splitOption, expense);
     return expense;
+  }
+
+  updateOwedAndRemaining(splitOption, expense, friendId, owedValue) {
+    switch (splitOption) {
+      case options.SPLIT_BY_PERCENT:
+      case options.SPLIT_EXACT_AMOUNT:
+        return this.updateByInput(splitOption, expense, friendId, owedValue);
+      case options.SPLIT_EQUALLY:
+        return this.updateByCalculator(splitOption, expense);
+      default:
+        return {};
+    }
   }
 
   handleChange(e) {
@@ -132,17 +162,9 @@ class Calculator extends React.Component {
     } else {
       expense[field] = e.target.value;
     }
-    if (splitOption == options.SPLIT_EQUALLY) {
-      expense.split = this.splitExpenses(splitOption, expense);
-      expense.friends.forEach(friend => {
-        friend.owed = expense.split[friend.id];
-      });
-    } else {
-      const friendId = e.target.name;
-      const owedValue = e.target.value.trim();
-      expense = this.updateOwed(splitOption, friendId, owedValue, expense);
-      expense.split = this.splitExpenses(splitOption, expense);
-    }
+    const friendId = e.target.name;
+    const owedValue = e.target.value.trim();
+    expense = this.updateOwedAndRemaining(splitOption, expense, friendId, owedValue);
     this.logSplit();
     this.setState({ expense });
   }
