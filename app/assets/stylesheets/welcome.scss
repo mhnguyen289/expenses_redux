@@ -191,6 +191,12 @@ ul, ol {
   justify-content: space-between;
   text-align: center;
   font-weight: 300;
+  height: 60px;
+}
+
+.navigation .active {
+  color: #5cc5a7;
+  border-bottom: 1px solid #5cc5a7;
 }
 
 .dashboard .expenses-list {

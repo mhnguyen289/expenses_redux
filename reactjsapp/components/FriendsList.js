@@ -1,13 +1,19 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-const FriendsList = ({ friends }) => (
+const FriendsList = ({ friends, handleClick }) => (
   <nav className="navigation">
     <ol>
-      {friends.map(f =>
-        <li key={f.id}>
-          <Link to="/" className="text default base" activeClassName="text default base active">
-            <span>{f.username}</span>
+      {friends.map(friend =>
+        <li key={friend.id}>
+          <Link
+            to="/friend"
+            id={friend.id}
+            onClick={handleClick}
+            className="text default base"
+            activeClassName="text default base active"
+          >
+            {friend.username}
           </Link>
         </li>
       )}
@@ -18,6 +24,7 @@ const FriendsList = ({ friends }) => (
 
 FriendsList.propTypes = {
   friends: PropTypes.array,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default FriendsList;
