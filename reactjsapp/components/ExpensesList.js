@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const ExpensesList = ({ expenses }) => (
+const ExpensesList = ({ expenses, user }) => (
   <div>
     <div className="header">
       <span className="featured default base">
@@ -18,7 +18,7 @@ const ExpensesList = ({ expenses }) => (
                 </span>
                 <div className="paid">
                   <span className="who-paid secondary-text">
-                    {e.paid_by_id} paid
+                    {user.id == e.paid_by_id ? 'you' : e.paid_by_id} paid
                   </span>
                   <span className="paid-amount">
                     ${e.expense_amount}
@@ -26,7 +26,7 @@ const ExpensesList = ({ expenses }) => (
                 </div>
                 <div className="owed">
                   <span className="who-owed secondary-text">
-                    {e.borrower_id} owes
+                    {user.id == e.borrower_id ? 'you' : e.borrow_id} owes
                   </span>
                   <span className="owed-amount">
                     ${e.debt_amount}
@@ -45,6 +45,7 @@ const ExpensesList = ({ expenses }) => (
 
 ExpensesList.propTypes = {
   expenses: PropTypes.array,
+  user: PropTypes.object.isRequired,
 };
 
 export default ExpensesList;

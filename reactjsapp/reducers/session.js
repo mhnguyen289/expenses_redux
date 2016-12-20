@@ -3,6 +3,7 @@ import * as types from '../constants/action_types';
 
 const initialState = {
   authenticated: localStorage.getItem('jwt') ? true : false,
+  user: {},
 };
 
 const authenticated = (
@@ -18,10 +19,24 @@ const authenticated = (
   }
 };
 
+const user = (state = {}, action) => {
+  switch (action.type) {
+    case types.LOGOUT_SUCCESS:
+      return {};
+    case types.LOGIN_SUCCESS:
+      console.log(action.user);
+      return action.user;
+    default:
+      return state;
+  }
+};
+
 const session = combineReducers({
   authenticated,
+  user,
 });
 
 export default session;
 
 export const getAuthenticated = state => state.authenticated;
+export const getUser = state => state.user;

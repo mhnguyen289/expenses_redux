@@ -23,6 +23,8 @@ export const demo = () => (dispatch) => {
   $.post(url, { user: person })
    .done(response => {
      localStorage.setItem('jwt', response.jwt);
+     console.log(response);
+     console.log(response.user);
      dispatch(loginSuccess(response.user));
    })
    .fail(error => {

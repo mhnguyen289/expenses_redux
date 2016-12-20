@@ -9,7 +9,7 @@ class Api::SessionsController < ApplicationController
     if !!user
       render json: {
         jwt: Token.jwt({ user: user.id }),
-        user: user
+        user: {id: user.id, username: user.username}
       }
     else
       render json: { invalid: "Invalid username/password combination" }
