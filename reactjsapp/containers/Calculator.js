@@ -97,6 +97,21 @@ class Calculator extends React.Component {
     return expense;
   }
 
+  distributeRemainingCentsIntoSplitOnly(expense) {
+    let remaining = expense.remaining;
+    let owed = 0;
+    const split = expense.split;
+    const ids = Object.keys(split);
+    ids.forEach(id => {
+      if (remaining > 0) {
+        split[id] = Number(split[id]) + 0.01;
+        remaining =- 0.01;
+      }
+    })
+    expense.remaining = rem
+    return expense.split;
+  }
+
   updateByCalculator(splitOption, expense) {
     expense.split = this.splitExpenses(splitOption, expense);
     expense.friends.forEach(friend => {
@@ -129,10 +144,13 @@ class Calculator extends React.Component {
     expense.friends.forEach((item) => {
       totalOwed += Number(item.owed);
     });
-    const remaining = this.makeDecimal(Number(amount) - totalOwed);
+    const remaining = Number(amount) - totalOwed;
     expense.owed = totalOwed.toString();
     expense.remaining = remaining.toString();
     expense.split = this.splitExpenses(splitOption, expense);
+    if (remaining > 0) {
+      //expense.split = this.distributeRemainingCentsIntoSplitOnly(expense);
+    }
     return expense;
   }
 
