@@ -124,10 +124,7 @@ ul, ol {
   background: #5cc5a7;
 }
 
-.demo-button {
-  color: #999;
-  fill: #999;
-  background: #fff;
+.action-button {
   height: 34px;
   padding: 0 13px;
   border-radius: 3px;
@@ -144,6 +141,12 @@ ul, ol {
   letter-spacing: .6px;
   line-height: 16px;
   text-transform: uppercase;
+}
+
+.demo-button {
+  color: #999;
+  fill: #999;
+  background: #fff;
 }
 
 /* main-section
@@ -192,9 +195,10 @@ ul, ol {
   text-align: center;
   font-weight: 300;
   height: 60px;
+  width: 80%;
 }
 
-.navigation .active {
+.navigation a:active {
   color: #5cc5a7;
   border-bottom: 1px solid #5cc5a7;
 }
@@ -666,5 +670,13 @@ h3 {
  margin-bottom: 5px;
 }
 
-/* user-message
+/* settle up
   ========================================================================== */
+
+.settle-up {
+  color: #5cc5a7;
+  text-transform: uppercase;
+  height: 40px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}

@@ -35,7 +35,7 @@ class Header extends React.Component {
   renderAuth() {
     return (
       <div className="account">
-        <button className="demo-button" onClick={this.props.demo}>
+        <button className="demo-button action-button" onClick={this.props.demo}>
           Demo Login
         </button>
       </div>
