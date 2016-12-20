@@ -8,9 +8,9 @@ class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameOfButtonClicked: 'equal',
       error: '',
-      selectedSplitOption: options.SPLIT_EQUALLY,
+      nameOfButtonClicked: 'exact',
+      selectedSplitOption: options.SPLIT_EXACT_AMOUNT,
       options: {
         equal: options.SPLIT_EQUALLY,
         exact: options.SPLIT_EXACT_AMOUNT,
@@ -36,18 +36,29 @@ class Calculator extends React.Component {
 
   handleClick(e) {
     const selectedSplitOption = this.state.options[e.target.name];
-    const owed = (selectedSplitOption == options.SPLIT_BY_PERCENT)
-                  ? 100.00 : this.state.expense.amount;
-    this.setState(Object.assign({},
-      { ...this.state },
-      { nameOfButtonClicked: e.target.name },
-      { selectedSplitOption },
-      { expense: {
-        ...this.state.expense,
-        owed: owed.toString(),
-        },
-      }
-    ));
+    const nameOfButtonClicked = e.target.name;
+    const expense = this.state.expense;
+    if (selectedSplitOption == options.SPLIT_EQUALLY) {
+      expense.split = this.splitExpenses(selectedSplitOption, expense);
+      expense.friends.forEach(friend => {
+        friend.owed = expense.split[friend.id];
+      });
+    } else {
+      const reset = expense.friends.reduce((acc, item) => {
+        acc.push({ id: item.id, username: item.username, owed: '' });
+        return acc;
+      }, []);
+      expense.friends = reset;
+      expense.owed = '0.00';
+      expense.remaining = (selectedSplitOption == options.SPLIT_BY_PERCENT)
+                    ? '100.00' : expense.amount;
+    }
+    this.setState({
+      ...this.state,
+      nameOfButtonClicked,
+      selectedSplitOption,
+      expense,
+    });
   }
 
   makeDecimal(number) {
