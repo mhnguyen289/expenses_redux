@@ -34,33 +34,6 @@ class Calculator extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(e) {
-    const selectedSplitOption = this.state.options[e.target.name];
-    const nameOfButtonClicked = e.target.name;
-    const expense = this.state.expense;
-    if (selectedSplitOption == options.SPLIT_EQUALLY) {
-      expense.split = this.splitExpenses(selectedSplitOption, expense);
-      expense.friends.forEach(friend => {
-        friend.owed = expense.split[friend.id];
-      });
-    } else {
-      const reset = expense.friends.reduce((acc, item) => {
-        acc.push({ id: item.id, username: item.username, owed: '' });
-        return acc;
-      }, []);
-      expense.friends = reset;
-      expense.owed = '0.00';
-      expense.remaining = (selectedSplitOption == options.SPLIT_BY_PERCENT)
-                    ? '100.00' : expense.amount;
-    }
-    this.setState({
-      ...this.state,
-      nameOfButtonClicked,
-      selectedSplitOption,
-      expense,
-    });
-  }
-
   makeDecimal(number) {
     let num = Math.trunc(number * 100);
     num /= 100;
@@ -190,6 +163,30 @@ class Calculator extends React.Component {
     expense = this.updateOwedAndRemaining(splitOption, expense, friendId, owedValue);
     this.logSplit();
     this.setState({ expense });
+  }
+
+  handleClick(e) {
+    const selectedSplitOption = this.state.options[e.target.name];
+    const nameOfButtonClicked = e.target.name;
+    let expense = this.state.expense;
+    if (selectedSplitOption == options.SPLIT_EQUALLY) {
+      expense = this.updateByCalculator(selectedSplitOption, expense);
+    } else {
+      const reset = expense.friends.reduce((acc, item) => {
+        acc.push({ id: item.id, username: item.username, owed: '' });
+        return acc;
+      }, []);
+      expense.friends = reset;
+      expense.owed = '0.00';
+      expense.remaining = (selectedSplitOption == options.SPLIT_BY_PERCENT)
+                    ? '100.00' : expense.amount;
+    }
+    this.setState({
+      ...this.state,
+      nameOfButtonClicked,
+      selectedSplitOption,
+      expense,
+    });
   }
 
   validForm() {
