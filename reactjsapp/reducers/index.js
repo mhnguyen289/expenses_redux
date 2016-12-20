@@ -15,7 +15,7 @@ export default rootReducer;
 
 export const getUser = state =>
   fromSession.getUser(state.session);
-  
+
 export const getAuthenticated = state =>
   fromSession.getAuthenticated(state.session);
 
@@ -24,3 +24,6 @@ export const getAllExpenses = state =>
 
 export const getAllFriends = state =>
   fromFriends.getAllFriends(state.friends);
+
+export const getFriend = (state, friendId) =>
+  fromFriends.getFriend(state.friends, friendId);

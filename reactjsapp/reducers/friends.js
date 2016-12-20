@@ -32,3 +32,6 @@ export default friends;
 
 export const getAllFriends = state =>
   state.allIds.map(id => state.byId[id]);
+
+export const getFriend = (state, friendId) =>
+  state.byId[friendId];
