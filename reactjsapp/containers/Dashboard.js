@@ -15,9 +15,8 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     const { user } = this.props;
-    this.props.fetchFriendsOf(1);
-    if (this.state.friendId.length > 0) {
-      this.props.fetchExpensesBetween(1, this.state.friendId);
+    if (user.id) {
+      this.props.fetchFriendsOf(user.id);
     }
   }
 
