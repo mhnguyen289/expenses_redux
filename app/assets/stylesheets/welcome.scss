@@ -253,6 +253,7 @@ ul, ol {
 .list-item .owed {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .owed-amount {

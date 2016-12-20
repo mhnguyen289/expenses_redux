@@ -18,18 +18,18 @@ const ExpensesList = ({ expenses }) => (
                 </span>
                 <div className="paid">
                   <span className="who-paid secondary-text">
-                    you paid
+                    {e.paid_by_id} paid
                   </span>
                   <span className="paid-amount">
-                    {e.expense_amount}
+                    ${e.expense_amount}
                   </span>
                 </div>
                 <div className="owed">
                   <span className="who-owed secondary-text">
-                    wu owes
+                    {e.borrower_id} owes
                   </span>
                   <span className="owed-amount">
-                    $690
+                    ${e.debt_amount}
                   </span>
                 </div>
               </div>
