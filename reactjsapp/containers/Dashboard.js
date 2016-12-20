@@ -9,20 +9,24 @@ import ExpensesList from '../components/ExpensesList';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { friendId: 5, };
+    this.state = { friendId: '5' };
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchFriendsOf(1);
-    this.props.fetchExpensesBetween(1, 3);
+    const { user } = this.props;
+    this.props.fetchFriendsOf(user.id);
+    if (this.state.friendId.length > 0) {
+      this.props.fetchExpensesBetween(user.id, this.state.friendId);
+    }
   }
 
   handleClick(e) {
-    const id = e.target.id;
-    if (id.length > 0) {
-      this.setState({ friendId: id });
-      this.props.fetchExpensesBetween(1, id);
+    const clickedId = e.target.id;
+    const { user } = this.props;
+    if (clickedId.length > 0) {
+      this.setState({ friendId: clickedId });
+      this.props.fetchExpensesBetween(user.id, clickedId);
     }
   }
 
@@ -34,7 +38,7 @@ class Dashboard extends React.Component {
           <FriendsList friends={friends} handleClick={this.handleClick} />
         </div>
         <div className="expenses-list">
-          <ExpensesList expenses={expenses} user={user} friendId={this.state.friendId}/>
+          <ExpensesList expenses={expenses} user={user} friendId={this.state.friendId} />
         </div>
       </div>
     );
