@@ -134,7 +134,7 @@ class Calculator extends React.Component {
     expense.friends.forEach((item) => {
       totalOwed += Number(item.owed);
     });
-    const remaining = this.makeDecimal(Number(amount) - totalOwed);
+    const remaining = Number(amount) - totalOwed;
     expense.owed = totalOwed.toString();
     expense.remaining = remaining.toString();
     console.log(expense.remaining);
@@ -150,7 +150,8 @@ class Calculator extends React.Component {
         item.owed = owedValue;
       }
     });
-    const amount = (splitOption == options.SPLIT_BY_PERCENT) ? '100.00' : expense.amount;
+    const amount = (splitOption == options.SPLIT_BY_PERCENT)
+                              ? '100.00' : expense.amount;
     let totalOwed = 0;
     expense.friends.forEach((item) => {
       totalOwed += Number(item.owed);
