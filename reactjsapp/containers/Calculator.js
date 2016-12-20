@@ -118,7 +118,7 @@ class Calculator extends React.Component {
     });
     expense.remaining = remaining.toString();
     expense.split = expense.friends.reduce((acc, item) => {
-      acc[item.id] = this.makeDecimal(item.owed);
+      acc[item.id] = item.owed;
       return acc;
     }, {});
     return expense;
