@@ -13,11 +13,24 @@ const ExpensesList = ({ expenses }) => (
           <li key={e.id}>
             <div className="list-item">
               <div className="expense-details">
-                <span className="featured default base">
+                <span className="expense-title featured default base">
                   {e.title}
                 </span>
-                <div className="text subtle base">
-                  {e.expense_amount}
+                <div className="paid">
+                  <span className="who-paid secondary-text">
+                    you paid
+                  </span>
+                  <span className="paid-amount">
+                    {e.expense_amount}
+                  </span>
+                </div>
+                <div className="owed">
+                  <span className="who-owed secondary-text">
+                    wu owes
+                  </span>
+                  <span className="owed-amount">
+                    $690
+                  </span>
                 </div>
               </div>
             </div>

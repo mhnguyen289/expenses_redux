@@ -230,9 +230,14 @@ ul, ol {
 
 .list-item .expense-details {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 30px;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 1;
+  align-items: baseline;
+}
+
+.expense-title {
+  flex: 0 0 50%;
 }
 
 .list-item {
@@ -240,7 +245,18 @@ ul, ol {
   padding: 0 20px;
   overflow: hidden;
   position: relative;
-  display: block;
+  display: flex;
+  width: 100%;
+}
+
+.list-item .paid,
+.list-item .owed {
+  display: flex;
+  flex-direction: column;
+}
+
+.owed-amount {
+  color: #da552f;
 }
 
 /* add page
@@ -642,3 +658,6 @@ h3 {
  padding: 5px;
  margin-bottom: 5px;
 }
+
+/* user-message
+  ========================================================================== */
