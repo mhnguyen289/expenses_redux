@@ -5,7 +5,6 @@ import SubviewSplitByExact from './SubviewSplitByExact';
 import SubviewSplitByPercent from './SubviewSplitByPercent';
 
 class ExpenseForm extends React.Component {
-
   renderAddBillDetails(title, amount, handleChange) {
     return (
       <div className="add-notes">
@@ -70,7 +69,13 @@ class ExpenseForm extends React.Component {
   }
 
   renderSubview(splitProps) {
-    const { friends, handleChange, selectedSplitOption, owed, remaining } = splitProps;
+    const {
+      friends,
+      handleChange,
+      selectedSplitOption,
+      owed,
+      remaining,
+    } = splitProps;
     const isSplitByPercent = selectedSplitOption == options.SPLIT_BY_PERCENT;
     const isSplitByExact = selectedSplitOption == options.SPLIT_EXACT_AMOUNT;
     const isSplitEqually = selectedSplitOption == options.SPLIT_EQUALLY;
@@ -105,7 +110,10 @@ class ExpenseForm extends React.Component {
     return (
       <footer>
         <button className="btn btn-large btn-cancel">Cancel</button>
-        <button onClick={handleSave} className="btn btn-large btn-min submit">Save</button>
+        <button
+          onClick={handleSave}
+          className="btn btn-large btn-min submit"
+        >Save</button>
       </footer>
     );
   }
@@ -123,9 +131,26 @@ class ExpenseForm extends React.Component {
   }
 
   render() {
-    const { title, amount, handleClick, selectedSplitOption, handleChange,
-      handleSave, friends, owed, remaining, error, nameOfButtonClicked } = this.props;
-    const splitProps = { friends, handleChange, selectedSplitOption, owed, remaining };
+    const {
+      title,
+      amount,
+      handleClick,
+      selectedSplitOption,
+      handleChange,
+      handleSave,
+      friends,
+      owed,
+      remaining,
+      error,
+      nameOfButtonClicked,
+    } = this.props;
+    const splitProps = {
+      friends,
+      handleChange,
+      selectedSplitOption,
+      owed,
+      remaining,
+    };
 
     return (
       <div className="add container">
@@ -155,7 +180,7 @@ ExpenseForm.propTypes = {
   handleClick: PropTypes.func.isRequired,
   selectedSplitOption: PropTypes.string.isRequired,
   error: PropTypes.string,
-  nameOfButtonClicked: PropTypes.string,
+  nameOfButtonClicked: PropTypes.string.isRequired,
 };
 
 export default ExpenseForm;

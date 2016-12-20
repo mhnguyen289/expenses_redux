@@ -7,9 +7,15 @@ const SubviewSplitByExact = ({ handleChange, friends, owed, remaining }) => (
       {friends.map(friend =>
         <li key={friend.id}>
           <div className="person">
-            <span className="name"><strong>{friend.username}</strong></span>
+            <span className="name">
+              <strong>
+                {friend.username}
+              </strong>
+            </span>
             <div className="amount">
-              <span className="add-on">$&nbsp;</span>
+              <span className="add-on">
+                $&nbsp;
+              </span>
               <input
                 name={friend.id}
                 type="text"
@@ -24,9 +30,13 @@ const SubviewSplitByExact = ({ handleChange, friends, owed, remaining }) => (
     <div className="totals">
       <strong>TOTAL</strong>
       <div className="subtotals">
-        <span className="owed-total">${owed}</span>
+        <span className="owed-total">
+          ${owed}
+        </span>
         <div className="remaining">
-          <span className="owed-remaining">${remaining} left</span>
+          <span className="owed-remaining">
+            ${remaining} left
+          </span>
         </div>
       </div>
     </div>
@@ -37,7 +47,6 @@ SubviewSplitByExact.propTypes = {
   friends: PropTypes.array,
   owed: PropTypes.string,
   remaining: PropTypes.string,
-  errorRemaining: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
 };
 

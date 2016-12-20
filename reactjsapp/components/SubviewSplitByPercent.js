@@ -7,7 +7,11 @@ const SubviewSplitByPercent = ({ handleChange, friends, owed, remaining }) => (
       {friends.map(friend =>
         <li key={friend.id}>
           <div className="person">
-            <span className="name"><strong>{friend.username}</strong></span>
+            <span className="name">
+              <strong>
+                {friend.username}
+              </strong>
+            </span>
             <div className="amount">
               <input
                 name={friend.id}
@@ -16,7 +20,9 @@ const SubviewSplitByPercent = ({ handleChange, friends, owed, remaining }) => (
                 value={friend.owed}
                 onChange={handleChange}
               />
-              <span className="add-on">&nbsp;%</span>
+              <span className="add-on">
+                &nbsp;%
+              </span>
             </div>
           </div>
         </li>
@@ -25,9 +31,13 @@ const SubviewSplitByPercent = ({ handleChange, friends, owed, remaining }) => (
     <div className="totals">
       <strong>TOTAL</strong>
       <div className="subtotals">
-        <span className="owed-total">{owed} %</span>
+        <span className="owed-total">
+          {owed} %
+        </span>
         <div className="remaining">
-          <span className="owed-remaining">{remaining}% left</span>
+          <span className="owed-remaining">
+            {remaining}% left
+          </span>
         </div>
       </div>
     </div>

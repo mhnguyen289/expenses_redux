@@ -7,8 +7,14 @@ const SubviewSplitEqual = ({ friends }) => (
       {friends.map(friend =>
         <li key={friend.id}>
           <div className="person">
-            <span className="name"><strong>{friend.username}</strong></span>
-            <span className="amount">${friend.owed}</span>
+            <span className="name">
+              <strong>
+                {friend.username}
+              </strong>
+            </span>
+            <span className="amount">
+              ${friend.owed}
+            </span>
           </div>
         </li>
       )}

@@ -8,7 +8,9 @@ class Header extends React.Component {
   renderLogo() {
     return (
       <IndexLink className="logo" to="/">
-        <span className="logo-text">ExpensesRedux</span>
+        <span className="logo-text">
+          ExpensesRedux
+        </span>
       </IndexLink>
     );
   }
@@ -35,7 +37,10 @@ class Header extends React.Component {
   renderAuth() {
     return (
       <div className="account">
-        <button className="demo-button action-button" onClick={this.props.demo}>
+        <button
+          className="demo-button action-button"
+          onClick={this.props.demo}
+        >
           Demo Login
         </button>
       </div>
