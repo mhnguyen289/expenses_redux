@@ -148,9 +148,6 @@ class Calculator extends React.Component {
     expense.owed = totalOwed.toString();
     expense.remaining = remaining.toString();
     expense.split = this.splitExpenses(splitOption, expense);
-    if (remaining > 0) {
-      //expense.split = this.distributeRemainingCentsIntoSplitOnly(expense);
-    }
     return expense;
   }
 
@@ -239,6 +236,10 @@ class Calculator extends React.Component {
     if (!this.validForm()) {
       return;
     }
+    //if (by percent > 0) {
+      //expense.split = this.distributeRemainingCentsIntoSplitOnly(expense);
+    //}
+
     const { title, amount, split } = this.state.expense;
     const ids = Object.keys(split);
     const debts = Object.values(split);
