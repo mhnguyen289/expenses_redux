@@ -26,7 +26,7 @@ const ExpensesList = ({ expenses, user }) => (
                 </div>
                 <div className="owed">
                   <span className="who-owed secondary-text">
-                    {user.id == e.borrower_id ? 'you' : e.borrow_id} owes
+                    {user.id == e.borrower_id ? 'you' : e.borrower_id} owe
                   </span>
                   <span className="owed-amount">
                     ${e.debt_amount}

@@ -19,7 +19,6 @@ class Dashboard extends React.Component {
 
   handleClick(e) {
     const id = e.target.id;
-    console.log(id);
     if (id.length > 0) {
       this.props.fetchExpensesBetween(1, id);
     }
@@ -27,7 +26,6 @@ class Dashboard extends React.Component {
 
   render() {
     const { friends, expenses, user } = this.props;
-    console.log(user.id);
     return (
       <div className="dashboard container">
         <div className="friends-list">
