@@ -102,17 +102,23 @@ class Calculator extends React.Component {
     return expense;
   }
 
-  distributeRemainingCentsIntoSplitOnly(expense) {
-    let remaining = expense.remaining;
+  percentDistributeRemainingCents(expense) {
     const split = expense.split;
-    const ids = Object.keys(split);
-    ids.forEach(id => {
+    const keys = Object.keys(expense.split);
+    let totalOwed = 0;
+    for (let i = 0; i < keys.length; i++) {
+      totalOwed += Number(split[keys[i]]);
+    }
+    let remaining = Number(expense.amount) - totalOwed;
+    let owed = 0;
+    keys.forEach(key => {
       if (remaining > 0) {
-        split[id] = Number(split[id]) + 0.01;
+        owed = this.makeDecimal(Number(split[key]));
+        owed += 0.01;
+        split[key] = this.makeDecimal(owed).toString();
         remaining -= 0.01;
       }
     });
-    expense.remaining = '0.00';
     return expense.split;
   }
 
@@ -150,10 +156,11 @@ class Calculator extends React.Component {
     const initialRemaining = this.getInitialRemaining(splitOption, expense);
     expense = this.calculateRemaining(expense, initialRemaining);
     expense.split = this.splitExpenses(splitOption, expense);
+    expense.split = this.percentDistributeRemainingCents(expense);
     return expense;
   }
 
-  updateOwedAndRemaining(splitOption, expense, friendId, owedValue) {
+  updateExpense(splitOption, expense, friendId, owedValue) {
     switch (splitOption) {
       case options.SPLIT_BY_PERCENT:
       case options.SPLIT_EXACT_AMOUNT:
@@ -177,7 +184,7 @@ class Calculator extends React.Component {
     }
     const friendId = e.target.name;
     const owedValue = e.target.value.trim();
-    expense = this.updateOwedAndRemaining(splitOption, expense, friendId, owedValue);
+    expense = this.updateExpense(splitOption, expense, friendId, owedValue);
     this.logSplit();
     this.setState({ expense });
   }
@@ -197,6 +204,7 @@ class Calculator extends React.Component {
       expense.owed = '0.00';
       expense.remaining = this.getInitialRemaining(selectedSplitOption, expense);
     }
+    this.logSplit();
     this.setState({
       nameOfButtonClicked,
       selectedSplitOption,
@@ -236,14 +244,11 @@ class Calculator extends React.Component {
     if (!this.validForm()) {
       return;
     }
-    //if (by percent > 0) {
-      //expense.split = this.distributeRemainingCentsIntoSplitOnly(expense);
-    //}
-
     const { title, amount, split } = this.state.expense;
     const ids = Object.keys(split);
     const debts = Object.values(split);
     const expense = { title, amount, ids, debts };
+    this.logSplit();
     this.props.addExpense(expense);
   }
 
