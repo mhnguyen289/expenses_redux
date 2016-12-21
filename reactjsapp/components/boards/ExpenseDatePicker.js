@@ -2,7 +2,7 @@ import React from 'react';
 import DatePicker from 'react-bootstrap-date-picker';
 import { FormGroup, ControlLabel } from 'react-bootstrap';
 
-class DatePickerExample extends React.Component {
+class ExpenseDatePicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,4 +33,4 @@ class DatePickerExample extends React.Component {
   }
 }
 
-export default DatePickerExample;
+export default ExpenseDatePicker;

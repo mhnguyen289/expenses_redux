@@ -682,3 +682,39 @@ h3 {
   font-weight: 400;
   text-align: center;
 }
+
+/* token
+  ========================================================================== */
+
+.token-wrapper {
+  border-radius: 4px;
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #ccc;
+  width: 90px;
+}
+
+.token-remove-button {
+  padding: 8px 6px;
+  color: #000;
+  font-size: 12px;
+  border-left: 1px solid #ccc;
+  line-height: 100%;
+  position: absolute;
+  vertical-align: middle;
+  cursor: pointer;
+  right: 0;
+  bottom: 0;
+}
+
+.token-remove-button:hover {
+  color: #000;
+  background: #f2f2f2;
+}
+
+.token-value {
+  padding: 3px 8px;
+  font-size: 14px;
+  vertical-align: middle;
+}
