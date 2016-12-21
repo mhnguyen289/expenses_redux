@@ -34,17 +34,21 @@ class Dashboard extends React.Component {
     return (
       <div className="dashboard container">
         <div className="friends-list">
-          <FriendsList
-            friends={friends}
-            handleClick={this.handleClick}
-          />
+          {friends.length > 0 &&
+            <FriendsList
+              friends={friends}
+              handleClick={this.handleClick}
+            />
+          }
         </div>
         <div className="expenses-list">
-          <ExpensesList
-            expenses={expenses}
-            user={user}
-            friendId={this.state.friendId}
-          />
+          {friends.length > 0 &&
+            <ExpensesList
+              expenses={expenses}
+              user={user}
+              friendId={this.state.friendId}
+            />
+          }
         </div>
       </div>
     );

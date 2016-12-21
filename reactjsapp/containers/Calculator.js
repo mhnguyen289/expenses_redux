@@ -34,6 +34,11 @@ class Calculator extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  getInitialRemaining(selectedSplitOption, expense) {
+    const byPercent = (selectedSplitOption == options.SPLIT_BY_PERCENT);
+    return byPercent ? '100.00' : expense.amount;
+  }
+
   makeDecimal(number) {
     let num = Math.trunc(number * 100);
     num /= 100;
@@ -111,20 +116,25 @@ class Calculator extends React.Component {
     return expense.split;
   }
 
+  calculateRemaining(expense, initialRemaining) {
+    let totalOwed = 0;
+    expense.friends.forEach((item) => {
+      totalOwed += Number(item.owed);
+    });
+    const remaining = Number(initialRemaining) - totalOwed;
+    expense.owed = totalOwed.toString();
+    expense.remaining = remaining.toString();
+    console.log(expense.remaining);
+    return expense;
+  }
+
   updateByCalculator(splitOption, expense) {
     expense.split = this.splitExpenses(splitOption, expense);
     expense.friends.forEach(friend => {
       friend.owed = expense.split[friend.id];
     });
-    const amount = expense.amount;
-    let totalOwed = 0;
-    expense.friends.forEach((item) => {
-      totalOwed += Number(item.owed);
-    });
-    const remaining = Number(amount) - totalOwed;
-    expense.owed = totalOwed.toString();
-    expense.remaining = remaining.toString();
-    console.log(expense.remaining);
+    const initialRemaining = expense.amount;
+    expense = this.calculateRemaining(expense, initialRemaining);
     if (expense.remaining !== 0) {
       expense = this.distributeRemainingCents(expense);
     }
@@ -137,15 +147,8 @@ class Calculator extends React.Component {
         item.owed = owedValue;
       }
     });
-    const byPercent = splitOption == options.SPLIT_BY_PERCENT;
-    const amount = (byPercent) ? '100.00' : expense.amount;
-    let totalOwed = 0;
-    expense.friends.forEach((item) => {
-      totalOwed += Number(item.owed);
-    });
-    const remaining = Number(amount) - totalOwed;
-    expense.owed = totalOwed.toString();
-    expense.remaining = remaining.toString();
+    const initialRemaining = this.getInitialRemaining(splitOption, expense);
+    expense = this.calculateRemaining(expense, initialRemaining);
     expense.split = this.splitExpenses(splitOption, expense);
     return expense;
   }
@@ -192,8 +195,7 @@ class Calculator extends React.Component {
       }, []);
       expense.friends = reset;
       expense.owed = '0.00';
-      expense.remaining = (selectedSplitOption == options.SPLIT_BY_PERCENT)
-                    ? '100.00' : expense.amount;
+      expense.remaining = this.getInitialRemaining(selectedSplitOption, expense);
     }
     this.setState({
       nameOfButtonClicked,
