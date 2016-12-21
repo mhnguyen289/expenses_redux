@@ -31,12 +31,12 @@ class ExpenseForm extends React.Component {
                 onChange={handleChange}
               />
             </div>
-            <div className="date-picker-container">
-              <ExpenseDatePicker
-                value={expenseDate}
-                onChange={handleDateChange}
-              />
-            </div>
+          </div>
+          <div className="date-picker-container">
+            <ExpenseDatePicker
+              value={expenseDate}
+              onChange={handleDateChange}
+            />
           </div>
         </div>
       </div>
