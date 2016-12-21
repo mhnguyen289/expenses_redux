@@ -9,7 +9,7 @@ import ExpensesList from '../components/ExpensesList';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { friendId: '5' };
+    this.state = { friendId: '' };
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -34,10 +34,17 @@ class Dashboard extends React.Component {
     return (
       <div className="dashboard container">
         <div className="friends-list">
-          <FriendsList friends={friends} handleClick={this.handleClick} />
+          <FriendsList
+            friends={friends}
+            handleClick={this.handleClick}
+          />
         </div>
         <div className="expenses-list">
-          <ExpensesList expenses={expenses} user={user} friendId={this.state.friendId} />
+          <ExpensesList
+            expenses={expenses}
+            user={user}
+            friendId={this.state.friendId}
+          />
         </div>
       </div>
     );
@@ -45,11 +52,11 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
+  expenses: PropTypes.array,
+  friends: PropTypes.array,
+  user: PropTypes.object,
   fetchFriendsOf: PropTypes.func.isRequired,
   fetchExpensesBetween: PropTypes.func.isRequired,
-  expenses: PropTypes.array.isRequired,
-  friends: PropTypes.array.isRequired,
-  user: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({

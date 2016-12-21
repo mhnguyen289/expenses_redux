@@ -24,7 +24,6 @@ const user = (state = {}, action) => {
     case types.LOGOUT_SUCCESS:
       return {};
     case types.LOGIN_SUCCESS:
-      console.log(action.user);
       return action.user;
     default:
       return state;

@@ -10,7 +10,6 @@ const Root = ({ store }) => (
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <Redirect from="/logout" to="/" />
-        <Redirect from="/friend" to="/dashboard" />
         <Redirect from="/demo" to="/dashboard" />
         <Route path="/calculator" component={Calculator} />
         <Route path="/dashboard" component={Dashboard} />
