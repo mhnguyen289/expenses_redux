@@ -4,6 +4,7 @@ import { Router, Route, hashHistory, Redirect } from 'react-router';
 import App from './App';
 import Dashboard from './Dashboard';
 import Calculator from './Calculator';
+import DatePickerExample from './DatePickerExample';
 
 const Root = ({ store }) => (
   <Provider store={store} >
@@ -13,6 +14,7 @@ const Root = ({ store }) => (
         <Redirect from="/demo" to="/dashboard" />
         <Route path="/calculator" component={Calculator} />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/example" component={DatePickerExample} />
       </Route>
     </Router>
   </Provider>
