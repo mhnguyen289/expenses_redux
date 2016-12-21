@@ -6,7 +6,7 @@ const ExpenseDatePicker = ({ expenseDate, handleDateChange }) => (
   <FormGroup style={{ width: '70%', marginTop: 30 }}>
     <ControlLabel>Expense Date</ControlLabel>
     <DatePicker
-      showClearButton="false"
+      showClearButton={false}
       value={expenseDate}
       onChange={handleDateChange}
     />
