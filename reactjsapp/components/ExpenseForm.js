@@ -3,9 +3,10 @@ import * as options from '../constants/split_options';
 import SubviewSplitEqual from './SubviewSplitEqual';
 import SubviewSplitByExact from './SubviewSplitByExact';
 import SubviewSplitByPercent from './SubviewSplitByPercent';
+import ExpenseDatePicker from './ExpenseDatePicker';
 
 class ExpenseForm extends React.Component {
-  renderAddBillDetails(title, amount, handleChange) {
+  renderAddBillDetails(title, amount, handleChange, expenseDate, handleDateChange) {
     return (
       <div className="add-notes">
         <header>Add a Bill</header>
@@ -28,6 +29,12 @@ class ExpenseForm extends React.Component {
                 className="cost"
                 placeholder="0.00"
                 onChange={handleChange}
+              />
+            </div>
+            <div className="date-picker-container">
+              <ExpenseDatePicker
+                value={expenseDate}
+                onChange={handleDateChange}
               />
             </div>
           </div>
@@ -143,6 +150,8 @@ class ExpenseForm extends React.Component {
       remaining,
       error,
       nameOfButtonClicked,
+      expenseDate,
+      handleDateChange,
     } = this.props;
     const splitProps = {
       friends,
@@ -160,7 +169,7 @@ class ExpenseForm extends React.Component {
               {error}
             </div>
           }
-          {this.renderAddBillDetails(title, amount, handleChange)}
+          {this.renderAddBillDetails(title, amount, handleChange, expenseDate, handleDateChange)}
           {this.renderChooseSplitAndSave(handleClick, handleSave,
             splitProps, nameOfButtonClicked)}
         </div>
@@ -181,6 +190,8 @@ ExpenseForm.propTypes = {
   selectedSplitOption: PropTypes.string.isRequired,
   error: PropTypes.string,
   nameOfButtonClicked: PropTypes.string.isRequired,
+  expenseDate: PropTypes.string.isRequired,
+  handleDateChange: PropTypes.func,
 };
 
 export default ExpenseForm;

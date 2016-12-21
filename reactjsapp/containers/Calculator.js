@@ -8,6 +8,7 @@ class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      expenseDate: new Date().toISOString(),
       error: '',
       nameOfButtonClicked: 'exact',
       selectedSplitOption: options.SPLIT_EXACT_AMOUNT,
@@ -32,6 +33,7 @@ class Calculator extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   getInitialRemaining(selectedSplitOption, expense) {
@@ -212,6 +214,14 @@ class Calculator extends React.Component {
     });
   }
 
+  handleDateChange(expenseDate, formattedValue) {
+    console.log(formattedValue);
+    this.setState({
+      expenseDate,
+      formattedValue,
+    });
+  }
+
   validForm() {
     const expense = this.state.expense;
     let error = this.state.error;
@@ -278,6 +288,8 @@ class Calculator extends React.Component {
         selectedSplitOption={this.state.selectedSplitOption}
         error={error}
         nameOfButtonClicked={this.state.nameOfButtonClicked}
+        expenseDate={this.state.expenseDate}
+        handleDateChange={this.handleDateChange}
       />
     );
   }

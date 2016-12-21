@@ -21,7 +21,7 @@ class DatePickerExample extends React.Component {
 
   render() {
     return (
-      <FormGroup>
+      <FormGroup style={{ width: '20%' }}>
         <ControlLabel>Expense Date</ControlLabel>
         <DatePicker
           value={this.state.value}

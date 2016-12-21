@@ -335,8 +335,8 @@ ul, ol {
   padding-bottom: 2px;
   background-color: #fff;
   color: #666;
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 div.cost-container {
@@ -476,12 +476,6 @@ footer button {
 
 /* split method
   ========================================================================== */
-
-h3 {
-  font-size: 18px;
-  line-height: 27px;
-  display: block;
-}
 
 .subview .body h3 {
   color: #999;
@@ -678,4 +672,13 @@ h3 {
   border: 1px solid #ccc;
   margin-top: 10px;
   margin-bottom: 30px;
+}
+
+/* date picker
+  ========================================================================== */
+
+h3 {
+  display: block;
+  font-weight: 400;
+  text-align: center;
 }
