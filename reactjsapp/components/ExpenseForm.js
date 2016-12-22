@@ -163,6 +163,17 @@ class ExpenseForm extends React.Component {
 
     return (
       <div className="add container">
+        <div className="add-friends">
+          <ul>
+            <li>Friend</li>
+            <li>Friend</li>
+            <li>Friend</li>
+            <li>Friend</li>
+            <li>Friend</li>
+            <li>Friend</li>
+            <li>Friend</li>
+          </ul>
+        </div>
         <div className="add-bill">
           {error.length > 0 &&
             <div className="input-error">
