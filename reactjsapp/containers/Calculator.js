@@ -14,8 +14,8 @@ class Calculator extends React.Component {
         { id: 4, username: 'jamiek', owed: '' },
         { id: 5, username: 'jeffrey', owed: '' },
       ],
-      selectedOptions: {
-        //0: { id: 2, username: 'andy123', owed: '' },
+      selectedOptions: { // look up table
+        // 0: { id: 2, username: 'andy123', owed: '' },
       },
       expenseDate: new Date().toISOString(),
       error: '',
@@ -27,7 +27,7 @@ class Calculator extends React.Component {
         percent: options.SPLIT_BY_PERCENT,
       },
       expense: {
-        friends: [
+        friends: [ // array of objects
           // { id: 2, username: 'andy123', owed: '' },
         ],
         owed: '0.00',
@@ -38,14 +38,12 @@ class Calculator extends React.Component {
       },
     };
 
-    // add friends
     this.handleRemoveToken = this.handleRemoveToken.bind(this);
     this.handleAddToken = this.handleAddToken.bind(this);
 
-    // add expense
+    this.handleSplitButtonClick = this.handleSplitButtonClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
@@ -204,7 +202,7 @@ class Calculator extends React.Component {
     this.setState({ expense });
   }
 
-  handleClick(e) {
+  handleSplitButtonClick(e) {
     const selectedSplitOption = this.state.options[e.target.name];
     const nameOfButtonClicked = e.target.name;
     let expense = this.state.expense;
@@ -330,7 +328,7 @@ class Calculator extends React.Component {
         friends={friends}
         owed={owed}
         remaining={remaining}
-        handleClick={this.handleClick}
+        handleClick={this.handleSplitButtonClick}
         selectedSplitOption={this.state.selectedSplitOption}
         error={error}
         nameOfButtonClicked={this.state.nameOfButtonClicked}
