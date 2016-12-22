@@ -686,7 +686,7 @@ h3 {
 /* token
   ========================================================================== */
 
-.token-wrapper {
+.token-container {
   border-radius: 4px;
   background: #fff;
   overflow: hidden;
@@ -717,4 +717,27 @@ h3 {
   padding: 3px 8px;
   font-size: 14px;
   vertical-align: middle;
+}
+
+/* options
+  ========================================================================== */
+.option-container {
+  position: absolute;
+  width: 100%;
+  border: 1px solid #f2f2f2;
+  margin: 5px 0 0 0;
+  max-height: 350px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.option {
+  padding: 8px;
+  cursor: default;
+}
+
+a.active {
+  color: #5cc5a7;
+  background: transparent;
 }
