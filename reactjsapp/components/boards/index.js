@@ -5,11 +5,6 @@ import Options from './Options';
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    this.handleRemove = this.handleRemove.bind(this);
-  }
-
-  handleRemove(e) {
-    console.log('remove token');
   }
 
   render() {
@@ -21,10 +16,6 @@ class Board extends React.Component {
     ];
     return (
       <div>
-        <Token
-          value="Friend"
-          onRemove={this.handleRemove}
-        />
         <Options
           list={friends}
         />
