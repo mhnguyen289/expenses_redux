@@ -3,9 +3,6 @@ import Token from './Token';
 import Options from './Options';
 
 class Board extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const friends = [
@@ -16,9 +13,12 @@ class Board extends React.Component {
     ];
     return (
       <div>
-        <Options
-          list={friends}
-        />
+        <Options list={friends} />
+      </div>
+    );
+    return (
+      <div>
+        Stub
       </div>
     );
   }

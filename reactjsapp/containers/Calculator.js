@@ -8,6 +8,13 @@ class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      list: [
+        { id: 2, username: 'andy123' },
+        { id: 3, username: 'bonnie' },
+        { id: 4, username: 'jamiek' },
+        { id: 5, username: 'jeffrey' },
+      ],
+      selectedOptions: {},
       expenseDate: new Date().toISOString(),
       error: '',
       nameOfButtonClicked: 'exact',
@@ -21,7 +28,6 @@ class Calculator extends React.Component {
         friends: [
           { id: 2, username: 'andy', owed: '' },
           { id: 3, username: 'bonnie', owed: '' },
-          { id: 5, username: 'jeffrey', owed: '' },
         ],
         owed: '0.00',
         remaining: '0.00',
@@ -30,6 +36,12 @@ class Calculator extends React.Component {
         split: {},
       },
     };
+
+    // add friends
+    this.handleRemoveToken = this.handleRemoveToken.bind(this);
+    this.handleAddToken = this.handleAddToken.bind(this);
+
+    // add expense
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -222,6 +234,27 @@ class Calculator extends React.Component {
     });
   }
 
+  handleRemoveToken(e) {
+    const removeIndex = e.target.name;
+    console.log(`to remove at index ${removeIndex}`);
+    const selectedOptions = this.state.selectedOptions;
+    const deletedOption = delete selectedOptions[removeIndex];
+    console.log(`remove token ${deletedOption}`);
+    this.setState({ selectedOptions });
+  }
+
+  handleAddToken(e) {
+    const { list } = this.state;
+    const selectedIndex = e.target.name;
+    const selectedOptions = this.state.selectedOptions;
+    selectedOptions[selectedIndex] = list[selectedIndex];
+
+    console.log(`clicked on option ${selectedIndex}`);
+    console.log(`clicked on option ${selectedOptions[selectedIndex].username}`);
+
+    this.setState({ selectedOptions });
+  }
+
   validForm() {
     const expense = this.state.expense;
     let error = this.state.error;
@@ -290,6 +323,10 @@ class Calculator extends React.Component {
         nameOfButtonClicked={this.state.nameOfButtonClicked}
         expenseDate={this.state.expenseDate}
         handleDateChange={this.handleDateChange}
+        list={this.state.list}
+        selectedOptions={this.state.selectedOptions}
+        handleAddToken={this.handleAddToken}
+        handleRemoveToken={this.handleRemoveToken}
       />
     );
   }
@@ -297,9 +334,11 @@ class Calculator extends React.Component {
 
 Calculator.propTypes = {
   addExpense: PropTypes.func.isRequired,
+  // list: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = () => ({
+
 });
 
 export default connect(

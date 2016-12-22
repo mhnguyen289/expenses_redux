@@ -4,6 +4,7 @@ import SubviewSplitEqual from './SubviewSplitEqual';
 import SubviewSplitByExact from './SubviewSplitByExact';
 import SubviewSplitByPercent from './SubviewSplitByPercent';
 import ExpenseDatePicker from './ExpenseDatePicker';
+import Options from './Options';
 
 class ExpenseForm extends React.Component {
   renderAddBillDetails(title, amount, handleChange, expenseDate, handleDateChange) {
@@ -152,6 +153,10 @@ class ExpenseForm extends React.Component {
       nameOfButtonClicked,
       expenseDate,
       handleDateChange,
+      list,
+      selectedOptions,
+      handleAddToken,
+      handleRemoveToken,
     } = this.props;
     const splitProps = {
       friends,
@@ -164,15 +169,12 @@ class ExpenseForm extends React.Component {
     return (
       <div className="add container">
         <div className="add-friends">
-          <ul>
-            <li>Friend</li>
-            <li>Friend</li>
-            <li>Friend</li>
-            <li>Friend</li>
-            <li>Friend</li>
-            <li>Friend</li>
-            <li>Friend</li>
-          </ul>
+          <Options
+            list={list}
+            selectedOptions={selectedOptions}
+            handleAddToken={handleAddToken}
+            handleRemoveToken={handleRemoveToken}
+          />
         </div>
         <div className="add-bill">
           {error.length > 0 &&
@@ -203,6 +205,10 @@ ExpenseForm.propTypes = {
   nameOfButtonClicked: PropTypes.string.isRequired,
   expenseDate: PropTypes.string.isRequired,
   handleDateChange: PropTypes.func,
+  list: PropTypes.array.isRequired,
+  selectedOptions: PropTypes.object,
+  handleAddToken: PropTypes.func.isRequired,
+  handleRemoveToken: PropTypes.func.isRequired,
 };
 
 export default ExpenseForm;
