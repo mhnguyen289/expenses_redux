@@ -138,6 +138,18 @@ class ExpenseForm extends React.Component {
     );
   }
 
+  renderErrorMessage(error) {
+    return (
+      <div>
+        {error.length > 0 &&
+          <div className="input-error">
+            {error}
+          </div>
+        }
+      </div>
+    );
+  }
+
   render() {
     const {
       title,
@@ -177,14 +189,13 @@ class ExpenseForm extends React.Component {
           />
         </div>
         <div className="add-bill">
-          {error.length > 0 &&
-            <div className="input-error">
-              {error}
-            </div>
-          }
-          {this.renderAddBillDetails(title, amount, handleChange, expenseDate, handleDateChange)}
-          {this.renderChooseSplitAndSave(handleClick, handleSave,
-            splitProps, nameOfButtonClicked)}
+          {this.renderErrorMessage(error)}
+          {this.renderAddBillDetails(
+            title, amount, handleChange,
+            expenseDate, handleDateChange)}
+          {this.renderChooseSplitAndSave(
+            handleClick, handleSave, splitProps,
+            nameOfButtonClicked)}
         </div>
       </div>
     );

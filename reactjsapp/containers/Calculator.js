@@ -9,12 +9,14 @@ class Calculator extends React.Component {
     super(props);
     this.state = {
       list: [
-        { id: 2, username: 'andy123' },
-        { id: 3, username: 'bonnie' },
-        { id: 4, username: 'jamiek' },
-        { id: 5, username: 'jeffrey' },
+        { id: 2, username: 'andy123', owed: '' },
+        { id: 3, username: 'bonnie', owed: '' },
+        { id: 4, username: 'jamiek', owed: '' },
+        { id: 5, username: 'jeffrey', owed: '' },
       ],
-      selectedOptions: {},
+      selectedOptions: {
+        //0: { id: 2, username: 'andy123', owed: '' },
+      },
       expenseDate: new Date().toISOString(),
       error: '',
       nameOfButtonClicked: 'exact',
@@ -26,8 +28,7 @@ class Calculator extends React.Component {
       },
       expense: {
         friends: [
-          { id: 2, username: 'andy', owed: '' },
-          { id: 3, username: 'bonnie', owed: '' },
+          // { id: 2, username: 'andy123', owed: '' },
         ],
         owed: '0.00',
         remaining: '0.00',
@@ -236,11 +237,17 @@ class Calculator extends React.Component {
 
   handleRemoveToken(e) {
     const removeIndex = e.target.name;
-    console.log(`to remove at index ${removeIndex}`);
+    console.log(`to remove at, options index ${removeIndex}`);
     const selectedOptions = this.state.selectedOptions;
-    const deletedOption = delete selectedOptions[removeIndex];
-    console.log(`remove token ${deletedOption}`);
-    this.setState({ selectedOptions });
+    const deleteOption = selectedOptions[removeIndex];
+
+    console.log(`remove token, friend id ${deleteOption.id}`);
+    const expense = this.state.expense;
+    const updated = expense.friends.filter(friend => (friend.id !== deleteOption.id));
+    expense.friends = updated;
+    delete selectedOptions[removeIndex];
+
+    this.setState({ selectedOptions, expense });
   }
 
   handleAddToken(e) {
@@ -252,7 +259,13 @@ class Calculator extends React.Component {
     console.log(`clicked on option ${selectedIndex}`);
     console.log(`clicked on option ${selectedOptions[selectedIndex].username}`);
 
-    this.setState({ selectedOptions });
+    const expense = this.state.expense;
+    expense.friends = [
+      ...expense.friends,
+      list[selectedIndex],
+    ];
+
+    this.setState({ selectedOptions, expense });
   }
 
   validForm() {

@@ -18,7 +18,6 @@ class Options extends React.Component {
   }
 
   changeOptionStyle(index, className) {
-    console.log(`mouse entered option ${index}`);
     const optionStyles = this.state.optionStyles;
     optionStyles[index] = className;
     this.setState({ optionStyles });
