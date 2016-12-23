@@ -47,7 +47,7 @@ class ExpensesList extends React.Component {
     );
   }
 
-  renderExpensesBetween(expenses, friend) {
+  renderNone() {
     return (
       <div>
         <div className="header">
@@ -56,36 +56,58 @@ class ExpensesList extends React.Component {
           </span>
         </div>
         <div className="content">
-          <ul className="list">
-            {expenses.map(e =>
-              <li key={e.id}>
-                <div className="list-item">
-                  <div className="expense-details">
-                    <span className="expense-title featured default base">
-                      {e.title}
-                    </span>
-                    <div className="paid">
-                      <span className="who-paid secondary-text">
-                        {friend.id == e.paid_by_id ? friend.username : 'you'} paid
-                      </span>
-                      <span className="paid-amount">
-                        ${e.expense_amount}
-                      </span>
-                    </div>
-                    <div className="owed">
-                      <span className="who-owed secondary-text">
-                        {friend.id == e.borrower_id ? friend.username : 'you'} owe
-                      </span>
-                      <span className="owed-amount">
-                        ${e.debt_amount}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            )}
-          </ul>
+          <div className="user-message">None</div>
         </div>
+      </div>
+    );
+  }
+
+  renderExpensesBetween(expenses, friend) {
+    return (
+      <div>
+        {expenses.length <= 0
+          ?
+            this.renderNone()
+          :
+          <div>
+            <div className="header">
+              <span className="featured default base">
+                Expenses With
+              </span>
+            </div>
+            <div className="content">
+              <ul className="list">
+                {expenses.map(e =>
+                  <li key={e.id}>
+                    <div className="list-item">
+                      <div className="expense-details">
+                        <span className="expense-title featured default base">
+                          {e.title}
+                        </span>
+                        <div className="paid">
+                          <span className="who-paid secondary-text">
+                            {friend.id === e.paid_by_id ? friend.username : 'you'} paid
+                          </span>
+                          <span className="paid-amount">
+                            ${e.expense_amount}
+                          </span>
+                        </div>
+                        <div className="owed">
+                          <span className="who-owed secondary-text">
+                            {friend.id === e.borrower_id ? friend.username : 'you'} owe
+                          </span>
+                          <span className="owed-amount">
+                            ${e.debt_amount}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+        }
       </div>
     );
   }

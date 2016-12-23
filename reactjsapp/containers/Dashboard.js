@@ -14,8 +14,12 @@ class Dashboard extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { selectedId } = this.props;
-    if (prevProps.selectedId !== selectedId) {
+    const selectedIdChanged = prevProps.selectedId !== selectedId;
+    const selectedIdExists = selectedId && selectedId.length >= 0;
+    if (selectedIdExists && selectedIdChanged) {
       this.props.fetchExpensesWith(selectedId);
+    } else if (!selectedIdExists && selectedIdChanged) {
+      this.props.fetchAllExpenses();
     }
   }
 
