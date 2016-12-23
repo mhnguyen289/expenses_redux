@@ -1,39 +1,32 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchExpensesWith } from '../actions/expenses_actions';
+import { fetchAllExpenses, fetchExpensesWith } from '../actions/expenses_actions';
 import { fetchFriendsList } from '../actions/friends_actions';
 import { getAllFriends, getAllExpenses } from '../reducers';
 import FriendsList from '../components/FriendsList';
 import ExpensesList from '../components/ExpensesList';
 
 class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { selectedId: '2' };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   componentDidMount() {
     this.props.fetchFriendsList();
+    this.props.fetchAllExpenses();
   }
 
-  handleClick(e) {
-    const clickedId = e.target.id;
-    if (clickedId.length > 0) {
-      this.setState({ id: clickedId });
-      this.props.fetchExpensesWith(clickedId);
+  componentDidUpdate(prevProps) {
+    const { selectedId } = this.props;
+    if (prevProps.selectedId !== selectedId) {
+      this.props.fetchExpensesWith(selectedId);
     }
   }
 
   render() {
-    const { friends, expenses } = this.props;
+    const { friends, expenses, selectedId } = this.props;
     return (
       <div className="dashboard container">
         <div className="friends-list">
           {friends.length > 0 &&
             <FriendsList
               friends={friends}
-              handleClick={this.handleClick}
             />
           }
         </div>
@@ -41,7 +34,7 @@ class Dashboard extends React.Component {
           {friends.length > 0 &&
             <ExpensesList
               expenses={expenses}
-              selectedId={this.state.selectedId}
+              selectedId={selectedId}
             />
           }
         </div>
@@ -59,14 +52,17 @@ Dashboard.propTypes = {
   })).isRequired,
   fetchFriendsList: PropTypes.func.isRequired,
   fetchExpensesWith: PropTypes.func.isRequired,
+  fetchAllExpenses: PropTypes.func.isRequired,
+  selectedId: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, props) => ({
   expenses: getAllExpenses(state),
   friends: getAllFriends(state),
+  selectedId: props.params.selectedId,
 });
 
 export default connect(
   mapStateToProps,
-  { fetchFriendsList, fetchExpensesWith }
+  { fetchAllExpenses, fetchFriendsList, fetchExpensesWith }
 )(Dashboard);

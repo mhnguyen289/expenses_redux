@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'users#show'
     post 'login', to: 'sessions#create'
     get 'expenses_of_current_user_with/:friend_id', to: 'expenses#expenses_with'
+    get 'all_expenses', to: 'expenses#all_expenses'
     get 'friends_of_current_user', to: 'friends#friends_of_current_user'
   end
 end

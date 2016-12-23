@@ -13,6 +13,7 @@ const Root = ({ store }) => (
         <Redirect from="/logout" to="/" />
         <Redirect from="/demo" to="/dashboard" />
         <Route path="/calculator" component={Calculator} />
+        <Route path="/dashboard/(:selectedId)" component={Dashboard} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/boards" component={Boards} />
       </Route>

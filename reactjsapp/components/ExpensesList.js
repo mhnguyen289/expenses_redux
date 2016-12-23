@@ -2,46 +2,108 @@ import React, { PropTypes } from 'react';
 import { getFriend } from '../reducers';
 import { connect } from 'react-redux';
 
-const ExpensesList = ({ expenses, friend }) => (
-  <div>
-    <div className="header">
-      <span className="featured default base">
-        Expenses
-      </span>
-    </div>
-    <div className="content">
-      <ul className="list">
-        {expenses.map(e =>
-          <li key={e.id}>
-            <div className="list-item">
-              <div className="expense-details">
-                <span className="expense-title featured default base">
-                  {e.title}
-                </span>
-                <div className="paid">
-                  <span className="who-paid secondary-text">
-                    {friend.id == e.paid_by_id ? friend.username : 'you'} paid
-                  </span>
-                  <span className="paid-amount">
-                    ${e.expense_amount}
-                  </span>
+class ExpensesList extends React.Component {
+
+  renderAllExpenses(expenses) {
+    return (
+      <div>
+        <div className="header">
+          <span className="featured default base">
+            All Expenses
+          </span>
+        </div>
+        <div className="content">
+          <ul className="list">
+            {expenses.map(e =>
+              <li key={e.id}>
+                <div className="list-item">
+                  <div className="expense-details">
+                    <span className="expense-title featured default base">
+                      {e.title}
+                    </span>
+                    <div className="paid">
+                      <span className="who-paid secondary-text">
+                        you paid
+                      </span>
+                      <span className="paid-amount">
+                        ${e.expense_amount}
+                      </span>
+                    </div>
+                    <div className="owed">
+                      <span className="who-owed secondary-text">
+                        total lent
+                      </span>
+                      <span className="owed-amount">
+                        {e.lent}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="owed">
-                  <span className="who-owed secondary-text">
-                    {friend.id == e.borrower_id ? friend.username : 'you'} owe
-                  </span>
-                  <span className="owed-amount">
-                    ${e.debt_amount}
-                  </span>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+
+  renderExpensesBetween(expenses, friend) {
+    return (
+      <div>
+        <div className="header">
+          <span className="featured default base">
+            Expenses With
+          </span>
+        </div>
+        <div className="content">
+          <ul className="list">
+            {expenses.map(e =>
+              <li key={e.id}>
+                <div className="list-item">
+                  <div className="expense-details">
+                    <span className="expense-title featured default base">
+                      {e.title}
+                    </span>
+                    <div className="paid">
+                      <span className="who-paid secondary-text">
+                        {friend.id == e.paid_by_id ? friend.username : 'you'} paid
+                      </span>
+                      <span className="paid-amount">
+                        ${e.expense_amount}
+                      </span>
+                    </div>
+                    <div className="owed">
+                      <span className="who-owed secondary-text">
+                        {friend.id == e.borrower_id ? friend.username : 'you'} owe
+                      </span>
+                      <span className="owed-amount">
+                        ${e.debt_amount}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </li>
-        )}
-      </ul>
-    </div>
-  </div>
-);
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    const { selectedId, expenses, friend } = this.props;
+    return (
+      <div>
+        {selectedId && selectedId.length > 0
+          ?
+            this.renderExpensesBetween(expenses, friend)
+          :
+            this.renderAllExpenses(expenses)
+        }
+      </div>
+    );
+  }
+}
 
 ExpensesList.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({
@@ -52,12 +114,13 @@ ExpensesList.propTypes = {
     borrower_id: PropTypes.number,
     paid_by_id: PropTypes.number,
     debt_amount: PropTypes.string,
+    lent: PropTypes.string,
   })).isRequired,
   friend: PropTypes.shape({
     id: PropTypes.number,
     username: PropTypes.string,
-  }).isRequired,
-  selectedId: PropTypes.string.isRequired,
+  }),
+  selectedId: PropTypes.string,
 };
 
 const mapStateToProps = (state, props) => ({

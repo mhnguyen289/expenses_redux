@@ -1,8 +1,13 @@
 class Api::ExpensesController < ApplicationController
 
   def expenses_with
-    @between = Expense.expenses_and_debts_between(current_user.id, params[:friend_id])
-    render json: @between
+    expenses = Expense.expenses_and_debts_between(current_user.id, params[:friend_id])
+    render json: expenses
+  end
+
+  def all_expenses
+    expenses = Expense.expenses_and_lent(current_user.id)
+    render json: expenses
   end
 
   def create
