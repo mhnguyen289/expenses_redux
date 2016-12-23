@@ -131,30 +131,8 @@ class ExpenseForm extends React.Component {
     );
   }
 
-  renderChooseSplitAndSave(handleClick, handleSave, splitProps,
-    nameOfButtonClicked, expenseDate, handleDateChange) {
-    return (
-      <div className="subview active" id="choose-split">
-        <div className="body">
-          {this.renderSplitOptionsButtons(handleClick, nameOfButtonClicked)}
-          {this.renderSubview(splitProps)}
-          {this.renderDatePicker(expenseDate, handleDateChange)}
-          {this.renderFooter(handleSave)}
-        </div>
-      </div>
-    );
-  }
-
   renderErrorMessage(error) {
-    return (
-      <div>
-        {error.length > 0 &&
-          <div className="input-error">
-            {error}
-          </div>
-        }
-      </div>
-    );
+    return <div>{error.length > 0 && <div className="input-error">{error}</div>}</div>;
   }
 
   render() {
@@ -199,8 +177,14 @@ class ExpenseForm extends React.Component {
         <div className="add-bill">
           {this.renderErrorMessage(error)}
           {this.renderAddBillDetails(title, amount, handleChange)}
-          {this.renderChooseSplitAndSave(handleClick, handleSave,
-            splitProps, nameOfButtonClicked)}
+          <div className="subview">
+            <div className="body">
+              {this.renderSplitOptionsButtons(handleClick, nameOfButtonClicked)}
+              {this.renderSubview(splitProps)}
+              {this.renderDatePicker(expenseDate, handleDateChange)}
+              {this.renderFooter(handleSave)}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -208,21 +192,21 @@ class ExpenseForm extends React.Component {
 }
 
 ExpenseForm.propTypes = {
+  error: PropTypes.string,
   title: PropTypes.string,
   amount: PropTypes.string,
   friends: PropTypes.array,
   owed: PropTypes.string,
   remaining: PropTypes.string,
+  expenseDate: PropTypes.string,
+  selectedOptions: PropTypes.object,
+  list: PropTypes.array.isRequired,
+  selectedSplitOption: PropTypes.string.isRequired,
+  nameOfButtonClicked: PropTypes.string.isRequired,
   handleSave: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
-  selectedSplitOption: PropTypes.string.isRequired,
-  error: PropTypes.string,
-  nameOfButtonClicked: PropTypes.string.isRequired,
-  expenseDate: PropTypes.string.isRequired,
-  handleDateChange: PropTypes.func,
-  list: PropTypes.array.isRequired,
-  selectedOptions: PropTypes.object,
+  handleDateChange: PropTypes.func.isRequired,
   handleAddToken: PropTypes.func.isRequired,
   handleRemoveToken: PropTypes.func.isRequired,
 };

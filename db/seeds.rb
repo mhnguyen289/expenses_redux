@@ -1,11 +1,11 @@
 puts "usage: [$rails db:purge db:migrate db:seed]"
 
 puts "demo users"
-one = User.create!(username: "madeline", email: "DemoUserOne@example.com", password: "DemoUser1Here")
+one = User.create!(username: "DemoUser1Here", email: "DemoUserOne@example.com", password: "DemoUser1Here")
 two = User.create!(username: "andy123", email: "DemoUserTwo@example.com",password: "DemoUser2Here")
 three = User.create!(username: "bonnie", email: "DemoUserThree@example.com",password: "DemoUser3Here")
-four = User.create!(username: "jamiek", email: "DemoUserFour@example.com",password: "DemoUser4Here")
-five = User.create!(username: "jeffrey", email: "DemoUserFive@example.com",password: "DemoUser5Here")
+four = User.create!(username: "jamie45", email: "DemoUserFour@example.com",password: "DemoUser4Here")
+five = User.create!(username: "dannyck", email: "DemoUserFive@example.com",password: "DemoUser5Here")
 
 puts "actions"
 pending = Action.create!(name: "PENDING")
@@ -62,7 +62,7 @@ one_and_three = Relationship.find_by(a_user_id: one.id, b_user_id: three.id)
 one_and_three.update(action_id: accepted.id)
 
 one_and_four = Relationship.find_by(a_user_id: one.id, b_user_id: four.id)
-one_and_four.update(action_id: declined.id)
+one_and_four.update(action_id: accepted.id)
 
 one_and_five = Relationship.find_by(a_user_id: one.id, b_user_id: five.id)
 one_and_five.update(action_id: accepted.id)

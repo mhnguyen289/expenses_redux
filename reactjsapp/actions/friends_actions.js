@@ -1,23 +1,5 @@
 import * as types from '../constants/action_types';
 
-export const inviteFriend = (response) => ({
-  type: types.INVITE_FRIEND,
-  id: response.id,
-  response,
-});
-
-export const acceptFriend = (response) => ({
-  type: types.ACCEPT_FRIEND,
-  id: response.id,
-  response,
-});
-
-export const declineFriend = (response) => ({
-  type: types.DECLINE_FRIEND,
-  id: response.id,
-  response,
-});
-
 export const receiveFriends = (response) => ({
   type: types.RECEIVE_FRIENDS,
   response,
@@ -28,10 +10,18 @@ export const receiveFriendsError = (error) => ({
   error,
 });
 
-export const fetchFriendsOf = (userId) => (dispatch) => {
-  const url = `api/friends_of/${userId}/`;
-  fetch(url)
-      .then(response => response.json())
-      .then(json => dispatch(receiveFriends(json)))
-      .catch(error => dispatch(receiveFriendsError(error)));
+export const fetchFriendsList = () => (dispatch) => {
+  const url = 'api/friends_of_current_user';
+  const headers = { AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}` };
+  $.ajax({
+    url,
+    method: 'GET',
+    headers,
+  })
+  .done(response => {
+    dispatch(receiveFriends(response));
+  })
+  .fail(error => {
+    dispatch(receiveFriendsError(error));
+  });
 };

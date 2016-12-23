@@ -1,23 +1,17 @@
 import { combineReducers } from 'redux';
-import session, * as fromSession from './session';
+import authenticated from './authenticated';
 import message from './message';
 import expenses, * as fromExpenses from './expenses';
 import friends, * as fromFriends from './friends';
 
 const rootReducer = combineReducers({
-  session,
+  authenticated,
   message,
   friends,
   expenses,
 });
 
 export default rootReducer;
-
-export const getUser = state =>
-  fromSession.getUser(state.session);
-
-export const getAuthenticated = state =>
-  fromSession.getAuthenticated(state.session);
 
 export const getAllExpenses = state =>
   fromExpenses.getAllExpenses(state.expenses);

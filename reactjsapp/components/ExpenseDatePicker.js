@@ -14,8 +14,8 @@ const ExpenseDatePicker = ({ expenseDate, handleDateChange }) => (
 );
 
 ExpenseDatePicker.propTypes = {
-  expenseDate: PropTypes.string,
-  handleDateChange: PropTypes.func,
+  expenseDate: PropTypes.string.isRequired,
+  handleDateChange: PropTypes.func.isRequired,
 };
 
 export default ExpenseDatePicker;

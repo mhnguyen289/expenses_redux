@@ -15,7 +15,7 @@ class Calculator extends React.Component {
         { id: 5, username: 'jeffrey', owed: '' },
       ],
       selectedOptions: {
-        // 0: { id: 2, username: 'andy123', owed: '' },
+        0: { id: 2, username: 'andy123', owed: '' },
       },
       expenseDate: new Date().toISOString(),
       error: '',
@@ -185,7 +185,6 @@ class Calculator extends React.Component {
   handleChange(e) {
     let expense = this.state.expense;
     const splitOption = this.state.selectedSplitOption;
-    console.log(`${splitOption}`);
     const field = e.target.name;
     if (field == 'amount') {
       expense[field] = e.target.value.trim();
@@ -232,11 +231,8 @@ class Calculator extends React.Component {
 
   handleRemoveToken(e) {
     const removeIndex = e.target.name;
-    console.log(`to remove at, options index ${removeIndex}`);
     const selectedOptions = this.state.selectedOptions;
     const deleteOption = selectedOptions[removeIndex];
-
-    console.log(`remove token, friend id ${deleteOption.id}`);
     const expense = this.state.expense;
     const updated = expense.friends.filter(friend => (friend.id !== deleteOption.id));
     expense.friends = updated;
@@ -346,7 +342,6 @@ class Calculator extends React.Component {
 
 Calculator.propTypes = {
   addExpense: PropTypes.func.isRequired,
-  // list: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = () => ({

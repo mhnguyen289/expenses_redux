@@ -21,18 +21,26 @@ const addExpenseError = (error) => ({
   error,
 });
 
-export const fetchExpensesBetween = (userId, friendId) => (dispatch) => {
-  const url = `api/expenses_between/${userId}/${friendId}`;
-  fetch(url)
-      .then(response => response.json())
-      .then(json => dispatch(receiveExpenses(json)))
-      .catch(error => dispatch(receiveExpensesError(error)));
+export const fetchExpensesWith = (friendId) => (dispatch) => {
+  const url = `api/expenses_of_current_user_with/${friendId}`;
+  const headers = { AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}` };
+  $.ajax({
+    url,
+    method: 'GET',
+    headers,
+  })
+  .done(response => {
+    dispatch(receiveExpenses(response));
+  })
+  .fail(error => {
+    dispatch(receiveExpensesError(error));
+  });
 };
 
 export const addExpense = ({ title, amount, ids, debts }) => (dispatch) => {
   const url = 'api/expenses';
   const headers = {
-    'AUTHORIZATION': `Bearer ${localStorage.getItem('jwt')}`,
+    AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}`,
   };
   $.ajax({
     url,

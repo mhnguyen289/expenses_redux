@@ -1,9 +1,7 @@
 class Api::FriendsController < ApplicationController
 
-  skip_before_action :authenticate_token
-  
-  def friends_of
-    @friends = Relationship.friends_of(params[:user_id])
+  def friends_of_current_user
+    @friends = Relationship.friends_of(current_user.id)
     render json: @friends
   end
 
