@@ -11,7 +11,7 @@ class Calculator extends React.Component {
       list: [
         { id: 2, username: 'andy123', owed: '' },
         { id: 3, username: 'bonnie', owed: '' },
-        { id: 4, username: 'jamiek', owed: '' },
+        { id: 4, username: 'jamie456', owed: '' },
         { id: 5, username: 'jeffrey', owed: '' },
       ],
       selectedOptions: { // look up table

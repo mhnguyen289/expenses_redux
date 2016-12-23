@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import webpackConfig from '../webpack.config.babel';
+import webpackConfig from '../webpack.config.prod.babel';
 import colors from 'colors';
 
 process.env.NODE_ENV = 'production';
