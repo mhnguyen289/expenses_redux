@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { IndexLink, Link } from 'react-router';
-import { getAuthenticated } from '../reducers';
 import { demo, logout } from '../actions/session_actions';
 
 class Header extends React.Component {
@@ -70,7 +69,7 @@ Header.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authenticated: getAuthenticated(state),
+  authenticated: state.authenticated,
 });
 
 export default connect(

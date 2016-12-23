@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchFriendsList, fetchExpensesWith } from '../actions/expenses_actions';
+import { fetchExpensesWith } from '../actions/expenses_actions';
+import { fetchFriendsList } from '../actions/friends_actions';
 import { getAllFriends, getAllExpenses } from '../reducers';
 import FriendsList from '../components/FriendsList';
 import ExpensesList from '../components/ExpensesList';
@@ -54,7 +55,7 @@ Dashboard.propTypes = {
   friends: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
-    owed: PropTypes.string.isRequired,
+    owed: PropTypes.string,
   })).isRequired,
   fetchFriendsList: PropTypes.func.isRequired,
   fetchExpensesWith: PropTypes.func.isRequired,

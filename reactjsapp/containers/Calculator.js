@@ -12,11 +12,9 @@ class Calculator extends React.Component {
         { id: 2, username: 'andy123', owed: '' },
         { id: 3, username: 'bonnie', owed: '' },
         { id: 4, username: 'jamie456', owed: '' },
-        { id: 5, username: 'jeffrey', owed: '' },
+        { id: 5, username: 'dannyck', owed: '' },
       ],
-      selectedOptions: {
-        0: { id: 2, username: 'andy123', owed: '' },
-      },
+      selectedOptions: {},
       expenseDate: new Date().toISOString(),
       error: '',
       nameOfButtonClicked: 'exact',

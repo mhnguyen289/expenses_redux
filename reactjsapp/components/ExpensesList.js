@@ -6,7 +6,7 @@ const ExpensesList = ({ expenses, friend }) => (
   <div>
     <div className="header">
       <span className="featured default base">
-        All Expenses Between
+        Expenses
       </span>
     </div>
     <div className="content">

@@ -3,9 +3,6 @@ import { Link } from 'react-router';
 
 const FriendsList = ({ friends, handleClick }) => (
   <nav className="navigation">
-    <span className="settle-up action-button">
-      Settle Up
-    </span>
     <ol>
       {friends.map(friend =>
         <li key={friend.id}>

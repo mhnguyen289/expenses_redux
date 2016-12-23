@@ -125,7 +125,7 @@ class ExpenseForm extends React.Component {
       <div className="date-picker-container">
         <ExpenseDatePicker
           value={expenseDate}
-          onChange={handleDateChange}
+          handleDateChange={handleDateChange}
         />
       </div>
     );
@@ -166,7 +166,8 @@ class ExpenseForm extends React.Component {
     return (
       <div className="add container">
         <div className="add-friends">
-          <header>With you and:</header>
+          {this.renderDatePicker(expenseDate, handleDateChange)}
+          <p className="header">With you and:</p>
           <Options
             list={list}
             selectedOptions={selectedOptions}
@@ -181,7 +182,6 @@ class ExpenseForm extends React.Component {
             <div className="body">
               {this.renderSplitOptionsButtons(handleClick, nameOfButtonClicked)}
               {this.renderSubview(splitProps)}
-              {this.renderDatePicker(expenseDate, handleDateChange)}
               {this.renderFooter(handleSave)}
             </div>
           </div>
