@@ -14,7 +14,7 @@ class Calculator extends React.Component {
         { id: 4, username: 'jamie456', owed: '' },
         { id: 5, username: 'jeffrey', owed: '' },
       ],
-      selectedOptions: { // look up table
+      selectedOptions: {
         // 0: { id: 2, username: 'andy123', owed: '' },
       },
       expenseDate: new Date().toISOString(),
@@ -27,7 +27,7 @@ class Calculator extends React.Component {
         percent: options.SPLIT_BY_PERCENT,
       },
       expense: {
-        friends: [ // array of objects
+        friends: [
           // { id: 2, username: 'andy123', owed: '' },
         ],
         owed: '0.00',
@@ -40,7 +40,6 @@ class Calculator extends React.Component {
 
     this.handleRemoveToken = this.handleRemoveToken.bind(this);
     this.handleAddToken = this.handleAddToken.bind(this);
-
     this.handleSplitButtonClick = this.handleSplitButtonClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
@@ -253,16 +252,17 @@ class Calculator extends React.Component {
     const selectedIndex = e.target.name;
     const selectedOptions = this.state.selectedOptions;
     selectedOptions[selectedIndex] = list[selectedIndex];
-
-    console.log(`clicked on option ${selectedIndex}`);
-    console.log(`clicked on option ${selectedOptions[selectedIndex].username}`);
-
+    const friendToSplitExpenseWith = selectedOptions[selectedIndex];
     const expense = this.state.expense;
-    expense.friends = [
-      ...expense.friends,
-      list[selectedIndex],
-    ];
-
+    const exists = expense.friends.some(
+      friend => friend.id == friendToSplitExpenseWith.id
+    );
+    if (!exists) {
+      expense.friends = [
+        ...expense.friends,
+        list[selectedIndex],
+      ];
+    }
     this.setState({ selectedOptions, expense });
   }
 
