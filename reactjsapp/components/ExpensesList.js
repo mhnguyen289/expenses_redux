@@ -4,13 +4,44 @@ import { connect } from 'react-redux';
 
 class ExpensesList extends React.Component {
 
-  renderAllExpenses(expenses) {
+  renderAllExpensesAndDebts(expenses, debts) {
     return (
       <div>
         <div className="header">
           <span className="featured default base">
             All Expenses
           </span>
+        </div>
+        <div className="content">
+          <ul className="list">
+            {debts.map(d =>
+              <li key={d.id}>
+                <div className="list-item">
+                  <div className="expense-details">
+                    <span className="expense-title featured default base">
+                      {d.title}
+                    </span>
+                    <div className="paid">
+                      <span className="who-paid secondary-text">
+                        {d.paid_by_username} paid
+                      </span>
+                      <span className="paid-amount">
+                        ${d.expense_amount}
+                      </span>
+                    </div>
+                    <div className="owed">
+                      <span className="who-owed secondary-text">
+                        you owe
+                      </span>
+                      <span className="owed-amount">
+                        ${d.debt_amount}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            )}
+          </ul>
         </div>
         <div className="content">
           <ul className="list">
@@ -31,10 +62,10 @@ class ExpensesList extends React.Component {
                     </div>
                     <div className="owed">
                       <span className="who-owed secondary-text">
-                        total lent
+                        you lent
                       </span>
-                      <span className="owed-amount">
-                        {e.lent}
+                      <span className="">
+                        ${e.lent}
                       </span>
                     </div>
                   </div>
@@ -113,14 +144,14 @@ class ExpensesList extends React.Component {
   }
 
   render() {
-    const { selectedId, expenses, friend } = this.props;
+    const { selectedId, friend, expenses, debts } = this.props;
     return (
       <div>
         {selectedId && selectedId.length > 0
           ?
             this.renderExpensesBetween(expenses, friend)
           :
-            this.renderAllExpenses(expenses)
+            this.renderAllExpensesAndDebts(expenses, debts)
         }
       </div>
     );
@@ -128,6 +159,7 @@ class ExpensesList extends React.Component {
 }
 
 ExpensesList.propTypes = {
+  debts: PropTypes.arrayOf(PropTypes.object),
   expenses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,

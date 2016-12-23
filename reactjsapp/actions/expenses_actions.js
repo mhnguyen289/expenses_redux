@@ -21,8 +21,34 @@ const addExpenseError = (error) => ({
   error,
 });
 
+const receiveDebts = (response) => ({
+  type: types.RECEIVE_DEBTS,
+  response,
+});
+
+const receiveDebtsError = (error) => ({
+  type: 'RECEIVE_DEBTS_ERROR',
+  error,
+});
+
+export const fetchDebts = () => (dispatch) => {
+  const url = 'api/owed_by';
+  const headers = { AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}` };
+  $.ajax({
+    url,
+    method: 'GET',
+    headers,
+  })
+  .done(response => {
+    dispatch(receiveDebts(response));
+  })
+  .fail(error => {
+    dispatch(receiveDebtsError(error));
+  });
+};
+
 export const fetchAllExpenses = () => (dispatch) => {
-  const url = 'api/all_expenses';
+  const url = 'api/lent_by';
   const headers = { AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}` };
   $.ajax({
     url,
@@ -38,7 +64,7 @@ export const fetchAllExpenses = () => (dispatch) => {
 };
 
 export const fetchExpensesWith = (friendId) => (dispatch) => {
-  const url = `api/expenses_of_current_user_with/${friendId}`;
+  const url = `api/expenses_with/${friendId}`;
   const headers = { AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}` };
   $.ajax({
     url,

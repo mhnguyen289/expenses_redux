@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchAllExpenses, fetchExpensesWith } from '../actions/expenses_actions';
+import { fetchAllExpenses, fetchExpensesWith, fetchDebts } from '../actions/expenses_actions';
 import { fetchFriendsList } from '../actions/friends_actions';
-import { getAllFriends, getAllExpenses } from '../reducers';
+import { getAllFriends, getAllExpenses, getAllDebts } from '../reducers';
 import FriendsList from '../components/FriendsList';
 import ExpensesList from '../components/ExpensesList';
 
@@ -10,6 +10,7 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.props.fetchFriendsList();
     this.props.fetchAllExpenses();
+    this.props.fetchDebts();
   }
 
   componentDidUpdate(prevProps) {
@@ -20,11 +21,12 @@ class Dashboard extends React.Component {
       this.props.fetchExpensesWith(selectedId);
     } else if (!selectedIdExists && selectedIdChanged) {
       this.props.fetchAllExpenses();
+      this.props.fetchDebts();
     }
   }
 
   render() {
-    const { friends, expenses, selectedId } = this.props;
+    const { friends, expenses, selectedId, debts } = this.props;
     return (
       <div className="dashboard container">
         <div className="friends-list">
@@ -39,6 +41,7 @@ class Dashboard extends React.Component {
             <ExpensesList
               expenses={expenses}
               selectedId={selectedId}
+              debts={debts}
             />
           }
         </div>
@@ -48,7 +51,8 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  debts: PropTypes.arrayOf(PropTypes.object),
+  expenses: PropTypes.arrayOf(PropTypes.object),
   friends: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
@@ -57,16 +61,18 @@ Dashboard.propTypes = {
   fetchFriendsList: PropTypes.func.isRequired,
   fetchExpensesWith: PropTypes.func.isRequired,
   fetchAllExpenses: PropTypes.func.isRequired,
+  fetchDebts: PropTypes.func.isRequired,
   selectedId: PropTypes.string,
 };
 
 const mapStateToProps = (state, props) => ({
   expenses: getAllExpenses(state),
+  debts: getAllDebts(state),
   friends: getAllFriends(state),
   selectedId: props.params.selectedId,
 });
 
 export default connect(
   mapStateToProps,
-  { fetchAllExpenses, fetchFriendsList, fetchExpensesWith }
+  { fetchDebts, fetchAllExpenses, fetchFriendsList, fetchExpensesWith }
 )(Dashboard);

@@ -3,12 +3,14 @@ import authenticated from './authenticated';
 import message from './message';
 import expenses, * as fromExpenses from './expenses';
 import friends, * as fromFriends from './friends';
+import debts, * as fromDebts from './debts';
 
 const rootReducer = combineReducers({
   authenticated,
   message,
   friends,
   expenses,
+  debts,
 });
 
 export default rootReducer;
@@ -21,3 +23,6 @@ export const getAllFriends = state =>
 
 export const getFriend = (state, friendId) =>
   fromFriends.getFriend(state.friends, friendId);
+
+export const getAllDebts = (state) =>
+  fromDebts.getAllDebts(state.debts);

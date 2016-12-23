@@ -7,8 +7,9 @@ Rails.application.routes.draw do
     resources :expenses, only: [:create]
     get 'dashboard', to: 'users#show'
     post 'login', to: 'sessions#create'
-    get 'expenses_of_current_user_with/:friend_id', to: 'expenses#expenses_with'
-    get 'all_expenses', to: 'expenses#all_expenses'
-    get 'friends_of_current_user', to: 'friends#friends_of_current_user'
+    get 'expenses_with/:friend_id', to: 'expenses#expenses_with'
+    get 'lent_by', to: 'expenses#lent_by'
+    get 'owed_by', to: 'expenses#owed_by'
+    get 'friends_of', to: 'friends#friends_of'
   end
 end

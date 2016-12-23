@@ -11,7 +11,7 @@ export const receiveFriendsError = (error) => ({
 });
 
 export const fetchFriendsList = () => (dispatch) => {
-  const url = 'api/friends_of_current_user';
+  const url = 'api/friends_of';
   const headers = { AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}` };
   $.ajax({
     url,
