@@ -27,9 +27,7 @@ class Calculator extends React.Component {
         percent: options.SPLIT_BY_PERCENT,
       },
       expense: {
-        friends: [
-          // { id: 2, username: 'andy123', owed: '' },
-        ],
+        friends: [],
         owed: '0.00',
         remaining: '0.00',
         title: '',
@@ -267,6 +265,7 @@ class Calculator extends React.Component {
   }
 
   validForm() {
+    const expenseDate = this.state.expenseDate;
     const expense = this.state.expense;
     let error = this.state.error;
     let valid = true;
@@ -276,9 +275,11 @@ class Calculator extends React.Component {
     } else if (amount <= 0) {
       error = 'Enter an amount.';
     } else if (expense.friends.length <= 0) {
-      error = 'Enter a friend.';
+      error = 'Select a friend.';
     } else if (expense.remaining > 0) {
       error = 'Total remaining should be zero.';
+    } else if (expenseDate.length <= 0) {
+      error = 'Select an expense date.';
     } else {
       error = '';
     }

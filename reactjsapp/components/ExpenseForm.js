@@ -7,7 +7,7 @@ import ExpenseDatePicker from './ExpenseDatePicker';
 import Options from './Options';
 
 class ExpenseForm extends React.Component {
-  renderAddBillDetails(title, amount, handleChange, expenseDate, handleDateChange) {
+  renderAddBillDetails(title, amount, handleChange) {
     return (
       <div className="add-notes">
         <header>Add a Bill</header>
@@ -32,12 +32,6 @@ class ExpenseForm extends React.Component {
                 onChange={handleChange}
               />
             </div>
-          </div>
-          <div className="date-picker-container">
-            <ExpenseDatePicker
-              value={expenseDate}
-              onChange={handleDateChange}
-            />
           </div>
         </div>
       </div>
@@ -126,12 +120,25 @@ class ExpenseForm extends React.Component {
     );
   }
 
-  renderChooseSplitAndSave(handleClick, handleSave, splitProps, nameOfButtonClicked) {
+  renderDatePicker(expenseDate, handleDateChange) {
+    return (
+      <div className="date-picker-container">
+        <ExpenseDatePicker
+          value={expenseDate}
+          onChange={handleDateChange}
+        />
+      </div>
+    );
+  }
+
+  renderChooseSplitAndSave(handleClick, handleSave, splitProps,
+    nameOfButtonClicked, expenseDate, handleDateChange) {
     return (
       <div className="subview active" id="choose-split">
         <div className="body">
           {this.renderSplitOptionsButtons(handleClick, nameOfButtonClicked)}
           {this.renderSubview(splitProps)}
+          {this.renderDatePicker(expenseDate, handleDateChange)}
           {this.renderFooter(handleSave)}
         </div>
       </div>
@@ -181,6 +188,7 @@ class ExpenseForm extends React.Component {
     return (
       <div className="add container">
         <div className="add-friends">
+          <header>With you and:</header>
           <Options
             list={list}
             selectedOptions={selectedOptions}
@@ -190,12 +198,9 @@ class ExpenseForm extends React.Component {
         </div>
         <div className="add-bill">
           {this.renderErrorMessage(error)}
-          {this.renderAddBillDetails(
-            title, amount, handleChange,
-            expenseDate, handleDateChange)}
-          {this.renderChooseSplitAndSave(
-            handleClick, handleSave, splitProps,
-            nameOfButtonClicked)}
+          {this.renderAddBillDetails(title, amount, handleChange)}
+          {this.renderChooseSplitAndSave(handleClick, handleSave,
+            splitProps, nameOfButtonClicked)}
         </div>
       </div>
     );
