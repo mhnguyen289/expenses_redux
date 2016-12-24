@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 class ExpensesList extends React.Component {
-
   renderAllExpensesAndDebts(expenses, debts) {
     return (
       <div>
