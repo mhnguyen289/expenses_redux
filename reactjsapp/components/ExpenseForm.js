@@ -166,7 +166,6 @@ class ExpenseForm extends React.Component {
     return (
       <div className="add container">
         <div className="add-friends">
-          {this.renderDatePicker(expenseDate, handleDateChange)}
           <p className="header">With you and:</p>
           <Options
             list={list}
@@ -182,9 +181,14 @@ class ExpenseForm extends React.Component {
             <div className="body">
               {this.renderSplitOptionsButtons(handleClick, nameOfButtonClicked)}
               {this.renderSubview(splitProps)}
-              {this.renderFooter(handleSave)}
             </div>
           </div>
+          <div className="subview">
+            <div className="body">
+              {this.renderDatePicker(expenseDate, handleDateChange)}
+            </div>
+          </div>
+          {this.renderFooter(handleSave)}
         </div>
       </div>
     );

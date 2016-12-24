@@ -283,8 +283,7 @@ ul, ol {
   flex: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  padding: 30px;
+  align-items: flex-start;
 }
 
 /* add notes to bill
@@ -297,12 +296,23 @@ ul, ol {
   flex: 1;
 }
 
-.add-notes, .subview {
+.add-notes,
+.subview {
   background: #fff;
   width: 350px;
   overflow: hidden;
   padding: 20px;
+}
+
+.add-notes {
+  margin: 0;
+}
+
+.subview {
   margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
 }
 
 header {
@@ -312,6 +322,15 @@ header {
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+footer {
+  letter-spacing: 3px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  margin-top: 10px;
+  padding: 20px;
+  width: 350px;
 }
 
 .with-field {
@@ -411,14 +430,6 @@ input.cost {
 .human-summary .details {
   margin: 3px 0;
   font-size: 14px;
-}
-
-footer {
-  letter-spacing: 3px;
-  border-top: 1px solid #eee;
-  text-align: center;
-  margin-top: 10px;
-  padding-top: 20px;
 }
 
 /* add bill footer buttons
@@ -700,14 +711,13 @@ h3 {
 }
 
 .date-picker-container {
-  border-top: 1px solid #eee;
-  margin-top: 10px;
-  padding-top: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 label.control-label {
   font-family: 'Lato','Helvetica Neue',Helvetica,Arial,sans-serif;
-  color: #999;
+  color: #000;
 }
 
 /* token

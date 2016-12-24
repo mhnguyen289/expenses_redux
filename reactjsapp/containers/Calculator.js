@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import ExpenseForm from '../components/ExpenseForm';
 import { addExpense } from '../actions/expenses_actions';
 import * as options from '../constants/split_options';
+import { getExpensesCount } from '../reducers';
 
 class Calculator extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       list: [
         { id: 2, username: 'andy123', owed: '' },
@@ -40,6 +41,12 @@ class Calculator extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+  }
+
+  componentDidUpdate() {
+    if (this.props.saved) {
+      this.context.router.push('/dashboard');
+    }
   }
 
   getInitialRemaining(selectedSplitOption, expense) {
@@ -338,12 +345,16 @@ class Calculator extends React.Component {
   }
 }
 
+Calculator.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
+
 Calculator.propTypes = {
   addExpense: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  saved: state.saved,
 });
 
 export default connect(

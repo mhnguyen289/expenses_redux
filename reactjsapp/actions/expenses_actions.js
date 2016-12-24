@@ -11,19 +11,19 @@ const receiveExpenses = (response) => ({
   response,
 });
 
-const receiveExpensesError = (error) => ({
-  type: 'RECEIVE_EXPENSES_ERROR',
-  error,
-});
-
-const addExpenseError = (error) => ({
-  type: 'ADD_EXPENSE_ERROR',
-  error,
-});
-
 const receiveDebts = (response) => ({
   type: types.RECEIVE_DEBTS,
   response,
+});
+
+const addExpenseError = (error) => ({
+  type: types.ERROR_ADD_EXPENSE,
+  error,
+});
+
+const receiveExpensesError = (error) => ({
+  type: 'RECEIVE_EXPENSES_ERROR',
+  error,
 });
 
 const receiveDebtsError = (error) => ({
