@@ -73,20 +73,21 @@ two_and_five.update(action_id: accepted.id)
 three_and_five = Relationship.find_by(a_user_id: three.id, b_user_id: five.id)
 three_and_five.update(action_id: accepted.id)
 
+expense_date = Date.strptime('12/21/2016', '%m/%d/%Y') #Date.today
 
 Expense.transaction do
-  meals = Expense.create!(title: "Meals", expense_amount: 350, paid_by_id: one.id)
+  meals = Expense.create!(expense_date: expense_date, title: "Meals", expense_amount: 350, paid_by_id: one.id)
   meal_with_three = Debt.create!(expense_id: meals.id, debt_amount: 200, borrower_id: three.id)
 end
 
 Expense.transaction do
-  rent = Expense.create!(title: "Rent", expense_amount: 2300, paid_by_id: one.id)
+  rent = Expense.create!(expense_date: expense_date, title: "Rent", expense_amount: 2300, paid_by_id: one.id)
   rent_with_two = Debt.create!(expense_id: rent.id, debt_amount: 600, borrower_id: two.id)
   rent_with_three = Debt.create!(expense_id: rent.id, debt_amount: 700, borrower_id: three.id)
 end
 
 Expense.transaction do
-  summer_trip = Expense.create!(title: "Summer Trip", expense_amount: 1650, paid_by_id: five.id)
+  summer_trip = Expense.create!(expense_date: expense_date, title: "Winter Trip", expense_amount: 1650, paid_by_id: five.id)
   trip_with_one = Debt.create!(expense_id: summer_trip.id, debt_amount: 300, borrower_id: one.id)
   trip_with_two = Debt.create!(expense_id: summer_trip.id, debt_amount: 400, borrower_id: two.id)
   trip_with_three = Debt.create!(expense_id: summer_trip.id, debt_amount: 500, borrower_id: three.id)
