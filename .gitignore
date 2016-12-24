@@ -24,4 +24,4 @@ bundle.js
 bundle.js.map
 .DS_Store
 .storybook
-reactjsapp/components/boards
+# reactjsapp/components/boards

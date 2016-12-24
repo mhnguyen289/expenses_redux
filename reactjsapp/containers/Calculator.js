@@ -228,6 +228,7 @@ class Calculator extends React.Component {
 
   handleDateChange(expenseDate, formattedValue) {
     console.log(formattedValue);
+    console.log(expenseDate);
     this.setState({
       expenseDate,
       formattedValue,

@@ -124,7 +124,7 @@ class ExpenseForm extends React.Component {
     return (
       <div className="date-picker-container">
         <ExpenseDatePicker
-          value={expenseDate}
+          expenseDate={expenseDate}
           handleDateChange={handleDateChange}
         />
       </div>
