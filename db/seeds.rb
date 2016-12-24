@@ -3,9 +3,9 @@ puts "usage: [$rails db:purge db:migrate db:seed]"
 puts "demo users"
 one = User.create!(username: "DemoUser", email: "DemoUserOne@example.com", password: "DemoUser")
 two = User.create!(username: "andy123", email: "DemoUserTwo@example.com",password: "DemoUser2Here")
-three = User.create!(username: "bonnie", email: "DemoUserThree@example.com",password: "DemoUser3Here")
-four = User.create!(username: "jamie45", email: "DemoUserFour@example.com",password: "DemoUser4Here")
-five = User.create!(username: "dannyck", email: "DemoUserFive@example.com",password: "DemoUser5Here")
+three = User.create!(username: "bonnie45", email: "DemoUserThree@example.com",password: "DemoUser3Here")
+four = User.create!(username: "jamie678", email: "DemoUserFour@example.com",password: "DemoUser4Here")
+five = User.create!(username: "dannyck91", email: "DemoUserFive@example.com",password: "DemoUser5Here")
 
 puts "actions"
 pending = Action.create!(name: "PENDING")

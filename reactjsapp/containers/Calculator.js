@@ -2,20 +2,23 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from '../components/ExpenseForm';
 import { addExpense } from '../actions/expenses_actions';
+import { fetchFriendsList } from '../actions/friends_actions';
+import { getAllFriends } from '../reducers';
 import * as options from '../constants/split_options';
 
 class Calculator extends React.Component {
   constructor(props, context) {
     super(props, context);
+
     const you = { id: 999, username: 'you', owed: '' };
+    const list = this.props.friends.reduce((acc, item) => {
+      acc.push({ id: item.id, username: item.username, owed: '' });
+      return acc;
+    }, []);
+
     this.state = {
-      you: you,
-      list: [
-        { id: 2, username: 'andy123', owed: '' },
-        { id: 3, username: 'bonnie', owed: '' },
-        { id: 4, username: 'jamie456', owed: '' },
-        { id: 5, username: 'dannyck', owed: '' },
-      ],
+      you,
+      list,
       selectedOptions: {},
       expenseDate: new Date().toISOString(),
       error: '',
@@ -42,6 +45,10 @@ class Calculator extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchFriendsList();
   }
 
   componentDidUpdate() {
@@ -352,15 +359,18 @@ Calculator.contextTypes = {
 };
 
 Calculator.propTypes = {
+  fetchFriendsList: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
   saved: PropTypes.bool.isRequired,
+  friends: PropTypes.arrayOf(PropTypes.object),
 };
 
 const mapStateToProps = (state) => ({
   saved: state.saved,
+  friends: getAllFriends(state),
 });
 
 export default connect(
   mapStateToProps,
-  { addExpense }
+  { addExpense, fetchFriendsList }
 )(Calculator);
