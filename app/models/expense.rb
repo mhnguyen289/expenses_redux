@@ -34,7 +34,8 @@ class Expense < ApplicationRecord
     INNER JOIN expenses e
     ON d.expense_id = e.id
     AND e.paid_by_id = '#{user_id}'
-    GROUP BY e.id;"
+    GROUP BY e.id
+    ORDER BY e.expense_date;"
   end
 
   def self.sql_expenses_and_borrowed(user_id)
@@ -42,7 +43,8 @@ class Expense < ApplicationRecord
     FROM debts d
     INNER JOIN expenses e
     ON d.expense_id = e.id
-    AND d.borrower_id = '#{user_id}';"
+    AND d.borrower_id = '#{user_id}'
+    ORDER BY e.expense_date;"
   end
 
   def self.sql_expense_and_debts_between(user_id, friend_id)
@@ -51,6 +53,7 @@ class Expense < ApplicationRecord
     INNER JOIN expenses e
     ON d.expense_id = e.id
     WHERE (e.paid_by_id = '#{user_id}' AND d.borrower_id = '#{friend_id}')
-    OR (e.paid_by_id = '#{friend_id}' AND d.borrower_id = '#{user_id}');"
+    OR (e.paid_by_id = '#{friend_id}' AND d.borrower_id = '#{user_id}')
+    ORDER BY e.expense_date;"
   end
 end

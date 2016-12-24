@@ -79,7 +79,13 @@ export const fetchExpensesWith = (friendId) => (dispatch) => {
   });
 };
 
-export const addExpense = ({ title, amount, ids, debts }) => (dispatch) => {
+export const addExpense = ({
+  title,
+  amount,
+  formattedExpenseDate,
+  ids,
+  debts,
+}) => (dispatch) => {
   const url = 'api/expenses';
   const headers = {
     AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}`,
@@ -88,7 +94,7 @@ export const addExpense = ({ title, amount, ids, debts }) => (dispatch) => {
     url,
     method: 'POST',
     dataType: 'json',
-    data: { expense: { title, amount, ids, debts } },
+    data: { expense: { title, amount, formattedExpenseDate, ids, debts } },
     headers,
   })
   .done(response => {

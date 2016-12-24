@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20161214212011) do
     t.decimal  "expense_amount", precision: 8, scale: 2, null: false
     t.string   "title",                                  null: false
     t.integer  "paid_by_id",                             null: false
-    t.datetime "expense_date"                            null: false
+    t.datetime "expense_date"
   end
 
   create_table "relationships", force: :cascade do |t|

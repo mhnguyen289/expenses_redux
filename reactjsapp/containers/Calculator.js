@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ExpenseForm from '../components/ExpenseForm';
 import { addExpense } from '../actions/expenses_actions';
 import * as options from '../constants/split_options';
-import { getExpensesCount } from '../reducers';
 
 class Calculator extends React.Component {
   constructor(props, context) {
@@ -17,6 +16,7 @@ class Calculator extends React.Component {
       ],
       selectedOptions: {},
       expenseDate: new Date().toISOString(),
+      formattedExpenseDate: '',
       error: '',
       nameOfButtonClicked: 'exact',
       selectedSplitOption: options.SPLIT_EXACT_AMOUNT,
@@ -228,10 +228,9 @@ class Calculator extends React.Component {
 
   handleDateChange(expenseDate, formattedValue) {
     console.log(formattedValue);
-    console.log(expenseDate);
     this.setState({
       expenseDate,
-      formattedValue,
+      formattedExpenseDate: formattedValue,
     });
   }
 
@@ -302,9 +301,11 @@ class Calculator extends React.Component {
       return;
     }
     const { title, amount, split } = this.state.expense;
+    const formattedExpenseDate = this.state.formattedExpenseDate;
     const ids = Object.keys(split);
     const debts = Object.values(split);
-    const expense = { title, amount, ids, debts };
+    console.log(`add expense date: ${formattedExpenseDate}`);
+    const expense = { title, amount, formattedExpenseDate, ids, debts };
     this.logSplit();
     this.props.addExpense(expense);
   }
@@ -352,6 +353,7 @@ Calculator.contextTypes = {
 
 Calculator.propTypes = {
   addExpense: PropTypes.func.isRequired,
+  saved: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
