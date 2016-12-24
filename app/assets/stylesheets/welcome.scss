@@ -302,6 +302,7 @@ ul, ol {
   width: 350px;
   overflow: hidden;
   padding: 20px;
+  border-bottom: 1px solid #5cc5a7;
 }
 
 .add-notes {
@@ -309,7 +310,6 @@ ul, ol {
 }
 
 .subview {
-  margin: 30px 0;
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -320,7 +320,6 @@ header {
   padding: 10px;
   border-bottom: 1px solid #f6f6f6;
   font-size: 18px;
-  font-weight: bold;
   text-transform: uppercase;
 }
 
@@ -357,7 +356,6 @@ footer {
   border-bottom: 1px dashed #ccc !important;
   color: #666;
   font-size: 24px;
-  font-weight: 600;
 }
 
 .main-fields input {
@@ -371,7 +369,6 @@ footer {
   background-color: #fff;
   color: #666;
   font-size: 18px;
-  font-weight: 400;
 }
 
 div.cost-container {
@@ -394,7 +391,6 @@ span.currency-code {
 
 input.cost {
   font-size: 30px;
-  font-weight: 600;
   height: 40px;
   line-height: 40px;
   width: 120px;
