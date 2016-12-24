@@ -20,7 +20,7 @@ class Api::ExpensesController < ApplicationController
     debts = expense_params[:debts]
     title = expense_params[:title]
     expense_amount = expense_params[:amount]
-    expense_date = Date.strptime(expense_params[:formattedExpenseDate], '%m/%d/%Y')
+    expense_date = Date.strptime(expense_params[:expenseDate], '%Y-%m-%d')
     expense = Expense.new(
       expense_date: expense_date,
       title: title,
@@ -49,6 +49,6 @@ class Api::ExpensesController < ApplicationController
   private
 
   def expense_params
-    params.require(:expense).permit(:title, :amount, :formattedExpenseDate, ids: [], debts: [])
+    params.require(:expense).permit(:title, :amount, :expenseDate, ids: [], debts: [])
   end
 end

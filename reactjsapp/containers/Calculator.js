@@ -7,7 +7,9 @@ import * as options from '../constants/split_options';
 class Calculator extends React.Component {
   constructor(props, context) {
     super(props, context);
+    const you = { id: 999, username: 'you', owed: '' };
     this.state = {
+      you: you,
       list: [
         { id: 2, username: 'andy123', owed: '' },
         { id: 3, username: 'bonnie', owed: '' },
@@ -16,7 +18,6 @@ class Calculator extends React.Component {
       ],
       selectedOptions: {},
       expenseDate: new Date().toISOString(),
-      formattedExpenseDate: '',
       error: '',
       nameOfButtonClicked: 'exact',
       selectedSplitOption: options.SPLIT_EXACT_AMOUNT,
@@ -26,7 +27,7 @@ class Calculator extends React.Component {
         percent: options.SPLIT_BY_PERCENT,
       },
       expense: {
-        friends: [],
+        friends: [you],
         owed: '0.00',
         remaining: '0.00',
         title: '',
@@ -230,7 +231,6 @@ class Calculator extends React.Component {
     console.log(formattedValue);
     this.setState({
       expenseDate,
-      formattedExpenseDate: formattedValue,
     });
   }
 
@@ -296,17 +296,17 @@ class Calculator extends React.Component {
   }
 
   handleSave() {
-    console.log(this.state);
     if (!this.validForm()) {
       return;
     }
     const { title, amount, split } = this.state.expense;
-    const formattedExpenseDate = this.state.formattedExpenseDate;
+    const expenseDate = this.state.expenseDate;
+    console.log(expenseDate);
+
+    delete split[this.state.you.id];
     const ids = Object.keys(split);
     const debts = Object.values(split);
-    console.log(`add expense date: ${formattedExpenseDate}`);
-    const expense = { title, amount, formattedExpenseDate, ids, debts };
-    this.logSplit();
+    const expense = { title, amount, expenseDate, ids, debts };
     this.props.addExpense(expense);
   }
 

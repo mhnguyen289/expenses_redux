@@ -82,7 +82,7 @@ export const fetchExpensesWith = (friendId) => (dispatch) => {
 export const addExpense = ({
   title,
   amount,
-  formattedExpenseDate,
+  expenseDate,
   ids,
   debts,
 }) => (dispatch) => {
@@ -94,7 +94,7 @@ export const addExpense = ({
     url,
     method: 'POST',
     dataType: 'json',
-    data: { expense: { title, amount, formattedExpenseDate, ids, debts } },
+    data: { expense: { title, amount, expenseDate, ids, debts } },
     headers,
   })
   .done(response => {
