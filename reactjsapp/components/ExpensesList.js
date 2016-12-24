@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { getFriend } from '../reducers';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 class ExpensesList extends React.Component {
 
@@ -20,6 +21,9 @@ class ExpensesList extends React.Component {
                   <div className="expense-details">
                     <span className="expense-title featured default base">
                       {d.title}
+                      <div className="secondary-text">
+                        {moment(d.expense_date).format('LL')}
+                      </div>
                     </span>
                     <div className="paid">
                       <span className="who-paid secondary-text">
@@ -51,6 +55,9 @@ class ExpensesList extends React.Component {
                   <div className="expense-details">
                     <span className="expense-title featured default base">
                       {e.title}
+                      <div className="secondary-text">
+                        {moment(e.expense_date).format('LL')}
+                      </div>
                     </span>
                     <div className="paid">
                       <span className="who-paid secondary-text">
@@ -114,6 +121,9 @@ class ExpensesList extends React.Component {
                       <div className="expense-details">
                         <span className="expense-title featured default base">
                           {e.title}
+                          <div className="secondary-text">
+                            {moment(e.expense_date).format('LL')}
+                          </div>
                         </span>
                         <div className="paid">
                           <span className="who-paid secondary-text">
