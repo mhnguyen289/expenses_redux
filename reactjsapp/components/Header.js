@@ -46,8 +46,7 @@ class Header extends React.Component {
     const { authenticated } = this.props;
     return (
       <div className="content">
-        {this.renderLogo('/')}
-        {authenticated && this.renderLogo('/dashboard')}
+        {authenticated ? this.renderLogo('/dashboard') : this.renderLogo('/')}
         {authenticated ? this.renderAccount() : this.renderAuth()}
       </div>
     );
