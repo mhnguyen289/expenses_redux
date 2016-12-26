@@ -1,15 +1,18 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route, hashHistory, Redirect } from 'react-router';
+import { Router, IndexRoute, Route, hashHistory, Redirect } from 'react-router';
 import App from './App';
 import Dashboard from './Dashboard';
 import Calculator from './Calculator';
 import Boards from '../components/boards';
+import Session from './Session';
 
 const Root = ({ store }) => (
   <Provider store={store} >
     <Router history={hashHistory}>
       <Route path="/" component={App}>
+        <Route path="/signup" component={Session} />
+        <Route path="/login" component={Session} />
         <Redirect from="/logout" to="/" />
         <Route path="/calculator" component={Calculator} />
         <Route path="/dashboard/(:selectedId)" component={Dashboard} />

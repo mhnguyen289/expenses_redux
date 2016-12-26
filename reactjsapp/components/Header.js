@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { IndexLink, Link } from 'react-router';
-import { demo, logout } from '../actions/session_actions';
+import { logout } from '../actions/session_actions';
 
 class Header extends React.Component {
   renderLogo() {
@@ -36,12 +36,8 @@ class Header extends React.Component {
   renderAuth() {
     return (
       <div className="account">
-        <button
-          className="demo-button action-button"
-          onClick={this.props.demo}
-        >
-          Demo Login
-        </button>
+        <Link to="/login" className="auth-link">Login</Link>
+        <Link to="/signup" className="auth-link">Sign Up</Link>
       </div>
     );
   }
@@ -65,7 +61,6 @@ class Header extends React.Component {
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
-  demo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -74,5 +69,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { demo, logout }
+  { logout }
 )(Header);
