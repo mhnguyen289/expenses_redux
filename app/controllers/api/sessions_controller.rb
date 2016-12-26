@@ -12,7 +12,7 @@ class Api::SessionsController < ApplicationController
         user: {id: user.id, username: user.username}
       }
     else
-      render json: { invalid: "Invalid email/password combination" }
+      render json: {invalid: "Invalid email/password combination"}
     end
   end
 

@@ -3,9 +3,12 @@ class Api::UsersController < ApplicationController
   skip_before_action :authenticate_token, only: [:create, :invite]
 
   def invite
-    user = User.find_by(email: invite_params[:email])
+    email = invite_params[:email]
+    user = User.find_by(email: email)
     unless !!user
-      user = User.create!(email: invite_params[:email])
+      index = email.index('@') - 1
+      username = email[0..index]
+      user = User.create!(email: email, username: username)
     end
     relationship = Relationship.new(
       a_user_id: current_user.id,
@@ -13,9 +16,18 @@ class Api::UsersController < ApplicationController
     )
     if relationship.save
       # send email to user
-      render json: user
+      render json: { user: { id: user.id, username: user.username } }
     else
       render json: relationship.errors
+    end
+  end
+
+  def render_json(user)
+    if user.save jwt_user(user)
+      token = Token.jwt({ user: user.id })
+      { jwt: token , user: user }
+    else
+      user.errors
     end
   end
 
@@ -23,29 +35,17 @@ class Api::UsersController < ApplicationController
     user = User.find_by(email: user_params[:email]);
     if !!user
       if !!user.password_digest
-        render json: { unique: "Email already belongs to another account." }
+        render json: { unique: "Email is taken."}
       else
         user.password = user_params[:password]
-        if user.save
-          render json: {
-            jwt: Token.jwt({user: user.id}),
-            user: user
-          }
-        else
-          render json: user.errors
-        end
+        render json: render_json(user)
       end
     else
       user = User.new(user_params)
       if user.valid?
-        if user.save
-          render json: {
-            jwt: Token.jwt({user: user.id}),
-            user: user
-          }
-        else
-          render json: user.errors
-        end
+        render json: render_json(user)
+      else
+        render json: { invalid: "Invalid sign up input"}
       end
     end
   end

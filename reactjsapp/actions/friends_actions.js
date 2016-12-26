@@ -48,7 +48,7 @@ export const inviteToJoin = email => dispatch => {
     headers,
   })
   .done(response => {
-    dispatch(inviteSuccess(response));
+    dispatch(inviteSuccess(response.user));
   })
   .fail(error => {
     dispatch(inviteError(error));

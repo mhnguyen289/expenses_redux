@@ -29,6 +29,7 @@ class Relationship < ApplicationRecord
   def self.sql_friends_of(user_id)
     "SELECT r.a_user_id, r.b_user_id
     FROM relationships r
-    WHERE r.a_user_id = '#{user_id}' OR r.b_user_id = '#{user_id}';"
+    WHERE r.a_user_id = '#{user_id}'
+    OR r.b_user_id = '#{user_id}';"
   end
 end
