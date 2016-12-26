@@ -36,7 +36,7 @@ export const fetchFriendsList = () => (dispatch) => {
   });
 };
 
-export const invite = email => dispatch => {
+export const inviteToJoin = email => dispatch => {
   const url = 'api/invite';
   const headers = { AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}` };
   $.ajax({

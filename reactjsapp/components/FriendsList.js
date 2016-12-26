@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { inviteToJoin } from '../actions/friends_actions';
 
 class FriendsList extends React.Component {
 
@@ -23,6 +25,7 @@ class FriendsList extends React.Component {
 
   handleInvite() {
     const invite = this.state.invite;
+    this.props.inviteToJoin(invite.email);
     console.log(invite.email);
   }
 
@@ -73,6 +76,14 @@ class FriendsList extends React.Component {
 
 FriendsList.propTypes = {
   friends: PropTypes.array,
+  inviteToJoin: PropTypes.func.isRequired,
 };
 
-export default FriendsList;
+const mapStateToProps = () => ({
+
+});
+
+export default connect(
+  mapStateToProps,
+  { inviteToJoin }
+)(FriendsList);
