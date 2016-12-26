@@ -7,7 +7,10 @@ class Api::UsersController < ApplicationController
     unless !!user
       user = User.create!(email: invite_params[:email])
     end
-    relationship = Relationship.new(a_user_id: current_user.id, b_user_id: user.id)
+    relationship = Relationship.new(
+      a_user_id: current_user.id,
+      b_user_id: user.id
+    )
     if relationship.save
       # send email to user
       render json: user

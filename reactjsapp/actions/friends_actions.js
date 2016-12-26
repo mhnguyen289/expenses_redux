@@ -6,7 +6,8 @@ export const receiveFriends = (response) => ({
 });
 
 const inviteSuccess = response => ({
-  type: type.INVITE_SUCCESS,
+  type: types.INVITE_SUCCESS,
+  id: response.id,
   response,
 });
 
@@ -16,7 +17,7 @@ export const receiveFriendsError = (error) => ({
 });
 
 const inviteError = error => ({
-  type: "ERROR_INVITE",
+  type: 'ERROR_INVITE',
   error,
 });
 

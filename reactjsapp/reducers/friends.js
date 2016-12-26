@@ -3,6 +3,11 @@ import * as types from '../constants/action_types';
 
 const byId = (state = {}, action) => {
   switch (action.type) {
+    case types.INVITE_SUCCESS:
+      return {
+        ...state,
+        [action.id]: action.response,
+      };
     case types.RECEIVE_FRIENDS:
       const nextState = { ...state };
       action.response.forEach(friend => {
@@ -16,6 +21,11 @@ const byId = (state = {}, action) => {
 
 const allIds = (state = [], action) => {
   switch (action.type) {
+    case types.INVITE_SUCCESS:
+      return [
+        ...state,
+        action.response.id,
+      ];
     case types.RECEIVE_FRIENDS:
       return action.response.map(friend => friend.id);
     default:
