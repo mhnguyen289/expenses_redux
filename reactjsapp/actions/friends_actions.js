@@ -43,7 +43,7 @@ export const inviteToJoin = email => dispatch => {
     url,
     method: 'POST',
     dataType: 'json',
-    data: { invite: email },
+    data: { invite: { email } },
     headers,
   })
   .done(response => {

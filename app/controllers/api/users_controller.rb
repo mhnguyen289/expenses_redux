@@ -31,6 +31,7 @@ class Api::UsersController < ApplicationController
         else
           render json: user.errors
         end
+      end
     else
       user = User.new(user_params)
       if user.valid?
