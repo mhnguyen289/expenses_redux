@@ -142,7 +142,7 @@ ul, ol {
   text-transform: uppercase;
 }
 
-.demo-button {
+.new-demo-button {
   color: #999;
   fill: #999;
   background: #fff;
@@ -772,4 +772,188 @@ a.active {
   color: #5cc5a7;
   background: transparent;
   font-weight: 600;
+}
+
+/* post login or sign up
+  ========================================================================== */
+
+.post-section {
+ margin-top: 30px;
+ padding: 0 15px;
+ box-sizing: border-box;
+ min-width: 320px;
+ max-width: 1100px;
+}
+
+form {
+ display: block;
+ margin-top: 0em;
+}
+
+.padded-box {
+ margin: 0 0 20px;
+}
+
+.post-header {
+ align-items: baseline;
+ border-bottom: 1px solid #f2f2f2;
+ box-sizing: border-box;
+ display: flex;
+ justify-content: space-between;
+ padding: 15px 0;
+}
+
+.post-title {
+ font-size: 20px;
+ font-weight: 200;
+ letter-spacing: .2px;
+ line-height: 24px;
+ color: #000;
+ margin: 0;
+}
+
+.post-content {
+ margin-top: 20px;
+}
+
+.post-field {
+ display: flex;
+ margin: 0 0 30px;
+ min-height: 50px;
+ position: relative;
+}
+
+.post-field:first-child {
+ margin-top: 40px;
+}
+
+label {
+ cursor: default;
+}
+
+.label-text {
+ box-sizing: border-box;
+ padding: 0 15px 0 0;
+ width: 100px;
+ font-weight: 400;
+ font-size: 14px;
+ line-height: 18px;
+ color: #999;
+ margin: 0;
+}
+
+.group {
+ flex: 1;
+}
+
+.group input {
+ border: 0;
+ margin: 0 0 25px;
+ outline: 0;
+ padding: 0;
+ width: 100%;
+ background: transparent;
+ border-bottom: 1px dotted #5cc5a7;
+ width: 40%;
+ box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.0);
+}
+
+.group select {
+ text-transform: none;
+ margin: 0;
+ color: inherit;
+ font: inherit;
+ font-size: 14px;
+ line-height: 18px;
+ font-weight: normal;
+ display: block;
+ white-space: pre;
+ min-height: 1.2em;
+ padding: 0px 2px 1px;
+ font-size: 14px;
+ line-height: 18px;
+ color: #000;
+ margin: 0;
+}
+
+.ruler {
+ background: #f2f2f2;
+ border: 0;
+ bottom: 0;
+ height: 1px;
+ left: 100px;
+ margin: 0;
+ padding: 0;
+ position: absolute;
+ right: 0;
+}
+
+.post-button-group {
+ justify-content: flex-start;
+ display: flex;
+ align-items: center;
+ margin: 0 0 20px;
+}
+
+.post-button {
+ background: #5cc5a7;
+ border-color: #5cc5a7;
+ color: #fff;
+ fill: #fff;
+ height: 34px;
+ padding: 0 13px;
+ border-radius: 3px;
+ border: 1px solid transparent;
+ box-sizing: border-box;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ text-decoration: none!important;
+ margin-right: 10px;
+ font-weight: 600;
+ font-size: 12px;
+ letter-spacing: .6px;
+ line-height: 16px;
+ text-transform: uppercase;
+}
+
+.post-button-container {
+ text-align: center;
+ display: inline-flex;
+ flex-wrap: nowrap;
+ justify-content: center;
+ width: inherit;
+ color: #fff;
+ fill: #fff;
+}
+
+.demo-button {
+ background: #fff;
+ height: 34px;
+ padding: 0 13px;
+ border-radius: 3px;
+ border: 1px solid #f2f2f2;
+ box-sizing: border-box;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ text-decoration: none!important;
+ margin-right: 10px;
+ font-weight: 600;
+ font-size: 12px;
+ letter-spacing: .6px;
+ line-height: 16px;
+ text-transform: uppercase;
+}
+
+.demo-button-container {
+ text-align: center;
+ display: inline-flex;
+ flex-wrap: nowrap;
+ justify-content: center;
+ width: inherit;
+ color: #999;
+ fill: #999;
 }

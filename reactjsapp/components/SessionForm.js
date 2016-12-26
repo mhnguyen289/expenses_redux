@@ -12,18 +12,18 @@ const SessionForm = ({
   message,
   demo,
 }) => (
-  <section className="postSection">
+  <section className="post-section">
     <form>
-      <div className="paddedBox">
-        <div className="postHeader">
-          <span className="postTitle">{buttonValue}</span>
+      <div className="padded-box">
+        <div className="post-header">
+          <span className="post-title">{buttonValue}</span>
         </div>
         {message &&
-          <div className="inputError">{message}</div>
+          <div className="input-error">{message}</div>
         }
-        <div className="postContent">
-          <label htmlFor="email" className="postField">
-            <span className="labelText">Username</span>
+        <div className="post-content">
+          <label htmlFor="email" className="post-field">
+            <span className="label-text">Username</span>
             <div className="group">
               <TextInput
                 type="text"
@@ -33,10 +33,9 @@ const SessionForm = ({
                 error={emailError}
               />
             </div>
-            <hr className="ruler" />
           </label>
-          <label htmlFor="password" className="postField">
-            <span className="labelText">Password</span>
+          <label htmlFor="password" className="post-field">
+            <span className="label-text">Password</span>
             <div className="group">
               <TextInput
                 type="password"
@@ -46,20 +45,19 @@ const SessionForm = ({
                 error={passwordError}
               />
             </div>
-            <hr className="ruler" />
           </label>
         </div>
       </div>
     </form>
-    <div className="paddedBox">
-      <div className="postButtonGroup">
-        <button className="postButton" onClick={handleSave}>
-          <div className="postButtonContainer">{buttonValue}</div>
+    <div className="padded-box">
+      <div className="post-button-group">
+        <button className="post-button" onClick={handleSave}>
+          <div className="post-button-container">{buttonValue}</div>
         </button>
       </div>
     </div>
-    <button className="demoButton" onClick={demo}>
-      <div className="demoButtonContainer">Demo Login</div>
+    <button className="demo-button" onClick={demo}>
+      <div className="demo-button-container">Demo Login</div>
     </button>
   </section>
 );

@@ -7,7 +7,7 @@ const TextInput = ({
   onChange,
   error,
 }) => (
-  <div>
+  <div className="group">
     <input
       type={type}
       name={name}
@@ -16,7 +16,7 @@ const TextInput = ({
       onChange={onChange}
     />
     {error &&
-      <div className="inputError">{error}</div>
+      <div className="input-error">{error}</div>
     }
   </div>
 );

@@ -4,9 +4,9 @@ import { IndexLink, Link } from 'react-router';
 import { logout } from '../actions/session_actions';
 
 class Header extends React.Component {
-  renderLogo() {
+  renderLogo(path) {
     return (
-      <IndexLink className="logo" to="/">
+      <IndexLink className="logo" to={path}>
         <span className="logo-text">
           ExpensesRedux
         </span>
@@ -46,13 +46,9 @@ class Header extends React.Component {
     const { authenticated } = this.props;
     return (
       <div className="content">
-        {this.renderLogo()}
-        {authenticated
-          ?
-          this.renderAccount()
-          :
-          this.renderAuth()
-        }
+        {this.renderLogo('/')}
+        {authenticated && this.renderLogo('/dashboard')}
+        {authenticated ? this.renderAccount() : this.renderAuth()}
       </div>
     );
   }
