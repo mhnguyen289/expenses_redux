@@ -18,7 +18,7 @@ const errorLogin = error => ({
 });
 
 export const demo = () => (dispatch) => {
-  const person = { username: 'DemoUser', password: 'DemoUser' };
+  const person = { email: 'demo123@example.com', password: 'DemoUser' };
   const url = 'api/login';
   $.post(url, { user: person })
    .done(response => {

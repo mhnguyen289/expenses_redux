@@ -1,77 +1,44 @@
 puts "usage: [$rails db:purge db:migrate db:seed]"
 
 puts "demo users"
-one = User.create!(username: "DemoUser", email: "DemoUserOne@example.com", password: "DemoUser")
-two = User.create!(username: "andy123", email: "DemoUserTwo@example.com",password: "DemoUser2Here")
-three = User.create!(username: "bonnie45", email: "DemoUserThree@example.com",password: "DemoUser3Here")
-four = User.create!(username: "jamie678", email: "DemoUserFour@example.com",password: "DemoUser4Here")
-five = User.create!(username: "dannyck91", email: "DemoUserFive@example.com",password: "DemoUser5Here")
-
-puts "actions"
-pending = Action.create!(name: "PENDING")
-accepted = Action.create!(name: "ACCEPTED")
-declined = Action.create!(name: "DECLINED")
+one = User.create!(username: "demo123", email: "demo123@example.com", password: "DemoUser")
+two = User.create!(username: "andy123", email: "andy123@example.com",password: "DemoUser")
+three = User.create!(username: "bonnie45", email: "bonnie45@example.com",password: "DemoUser")
+four = User.create!(username: "jamie678", email: "jamie678@example.com",password: "DemoUser")
+five = User.create!(username: "dannyck91", email: "dannyck91@example.com",password: "DemoUser")
 
 puts "relationships"
 r1 = Relationship.create!(
   a_user_id: one.id,
-  b_user_id: two.id,
-  action_id: pending.id,
-  action_user_id: one.id
+  b_user_id: two.id
 )
 
 r2 = Relationship.create!(
   a_user_id: one.id,
-  b_user_id: three.id,
-  action_id: pending.id,
-  action_user_id: one.id
+  b_user_id: three.id
 )
 
 r3 = Relationship.create!(
   a_user_id: one.id,
-  b_user_id: four.id,
-  action_id: pending.id,
-  action_user_id: one.id
+  b_user_id: four.id
 )
 
 r4 = Relationship.create!(
   a_user_id: one.id,
-  b_user_id: five.id,
-  action_id: pending.id,
-  action_user_id: five.id
+  b_user_id: five.id
 )
 
 r5 = Relationship.create!(
   a_user_id: two.id,
-  b_user_id: five.id,
-  action_id: pending.id,
-  action_user_id: five.id
+  b_user_id: five.id
 )
 
 r6 = Relationship.create!(
   a_user_id: three.id,
-  b_user_id: five.id,
-  action_id: pending.id,
-  action_user_id: five.id
+  b_user_id: five.id
 )
 
-one_and_two = Relationship.find_by(a_user_id: one.id, b_user_id: two.id)
-one_and_two.update(action_id: accepted.id)
-
-one_and_three = Relationship.find_by(a_user_id: one.id, b_user_id: three.id)
-one_and_three.update(action_id: accepted.id)
-
-one_and_four = Relationship.find_by(a_user_id: one.id, b_user_id: four.id)
-one_and_four.update(action_id: accepted.id)
-
-one_and_five = Relationship.find_by(a_user_id: one.id, b_user_id: five.id)
-one_and_five.update(action_id: accepted.id)
-
-two_and_five = Relationship.find_by(a_user_id: two.id, b_user_id: five.id)
-two_and_five.update(action_id: accepted.id)
-
-three_and_five = Relationship.find_by(a_user_id: three.id, b_user_id: five.id)
-three_and_five.update(action_id: accepted.id)
+puts "expenses & debts"
 
 expense_date = Date.strptime('12/18/2016', '%m/%d/%Y')
 Expense.transaction do
@@ -93,6 +60,8 @@ Expense.transaction do
   trip_with_two = Debt.create!(expense_id: ski_trip.id, debt_amount: 400, borrower_id: two.id)
   trip_with_three = Debt.create!(expense_id: ski_trip.id, debt_amount: 500, borrower_id: three.id)
 end
+
+puts "settlements"
 
 paid_one_by_two = Settlement.create!(settled_amount: 600, from_id: two.id, to_id: one.id)
 paid_one_by_three = Settlement.create!(settled_amount: 800, from_id: three.id, to_id: one.id)

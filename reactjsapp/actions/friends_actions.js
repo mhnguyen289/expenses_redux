@@ -5,8 +5,18 @@ export const receiveFriends = (response) => ({
   response,
 });
 
+const inviteSuccess = response => ({
+  type: type.INVITE_SUCCESS,
+  response,
+});
+
 export const receiveFriendsError = (error) => ({
   type: 'RECEIVE_FRIENDS_ERROR',
+  error,
+});
+
+const inviteError = error => ({
+  type: "ERROR_INVITE",
   error,
 });
 
@@ -23,5 +33,23 @@ export const fetchFriendsList = () => (dispatch) => {
   })
   .fail(error => {
     dispatch(receiveFriendsError(error));
+  });
+};
+
+export const invite = email => dispatch => {
+  const url = 'api/invite';
+  const headers = { AUTHORIZATION: `Bearer ${localStorage.getItem('jwt')}` };
+  $.ajax({
+    url,
+    method: 'POST',
+    dataType: 'json',
+    data: { invite: email },
+    headers,
+  })
+  .done(response => {
+    dispatch(inviteSuccess(response));
+  })
+  .fail(error => {
+    dispatch(inviteError(error));
   });
 };

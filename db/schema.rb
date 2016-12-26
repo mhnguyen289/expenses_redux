@@ -15,11 +15,6 @@ ActiveRecord::Schema.define(version: 20161214212011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "actions", force: :cascade do |t|
-    t.string "name", null: false
-    t.index ["name"], name: "index_actions_on_name", unique: true, using: :btree
-  end
-
   create_table "debts", force: :cascade do |t|
     t.decimal "debt_amount", precision: 8, scale: 2, null: false
     t.integer "borrower_id",                         null: false
@@ -34,10 +29,8 @@ ActiveRecord::Schema.define(version: 20161214212011) do
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.integer "a_user_id",      null: false
-    t.integer "b_user_id",      null: false
-    t.integer "action_user_id", null: false
-    t.integer "action_id",      null: false
+    t.integer "a_user_id", null: false
+    t.integer "b_user_id", null: false
     t.index ["a_user_id", "b_user_id"], name: "index_relationships_on_a_user_id_and_b_user_id", unique: true, using: :btree
   end
 
@@ -58,9 +51,7 @@ ActiveRecord::Schema.define(version: 20161214212011) do
   add_foreign_key "debts", "expenses"
   add_foreign_key "debts", "users", column: "borrower_id"
   add_foreign_key "expenses", "users", column: "paid_by_id"
-  add_foreign_key "relationships", "actions"
   add_foreign_key "relationships", "users", column: "a_user_id"
-  add_foreign_key "relationships", "users", column: "action_user_id"
   add_foreign_key "relationships", "users", column: "b_user_id"
   add_foreign_key "settlements", "users", column: "from_id"
   add_foreign_key "settlements", "users", column: "to_id"
