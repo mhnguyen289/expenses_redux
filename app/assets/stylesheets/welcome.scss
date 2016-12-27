@@ -928,7 +928,7 @@ label {
  fill: #fff;
 }
 
-.demo-button {
+.subtle-button {
  background: #fff;
  height: 34px;
  padding: 0 13px;
@@ -946,9 +946,10 @@ label {
  letter-spacing: .6px;
  line-height: 16px;
  text-transform: uppercase;
+ cursor: pointer;
 }
 
-.demo-button-container {
+.subtle-button-container {
  text-align: center;
  display: inline-flex;
  flex-wrap: nowrap;
@@ -956,4 +957,42 @@ label {
  width: inherit;
  color: #999;
  fill: #999;
+ cursor: pointer;
+}
+
+/* invite
+  ========================================================================== */
+.invite {
+  display: flex;
+  flex-direction: column;
+}
+
+.invite .header {
+  background: #5cc5a7;
+  color: #fff;
+  padding: 3px 5px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.invite .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 0 5px;
+  border: 1px solid #eee;
+  border-top: none;
+  padding: 5px;
+}
+
+.invite .content input {
+  margin: 0 0 5px;
+  line-height: 30px;
+  padding: 0 5px;
+  margin: 10px 0;
+}
+
+.invite .content button {
+  padding: 3px 8px;
+  margin: 3px 0;
 }

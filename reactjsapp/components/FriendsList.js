@@ -53,21 +53,21 @@ class FriendsList extends React.Component {
             </li>
           )}
         </ol>
-        <div>
-          <h3>Invite friend</h3>
-          <input
-            type="text"
-            className=""
-            value={this.state.invite.email}
-            placeholder="Enter an email address"
-            onChange={this.handleChange}
-            name="email"
-          />
-          <button
-            type="submit"
-            className=""
-            onClick={this.handleInvite}
-          >Send Invite</button>
+        <div className="invite">
+          <div className="header">Invite friend</div>
+          <div className="content">
+            <input
+              type="text"
+              className="secondary-text"
+              value={this.state.invite.email}
+              placeholder="Enter an email address"
+              onChange={this.handleChange}
+              name="email"
+            />
+            <button className="subtle-button" onClick={this.handleInvite}>
+              <div className="subtle-button-container">Send Invite</div>
+            </button>
+          </div>
         </div>
       </nav>
     );

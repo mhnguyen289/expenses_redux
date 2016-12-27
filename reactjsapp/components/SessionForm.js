@@ -56,8 +56,8 @@ const SessionForm = ({
         </button>
       </div>
     </div>
-    <button className="demo-button" onClick={demo}>
-      <div className="demo-button-container">Demo Login</div>
+    <button className="subtle-button" onClick={demo}>
+      <div className="subtle-button-container">Demo Login</div>
     </button>
   </section>
 );
