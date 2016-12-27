@@ -2,13 +2,13 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { inviteToJoin } from '../actions/friends_actions';
-import { showMessage } from '../actions/message_actions';
+import { showMessage, clearMessage } from '../actions/message_actions';
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      errors: {},
+      error: '',
       invite: { email: '' },
     };
 
@@ -16,31 +16,41 @@ class Navbar extends React.Component {
     this.handleInvite = this.handleInvite.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.message) {
+      this.props.clearMessage();
+    }
+  }
+
   handleChange(e) {
+    if (this.props.message) {
+      this.props.clearMessage();
+      this.setState({ error: '' });
+    }
     const invite = this.state.invite;
     const field = e.target.name;
     invite[field] = e.target.value.trim();
     this.setState({ invite });
   }
 
-  validForm() {
-    let valid = true;
-    const errors = {};
+  invalidForm() {
+    let error = this.state.error;
     const invite = this.state.invite;
     if (invite && invite.email.length < 6) {
-      valid = false;
-      errors.email = 'Enter an email address (min. 6)';
-      this.props.showMessage(errors.email);
+      error = 'Enter an email address (min. 6)';
+      this.props.showMessage(error);
+    } else if (invite.email.indexOf('@') === -1) {
+      error = 'Email should contain @ symbol';
+      this.props.showMessage(error);
     }
-    if (!valid) {
-      this.setState({ errors });
-    }
-    return valid;
+    const isInvalid = error && error.length > 0;
+    this.setState({ error });
+    return isInvalid;
   }
 
   handleInvite(e) {
     e.preventDefault();
-    if (!this.validForm()) {
+    if (this.invalidForm()) {
       return;
     }
     const invite = this.state.invite;
@@ -117,6 +127,7 @@ Navbar.propTypes = {
   friends: PropTypes.array,
   inviteToJoin: PropTypes.func.isRequired,
   showMessage: PropTypes.func.isRequired,
+  clearMessage: PropTypes.func.isRequired,
   message: PropTypes.string,
 };
 
@@ -126,5 +137,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { inviteToJoin, showMessage }
+  { inviteToJoin, showMessage, clearMessage }
 )(Navbar);
