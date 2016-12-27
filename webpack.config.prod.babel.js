@@ -1,5 +1,5 @@
-import path from 'path';
 import webpack from 'webpack';
+import path from 'path';
 
 module.exports = {
   entry: path.join(__dirname, 'reactjsapp/index'),
