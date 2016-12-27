@@ -540,7 +540,7 @@ footer button {
 }
 
 .person .name {
-  color: #5cc5a7;
+  color: #000;
   max-width: 170px;
   overflow-x: hidden;
   text-overflow: ellipsis;
@@ -757,30 +757,29 @@ label.control-label {
 
 /* options
   ========================================================================== */
-.option-container {
-  position: absolute;
-  width: 100%;
-  border: 1px solid #f2f2f2;
-  margin: 5px 0 0 0;
-  max-height: 350px;
+.options-container {
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #fff;
+  margin: 0 0 20px;
 }
 
 .option {
-  padding: 8px;
+  display: flex;
+  padding: 0;
+  margin: 0;
   cursor: default;
+  background-color: #f6f6f6;
 }
 
 .option a {
+  flex: 1;
   color: #000;
+  padding: 5px 0 5px;
 }
 
 .option a.active {
-  border-bottom: 1px solid #5cc5a7;
   color: #000;
-  background: transparent;
+  background: #eee;
 }
 
 /* post login or sign up

@@ -22,7 +22,7 @@ class Options extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.selectedOptions.length !== this.props.selectedOptions.length) {
-      this.setState({ filtered: [] });
+      this.setState({ filter: '', filtered: [] });
     }
   }
 
@@ -120,8 +120,8 @@ class Options extends React.Component {
     return (
       <div>
         {this.renderInput()}
-        {this.renderSelectedOptions(selectedOptions, handleRemoveToken)}
         {this.renderSuggestions(handleAddToken)}
+        {this.renderSelectedOptions(selectedOptions, handleRemoveToken)}
       </div>
     );
   }
