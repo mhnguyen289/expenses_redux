@@ -52,6 +52,60 @@ class Options extends React.Component {
     this.changeOptionStyle(enteredIndex, activeClassName);
   }
 
+  renderSelectedOptions(selectedOptions, handleRemoveToken) {
+    return (
+      <nav className="navigation">
+        <ol>
+          <li>
+            With you and :
+          </li>
+          {selectedOptions.map(item =>
+            <li key={item.id}>
+              <Token
+                key={item.id}
+                name={item.id}
+                value={item.username}
+                handleRemoveToken={handleRemoveToken}
+              />
+            </li>
+          )}
+        </ol>
+      </nav>
+    );
+  }
+
+  renderSuggestions(handleAddToken) {
+    return (
+      <div className="options-container">
+        {this.state.filtered.map((item, index) =>
+          <div key={index} className="option">
+            <a
+              className={this.state.optionStyles[index]}
+              name={item.id}
+              onClick={handleAddToken}
+              onMouseEnter={this.handleMouseEnter}
+              onMouseLeave={this.handleMouseLeave}
+            >
+              {item.username}
+            </a>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  renderInput() {
+    return (
+      <input
+        type="text"
+        name="filter"
+        placeholder=""
+        className=""
+        value={this.state.filter}
+        onChange={this.handleChange}
+      />
+    );
+  }
   render() {
     const {
       selectedOptions,
@@ -60,39 +114,9 @@ class Options extends React.Component {
     } = this.props;
     return (
       <div>
-        <input
-          type="text"
-          name="filter"
-          placeholder=""
-          className=""
-          value={this.state.filter}
-          onChange={this.handleChange}
-        />
-        <div>
-          {selectedOptions.map(item =>
-            <Token
-              key={item.id}
-              name={item.id}
-              value={item.username}
-              handleRemoveToken={handleRemoveToken}
-            />
-          )}
-        </div>
-        <div className="options-container">
-          {this.state.filtered.map((item, index) =>
-            <div key={index} className="option">
-              <a
-                className={this.state.optionStyles[index]}
-                name={item.id}
-                onClick={handleAddToken}
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-              >
-                {item.username}
-              </a>
-            </div>
-          )}
-        </div>
+        {this.renderInput()}
+        {this.renderSelectedOptions(selectedOptions, handleRemoveToken)}
+        {this.renderSuggestions(handleAddToken)}
       </div>
     );
   }

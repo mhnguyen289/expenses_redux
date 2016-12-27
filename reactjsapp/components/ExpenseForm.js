@@ -165,7 +165,6 @@ class ExpenseForm extends React.Component {
     return (
       <div className="add container">
         <div className="add-friends">
-          <p className="header">With you and:</p>
           <Options
             list={list}
             selectedOptions={selectedOptions}
