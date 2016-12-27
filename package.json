@@ -21,6 +21,7 @@
   "author": "Eve Fon Wu <evefonwu@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "babel-core": "6.8.0",
     "jquery": "3.1.1",
     "moment": "2.17.1",
     "object-assign": "4.1.0",
@@ -38,7 +39,6 @@
   },
   "devDependencies": {
     "babel-cli": "6.8.0",
-    "babel-core": "6.8.0",
     "babel-jest": "18.0.0",
     "babel-loader": "6.2.4",
     "babel-plugin-transform-object-rest-spread": "6.6.5",
