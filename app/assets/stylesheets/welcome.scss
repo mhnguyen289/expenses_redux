@@ -856,19 +856,21 @@ label {
 }
 
 .group {
- flex: 1;
+  flex: 1;
+  display: flex;
 }
 
 .group input {
- border: 0;
- margin: 0 0 25px;
- outline: 0;
- padding: 0;
- width: 100%;
- background: #f9f9f9 !important;
- border-bottom: 1px solid #f2f2f2;
- width: 40%;
- box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.0);
+  flex: 1;
+  border: 0;
+  margin: 0 0 25px;
+  outline: 0;
+  padding: 0;
+  width: 100%;
+  background: #f9f9f9 !important;
+  border-bottom: 1px solid #f2f2f2;
+  width: 40%;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.0);
 }
 
 .group select {
@@ -978,7 +980,7 @@ label {
 .invite {
   display: flex;
   flex-direction: column;
-  margin: 15px 0;
+  margin: 25px 0;
 }
 
 .invite .header {

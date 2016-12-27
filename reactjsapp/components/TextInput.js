@@ -4,6 +4,8 @@ const TextInput = ({
   type,
   name,
   value,
+  className = '',
+  placeholder = '',
   onChange,
   error,
 }) => (
@@ -12,7 +14,8 @@ const TextInput = ({
       type={type}
       name={name}
       value={value}
-      placeholder=""
+      className={className}
+      placeholder={placeholder}
       onChange={onChange}
     />
     {error &&
@@ -26,6 +29,8 @@ TextInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string,
   value: PropTypes.string,
+  className: PropTypes.string,
+  placeholder: PropTypes.string,
   error: PropTypes.string,
 };
 

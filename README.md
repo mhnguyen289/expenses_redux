@@ -1,1 +1,1 @@
-An app that splits and records expenses, inspired by SplitWise.
+Users can invite friends and record expenses split equally, by exact amount or by percent.
