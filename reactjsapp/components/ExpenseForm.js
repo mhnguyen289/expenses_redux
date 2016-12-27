@@ -164,14 +164,6 @@ class ExpenseForm extends React.Component {
     };
     return (
       <div className="add container">
-        <div className="add-friends">
-          <Options
-            list={list}
-            selectedOptions={selectedOptions}
-            handleAddToken={handleAddToken}
-            handleRemoveToken={handleRemoveToken}
-          />
-        </div>
         <div className="add-bill">
           {this.renderErrorMessage(error)}
           {this.renderAddBillDetails(title, amount, handleChange)}
@@ -187,6 +179,14 @@ class ExpenseForm extends React.Component {
             </div>
           </div>
           {this.renderFooter(handleSave)}
+        </div>
+        <div className="add-friends">
+          <Options
+            list={list}
+            selectedOptions={selectedOptions}
+            handleAddToken={handleAddToken}
+            handleRemoveToken={handleRemoveToken}
+          />
         </div>
       </div>
     );

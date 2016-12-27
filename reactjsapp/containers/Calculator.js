@@ -241,10 +241,8 @@ class Calculator extends React.Component {
 
   handleRemoveToken(e) {
     const removeId = Number(e.target.name);
-    console.log(removeId);
     let selectedOptions = this.state.selectedOptions;
     selectedOptions = selectedOptions.filter(item => item.id !== removeId);
-    console.log(selectedOptions);
 
     const expense = this.state.expense;
     expense.friends = expense.friends.filter(item => item.id !== removeId);

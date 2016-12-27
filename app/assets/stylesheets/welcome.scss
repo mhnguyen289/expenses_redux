@@ -276,23 +276,24 @@ ul, ol {
 .add.container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: flex-start;
+  padding: 0 30px;
 }
 
 /* add friends to bill
 ========================================================================== */
 .add-friends {
-  flex: auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   margin: 5px 20px;
 }
 
 /* add notes to bill
   ========================================================================== */
 .add-bill {
-  flex: 0 0 75%;
 }
 
 .add-notes {
@@ -772,10 +773,14 @@ label.control-label {
   cursor: default;
 }
 
-a.active {
-  color: #5cc5a7;
+.option a {
+  color: #000;
+}
+
+.option a.active {
+  border-bottom: 1px solid #5cc5a7;
+  color: #000;
   background: transparent;
-  font-weight: 600;
 }
 
 /* post login or sign up

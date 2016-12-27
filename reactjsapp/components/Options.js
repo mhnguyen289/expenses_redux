@@ -4,12 +4,12 @@ import Token from './Token';
 class Options extends React.Component {
   constructor(props) {
     super(props);
-    const { list } = this.props;
     const className = '';
-    const optionStyles = list.reduce((acc, item, index, array) => {
-      acc[index] = className;
+    const optionStyles = this.props.list.reduce((acc, item) => {
+      acc[item.id] = className;
       return acc;
     }, {});
+
     this.state = {
       optionStyles,
       filter: '',
@@ -18,6 +18,12 @@ class Options extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.selectedOptions.length !== this.props.selectedOptions.length) {
+      this.setState({ filtered: [] });
+    }
   }
 
   handleChange(e) {
@@ -34,22 +40,20 @@ class Options extends React.Component {
     }
   }
 
-  changeOptionStyle(index, className) {
+  changeOptionStyle(id, className) {
     const optionStyles = this.state.optionStyles;
-    optionStyles[index] = className;
+    optionStyles[id] = className;
     this.setState({ optionStyles });
   }
 
   handleMouseLeave(e) {
-    const leftIndex = e.target.name;
     const className = '';
-    this.changeOptionStyle(leftIndex, className);
+    this.changeOptionStyle(e.target.name, className);
   }
 
   handleMouseEnter(e) {
-    const enteredIndex = e.target.name;
     const activeClassName = 'active';
-    this.changeOptionStyle(enteredIndex, activeClassName);
+    this.changeOptionStyle(e.target.name, activeClassName);
   }
 
   renderSelectedOptions(selectedOptions, handleRemoveToken) {
@@ -77,10 +81,10 @@ class Options extends React.Component {
   renderSuggestions(handleAddToken) {
     return (
       <div className="options-container">
-        {this.state.filtered.map((item, index) =>
-          <div key={index} className="option">
+        {this.state.filtered.map(item =>
+          <div key={item.id} className="option">
             <a
-              className={this.state.optionStyles[index]}
+              className={this.state.optionStyles[item.id]}
               name={item.id}
               onClick={handleAddToken}
               onMouseEnter={this.handleMouseEnter}
@@ -106,6 +110,7 @@ class Options extends React.Component {
       />
     );
   }
+
   render() {
     const {
       selectedOptions,
