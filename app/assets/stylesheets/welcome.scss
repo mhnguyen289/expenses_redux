@@ -159,8 +159,8 @@ ul, ol {
 .container {
   display: flex;
   flex-direction: row;
-  width: 100%;
   margin: 0 0 20px;
+  align-items: flex-start;
 }
 
 /* dashboard
@@ -168,6 +168,9 @@ ul, ol {
 
 .dashboard .friends-list {
   flex: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
 }
 
 .navigation {
@@ -203,7 +206,7 @@ ul, ol {
 }
 
 .dashboard .expenses-list {
-  flex: 0 0 75%;
+  flex: 0 0 50%;
   background-color: #fff;
   border: 1px solid #f2f2f2;
   min-height: 550px;
@@ -273,7 +276,8 @@ ul, ol {
   ========================================================================== */
 
 .add.container {
-  justify-content: center;
+  display: flex;
+  flex-direction: row;
   align-items: flex-start;
 }
 
@@ -283,26 +287,33 @@ ul, ol {
   flex: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
+  margin: 5px 20px;
 }
 
 /* add notes to bill
   ========================================================================== */
 .add-bill {
-  flex: 0 0 65%;
+  flex: 0 0 50%;
 }
 
 .add-notes {
   flex: 1;
 }
 
-.add-notes,
+.add-notes {
+  background: #fff;
+  width: 350px;
+  overflow: hidden;
+  padding: 20px 20px 0;
+}
+
 .subview {
   background: #fff;
   width: 350px;
   overflow: hidden;
-  padding: 20px;
-  border-bottom: 1px dotted #5cc5a7;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #f2f2f2;
 }
 
 .add-notes {
@@ -727,7 +738,7 @@ label.control-label {
 
 .token-remove-button {
   padding: 8px 6px;
-  color: #5cc5a7;
+  color: #ccc;
   background: #f2f2f2;
   font-size: 12px;
   border-left: 1px solid #ccc;
