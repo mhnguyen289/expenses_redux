@@ -19,7 +19,7 @@ class Calculator extends React.Component {
     this.state = {
       you,
       list,
-      selectedOptions: {},
+      selectedOptions: [],
       expenseDate: new Date().toISOString(),
       error: '',
       nameOfButtonClicked: 'exact',
@@ -150,10 +150,9 @@ class Calculator extends React.Component {
     expense.friends.forEach((item) => {
       totalOwed += Number(item.owed);
     });
-    const remaining = Number(initialRemaining) - totalOwed;
+    const remaining = this.makeDecimal(Number(initialRemaining) - totalOwed);
     expense.owed = totalOwed.toString();
     expense.remaining = remaining.toString();
-    console.log(expense.remaining);
     return expense;
   }
 
@@ -235,41 +234,37 @@ class Calculator extends React.Component {
   }
 
   handleDateChange(expenseDate, formattedValue) {
-    console.log(formattedValue);
     this.setState({
       expenseDate,
     });
   }
 
   handleRemoveToken(e) {
-    const removeIndex = e.target.name;
-    const selectedOptions = this.state.selectedOptions;
-    const deleteOption = selectedOptions[removeIndex];
-    const expense = this.state.expense;
-    const updated = expense.friends.filter(friend => (friend.id !== deleteOption.id));
-    expense.friends = updated;
-    delete selectedOptions[removeIndex];
+    const removeId = Number(e.target.name);
+    console.log(removeId);
+    let selectedOptions = this.state.selectedOptions;
+    selectedOptions = selectedOptions.filter(item => item.id !== removeId);
+    console.log(selectedOptions);
 
+    const expense = this.state.expense;
+    expense.friends = expense.friends.filter(item => item.id !== removeId);
     this.setState({ selectedOptions, expense });
   }
 
   handleAddToken(e) {
-    const { list } = this.state;
-    const selectedIndex = e.target.name;
+    const addId = Number(e.target.name);
     const selectedOptions = this.state.selectedOptions;
-    selectedOptions[selectedIndex] = list[selectedIndex];
-    const friendToSplitExpenseWith = selectedOptions[selectedIndex];
+    const add = this.props.friends.filter(item => item.id === addId);
+    const updatedOptions = selectedOptions.concat(add);
     const expense = this.state.expense;
-    const exists = expense.friends.some(
-      friend => friend.id == friendToSplitExpenseWith.id
-    );
+    const exists = expense.friends.some(item => item.id === addId);
     if (!exists) {
       expense.friends = [
         ...expense.friends,
-        list[selectedIndex],
+        ...add,
       ];
     }
-    this.setState({ selectedOptions, expense });
+    this.setState({ selectedOptions: updatedOptions, expense });
   }
 
   validForm() {
@@ -308,7 +303,6 @@ class Calculator extends React.Component {
     }
     const { title, amount, split } = this.state.expense;
     const expenseDate = this.state.expenseDate;
-    console.log(expenseDate);
 
     delete split[this.state.you.id];
     const ids = Object.keys(split);
@@ -317,15 +311,15 @@ class Calculator extends React.Component {
     this.props.addExpense(expense);
   }
 
-  logSplit() {
-    const lookupTable = this.state.expense.split;
-    const keys = Object.keys(lookupTable);
-    for (let i = 0; i < keys.length; i++) {
-      const debt = lookupTable[keys[i]];
-      const id = keys[i];
-      console.log(`${id} owes ${debt}`);
-    }
-  }
+  // logSplit() {
+  //   const lookupTable = this.state.expense.split;
+  //   const keys = Object.keys(lookupTable);
+  //   for (let i = 0; i < keys.length; i++) {
+  //     const debt = lookupTable[keys[i]];
+  //     const id = keys[i];
+  //   }
+  //   console.log(`${id} owed ${debt}`);
+  // }
 
   render() {
     const { title, amount, friends, owed, remaining } = this.state.expense;
@@ -345,7 +339,7 @@ class Calculator extends React.Component {
         nameOfButtonClicked={this.state.nameOfButtonClicked}
         expenseDate={this.state.expenseDate}
         handleDateChange={this.handleDateChange}
-        list={this.state.list}
+        list={this.props.friends}
         selectedOptions={this.state.selectedOptions}
         handleAddToken={this.handleAddToken}
         handleRemoveToken={this.handleRemoveToken}

@@ -162,7 +162,6 @@ class ExpenseForm extends React.Component {
       owed,
       remaining,
     };
-
     return (
       <div className="add container">
         <div className="add-friends">
@@ -203,7 +202,7 @@ ExpenseForm.propTypes = {
   owed: PropTypes.string,
   remaining: PropTypes.string,
   expenseDate: PropTypes.string,
-  selectedOptions: PropTypes.object,
+  selectedOptions: PropTypes.array,
   list: PropTypes.array.isRequired,
   selectedSplitOption: PropTypes.string.isRequired,
   nameOfButtonClicked: PropTypes.string.isRequired,

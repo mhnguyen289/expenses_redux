@@ -56,7 +56,7 @@ Dashboard.propTypes = {
   friends: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
-    owed: PropTypes.string,
+    owed: PropTypes.number,
   })).isRequired,
   fetchFriendsList: PropTypes.func.isRequired,
   fetchExpensesWith: PropTypes.func.isRequired,

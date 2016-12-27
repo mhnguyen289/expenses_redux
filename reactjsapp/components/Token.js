@@ -16,7 +16,7 @@ const Token = ({ name, value, handleRemoveToken }) => (
 );
 
 Token.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.number.isRequired,
   value: PropTypes.string.isRequired,
   handleRemoveToken: PropTypes.func.isRequired,
 };

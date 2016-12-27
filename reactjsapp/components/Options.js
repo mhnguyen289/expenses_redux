@@ -12,9 +12,26 @@ class Options extends React.Component {
     }, {});
     this.state = {
       optionStyles,
+      filter: '',
+      filtered: [],
     };
+    this.handleChange = this.handleChange.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+  }
+
+  handleChange(e) {
+    if (e.target.name == 'filter') {
+      const filter = e.target.value.trim();
+      const regex = new RegExp(`^${filter}`, 'i');
+      const updatedFiltered = this.props.list.filter(item => regex.test(item.username));
+      const isFiltered = filter.length > 0 && updatedFiltered.length > 0;
+      const filtered = isFiltered ? updatedFiltered : [];
+      this.setState({
+        filter,
+        filtered,
+      });
+    }
   }
 
   changeOptionStyle(index, className) {
@@ -37,29 +54,36 @@ class Options extends React.Component {
 
   render() {
     const {
-      list,
       selectedOptions,
       handleAddToken,
       handleRemoveToken,
     } = this.props;
     return (
       <div>
+        <input
+          type="text"
+          name="filter"
+          placeholder=""
+          className=""
+          value={this.state.filter}
+          onChange={this.handleChange}
+        />
         <div>
-          {Object.keys(selectedOptions).map(key =>
+          {selectedOptions.map(item =>
             <Token
-              key={key}
-              name={key}
-              value={selectedOptions[key].username}
+              key={item.id}
+              name={item.id}
+              value={item.username}
               handleRemoveToken={handleRemoveToken}
             />
           )}
         </div>
         <div className="options-container">
-          {list.map((item, index) =>
+          {this.state.filtered.map((item, index) =>
             <div key={index} className="option">
               <a
                 className={this.state.optionStyles[index]}
-                name={index}
+                name={item.id}
                 onClick={handleAddToken}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
@@ -76,7 +100,7 @@ class Options extends React.Component {
 
 Options.propTypes = {
   list: PropTypes.array.isRequired,
-  selectedOptions: PropTypes.object,
+  selectedOptions: PropTypes.array,
   handleAddToken: PropTypes.func.isRequired,
   handleRemoveToken: PropTypes.func.isRequired,
 };
