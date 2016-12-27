@@ -15,6 +15,11 @@ class Calculator extends React.Component {
       acc.push({ id: item.id, username: item.username, owed: '' });
       return acc;
     }, []);
+    const splitOptions = {
+      equal: options.SPLIT_EQUALLY,
+      exact: options.SPLIT_EXACT_AMOUNT,
+      percent: options.SPLIT_BY_PERCENT,
+    };
 
     this.state = {
       you,
@@ -24,11 +29,7 @@ class Calculator extends React.Component {
       error: '',
       nameOfButtonClicked: 'exact',
       selectedSplitOption: options.SPLIT_EXACT_AMOUNT,
-      options: {
-        equal: options.SPLIT_EQUALLY,
-        exact: options.SPLIT_EXACT_AMOUNT,
-        percent: options.SPLIT_BY_PERCENT,
-      },
+      splitOptions,
       expense: {
         friends: [you],
         owed: '0.00',
@@ -58,7 +59,7 @@ class Calculator extends React.Component {
   }
 
   getInitialRemaining(selectedSplitOption, expense) {
-    const byPercent = (selectedSplitOption == options.SPLIT_BY_PERCENT);
+    const byPercent = (selectedSplitOption === options.SPLIT_BY_PERCENT);
     return byPercent ? '100.00' : expense.amount;
   }
 
@@ -171,7 +172,7 @@ class Calculator extends React.Component {
 
   updateByInput(splitOption, expense, friendId, owedValue) {
     expense.friends.forEach((item) => {
-      if (item.id == friendId) {
+      if (item.id === Number(friendId)) {
         item.owed = owedValue;
       }
     });
@@ -198,7 +199,7 @@ class Calculator extends React.Component {
     let expense = this.state.expense;
     const splitOption = this.state.selectedSplitOption;
     const field = e.target.name;
-    if (field == 'amount') {
+    if (field === 'amount') {
       expense[field] = e.target.value.trim();
     } else {
       expense[field] = e.target.value;
@@ -211,10 +212,10 @@ class Calculator extends React.Component {
   }
 
   handleSplitButtonClick(e) {
-    const selectedSplitOption = this.state.options[e.target.name];
+    const selectedSplitOption = this.state.splitOptions[e.target.name];
     const nameOfButtonClicked = e.target.name;
     let expense = this.state.expense;
-    if (selectedSplitOption == options.SPLIT_EQUALLY) {
+    if (selectedSplitOption === options.SPLIT_EQUALLY) {
       expense = this.updateByCalculator(selectedSplitOption, expense);
     } else {
       const reset = expense.friends.reduce((acc, item) => {
@@ -251,9 +252,9 @@ class Calculator extends React.Component {
 
   handleAddToken(e) {
     const addId = Number(e.target.name);
-    const selectedOptions = this.state.selectedOptions;
+    let selectedOptions = this.state.selectedOptions;
     const add = this.props.friends.filter(item => item.id === addId);
-    const updatedOptions = selectedOptions.concat(add);
+    selectedOptions = selectedOptions.concat(add);
     const expense = this.state.expense;
     const exists = expense.friends.some(item => item.id === addId);
     if (!exists) {
@@ -262,7 +263,7 @@ class Calculator extends React.Component {
         ...add,
       ];
     }
-    this.setState({ selectedOptions: updatedOptions, expense });
+    this.setState({ selectedOptions, expense });
   }
 
   validForm() {
@@ -291,7 +292,6 @@ class Calculator extends React.Component {
       ...this.state,
       error,
     });
-    console.log(this.state);
     return valid;
   }
 
@@ -309,15 +309,15 @@ class Calculator extends React.Component {
     this.props.addExpense(expense);
   }
 
-  // logSplit() {
-  //   const lookupTable = this.state.expense.split;
-  //   const keys = Object.keys(lookupTable);
-  //   for (let i = 0; i < keys.length; i++) {
-  //     const debt = lookupTable[keys[i]];
-  //     const id = keys[i];
-  //   }
-  //   console.log(`${id} owed ${debt}`);
-  // }
+  logSplit() {
+    const lookupTable = this.state.expense.split;
+    const keys = Object.keys(lookupTable);
+    for (let i = 0; i < keys.length; i++) {
+      const debt = lookupTable[keys[i]];
+      const id = keys[i];
+      console.log(`${id} owed ${debt}`);
+    }
+  }
 
   render() {
     const { title, amount, friends, owed, remaining } = this.state.expense;

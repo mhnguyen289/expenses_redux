@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchAllExpenses, fetchExpensesWith, fetchDebts } from '../actions/expenses_actions';
 import { fetchFriendsList } from '../actions/friends_actions';
 import { getAllFriends, getAllExpenses, getAllDebts } from '../reducers';
-import FriendsList from '../components/FriendsList';
+import Navbar from '../components/Navbar';
 import ExpensesList from '../components/ExpensesList';
 
 class Dashboard extends React.Component {
@@ -30,11 +30,7 @@ class Dashboard extends React.Component {
     return (
       <div className="dashboard container">
         <div className="friends-list">
-          {friends.length > 0 &&
-            <FriendsList
-              friends={friends}
-            />
-          }
+          <Navbar friends={friends} />
         </div>
         <div className="expenses-list">
           {friends.length > 0 &&

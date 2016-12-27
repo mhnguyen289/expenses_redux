@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { inviteToJoin } from '../actions/friends_actions';
 
-class FriendsList extends React.Component {
-
+class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,38 +19,47 @@ class FriendsList extends React.Component {
     const field = e.target.name;
     invite[field] = e.target.value.trim();
     this.setState({ invite });
-    console.log(e.target.value.trim());
   }
 
   handleInvite() {
     const invite = this.state.invite;
     this.props.inviteToJoin(invite.email);
-    console.log(invite.email);
   }
 
+  renderFriendsList(friends) {
+    return (
+      friends.map(friend =>
+        <li key={friend.id}>
+          <Link
+            to={`/dashboard/${friend.id}`}
+            activeClassName="active-link"
+          >
+            {friend.username}
+          </Link>
+        </li>
+      )
+    );
+  }
+
+  renderAllExpensesLink() {
+    return (
+      <li>
+        <Link
+          to="/dashboard"
+          activeClassName="active-link"
+        >
+          All Expenses
+        </Link>
+      </li>
+    );
+  }
   render() {
     const { friends } = this.props;
     return (
       <nav className="navigation">
         <ol>
-          <li>
-            <Link
-              to="/dashboard"
-              activeClassName="active-link"
-            >
-              All Expenses
-            </Link>
-          </li>
-          {friends.map(friend =>
-            <li key={friend.id}>
-              <Link
-                to={`/dashboard/${friend.id}`}
-                activeClassName="active-link"
-              >
-                {friend.username}
-              </Link>
-            </li>
-          )}
+          {friends.length > 0 && this.renderAllExpensesLink()}
+          {friends.length > 0 && this.renderFriendsList(friends)}
         </ol>
         <div className="invite">
           <div className="header">Invite friend</div>
@@ -74,7 +82,7 @@ class FriendsList extends React.Component {
   }
 }
 
-FriendsList.propTypes = {
+Navbar.propTypes = {
   friends: PropTypes.array,
   inviteToJoin: PropTypes.func.isRequired,
 };
@@ -86,4 +94,4 @@ const mapStateToProps = () => ({
 export default connect(
   mapStateToProps,
   { inviteToJoin }
-)(FriendsList);
+)(Navbar);

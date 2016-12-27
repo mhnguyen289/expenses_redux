@@ -36,6 +36,11 @@ input {
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 }
 
+input:-webkit-autofill {
+  background-color: #f9f9f9 !important;
+  background-image: none;
+}
+
 ul, ol {
   list-style: none;
   margin: 0;
@@ -860,7 +865,7 @@ label {
  outline: 0;
  padding: 0;
  width: 100%;
- background: transparent;
+ background: #f9f9f9 !important;
  border-bottom: 1px solid #f2f2f2;
  width: 40%;
  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.0);
@@ -973,6 +978,7 @@ label {
 .invite {
   display: flex;
   flex-direction: column;
+  margin: 15px 0;
 }
 
 .invite .header {

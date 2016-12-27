@@ -30,6 +30,7 @@ class Session extends Component {
       this.context.router.push('/dashboard');
     }
     if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.props.clearMessage();
       const isLogin = this.props.location.pathname == '/login';
       this.setState({ isLogin });
     }
@@ -48,7 +49,7 @@ class Session extends Component {
     const person = this.state.person;
     if (person && person.email.length < 6) {
       valid = false;
-      errors.email = 'Enter a email (min. 6)';
+      errors.email = 'Enter an email address (min. 6)';
     } else if (person && person.password.length < 6) {
       valid = false;
       errors.password = 'Enter a password (min. 6)';

@@ -15,7 +15,6 @@ class Api::UsersController < ApplicationController
       b_user_id: user.id
     )
     if relationship.save
-      # send email to user
       render json: { user: { id: user.id, username: user.username } }
     else
       render json: relationship.errors
@@ -23,7 +22,7 @@ class Api::UsersController < ApplicationController
   end
 
   def render_json(user)
-    if user.save jwt_user(user)
+    if user.save
       token = Token.jwt({ user: user.id })
       { jwt: token , user: user }
     else
@@ -35,7 +34,7 @@ class Api::UsersController < ApplicationController
     user = User.find_by(email: user_params[:email]);
     if !!user
       if !!user.password_digest
-        render json: { unique: "Email is taken."}
+        render json: { unique: "Email already belongs to an account."}
       else
         user.password = user_params[:password]
         render json: render_json(user)
@@ -45,7 +44,7 @@ class Api::UsersController < ApplicationController
       if user.valid?
         render json: render_json(user)
       else
-        render json: { invalid: "Invalid sign up input"}
+        render json: { invalid: "Invalid sign up"}
       end
     end
   end

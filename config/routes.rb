@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: JSON} do
     resources :expenses, only: [:create]
     post 'login', to: 'sessions#create'
+    post 'signup', to: 'users#create'
     post 'invite', to: 'users#invite'
     get 'dashboard', to: 'users#show'
     get 'expenses_with/:friend_id', to: 'expenses#expenses_with'
