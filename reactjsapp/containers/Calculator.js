@@ -35,7 +35,7 @@ class Calculator extends React.Component {
         owed: '0.00',
         remaining: '0.00',
         title: '',
-        amount: '0.00',
+        amount: '',
         split: {},
       },
     };
@@ -64,17 +64,7 @@ class Calculator extends React.Component {
   }
 
   roundUpFromThousandths(value) {
-    return (Math.round(value * 1000) / 1000).toString();
-  }
-  
-  makeDecimal(number) {
-    let num = Number(number);
-    num = this.roundUpFromThousandths(num);
-    num = Math.trunc(number * 100);
-    num /= 100;
-    let str = num.toString();
-    str = this.addZeroToDecimalEnding(str);
-    return str;
+    return (Math.round(value * 1000) / 1000);
   }
 
   addZeroToDecimalEnding(withDecimal) {
@@ -87,6 +77,16 @@ class Calculator extends React.Component {
       }
     }
     return amount;
+  }
+
+  makeDecimal(number) {
+    let num = Number(number);
+    num = this.roundUpFromThousandths(num);
+    num = Math.trunc(number * 100);
+    num /= 100;
+    let str = num.toString();
+    str = this.addZeroToDecimalEnding(str);
+    return str;
   }
 
   splitByPercent(friends, amount) {
@@ -134,8 +134,7 @@ class Calculator extends React.Component {
       if (remaining > 0.00) {
         owed = Number(friend.owed);
         owed += 0.01;
-        owed = this.roundUpFromThousandths(owed);
-        friend.owed = this.addZeroToDecimalEnding(owed);
+        friend.owed = this.makeDecimal(owed);
         remaining -= 0.01;
       }
     });
@@ -156,13 +155,12 @@ class Calculator extends React.Component {
     }
     let owed = 0;
     let remaining = Number(expense.amount) - totalOwed;
-    remaining = this.roundUpFromThousandths(remaining);
+    remaining = this.makeDecimal(remaining);
     keys.forEach(key => {
       if (remaining > 0.00) {
         owed = Number(split[key]);
         owed += 0.01;
-        owed = this.roundUpFromThousandths(owed);
-        split[key] = this.addZeroToDecimalEnding(owed);
+        split[key] = this.makeDecimal(owed);
         remaining -= 0.01;
       }
     });
@@ -180,8 +178,8 @@ class Calculator extends React.Component {
       }
     });
     const remaining = Number(initialRemaining) - totalOwed;
-    expense.owed = totalOwed.toString();
-    expense.remaining = this.roundUpFromThousandths(remaining);
+    expense.owed = this.makeDecimal(totalOwed);
+    expense.remaining = this.makeDecimal(remaining);
     return expense;
   }
 
