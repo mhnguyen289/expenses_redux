@@ -35,7 +35,7 @@ class Calculator extends React.Component {
         owed: '0.00',
         remaining: '0.00',
         title: '',
-        amount: '',
+        amount: '0.00',
         split: {},
       },
     };
@@ -172,8 +172,13 @@ class Calculator extends React.Component {
 
   calculateRemaining(expense, initialRemaining) {
     let totalOwed = 0;
+    let owedNum = 0.00;
     expense.friends.forEach((item) => {
-      totalOwed += Number(item.owed);
+      if (item.owed.length == 0) {
+        totalOwed += owedNum;
+      } else {
+        totalOwed += Number(item.owed);
+      }
     });
     const remaining = Number(initialRemaining) - totalOwed;
     expense.owed = totalOwed.toString();
@@ -270,7 +275,7 @@ class Calculator extends React.Component {
     let expense = this.state.expense;
     expense.friends = expense.friends.filter(item => item.id !== removeId);
     const splitOption = this.state.selectedSplitOption;
-    expense = this.updateExpense(splitOption, expense, '', '');
+    expense = this.updateExpense(splitOption, expense, removeId, '');
 
     this.setState({ selectedOptions, expense });
   }
@@ -289,7 +294,7 @@ class Calculator extends React.Component {
       ];
     }
     const splitOption = this.state.selectedSplitOption;
-    expense = this.updateExpense(splitOption, expense, '', '');
+    expense = this.updateExpense(splitOption, expense, addId, '');
 
     this.setState({ selectedOptions, expense });
   }
