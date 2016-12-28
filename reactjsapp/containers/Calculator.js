@@ -235,7 +235,7 @@ class Calculator extends React.Component {
     const owedValue = e.target.value.trim();
     expense = this.updateExpense(splitOption, expense, friendId, owedValue);
     this.logSplit();
-    this.setState({ expense });
+    this.setState({ expense, error: '' });
   }
 
   handleSplitButtonClick(e) {
