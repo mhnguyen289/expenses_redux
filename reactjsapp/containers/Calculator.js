@@ -264,6 +264,7 @@ class Calculator extends React.Component {
     });
   }
 
+
   handleRemoveToken(e) {
     const removeId = Number(e.target.name);
     let selectedOptions = this.state.selectedOptions;
@@ -271,9 +272,8 @@ class Calculator extends React.Component {
 
     let expense = this.state.expense;
     expense.friends = expense.friends.filter(item => item.id !== removeId);
-    if (this.state.selectedSplitOption === options.SPLIT_EQUALLY) {
-      expense = this.updateByCalculator(options.SPLIT_EQUALLY, expense);
-    }
+    const splitOption = this.state.selectedSplitOption;
+    expense = this.updateExpense(splitOption, expense, '', '');
 
     this.setState({ selectedOptions, expense });
   }
@@ -291,9 +291,8 @@ class Calculator extends React.Component {
         ...add,
       ];
     }
-    if (this.state.selectedSplitOption === options.SPLIT_EQUALLY) {
-      expense = this.updateByCalculator(options.SPLIT_EQUALLY, expense);
-    }
+    const splitOption = this.state.selectedSplitOption;
+    expense = this.updateExpense(splitOption, expense, '', '');
 
     this.setState({ selectedOptions, expense });
   }
