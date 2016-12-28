@@ -269,8 +269,12 @@ class Calculator extends React.Component {
     let selectedOptions = this.state.selectedOptions;
     selectedOptions = selectedOptions.filter(item => item.id !== removeId);
 
-    const expense = this.state.expense;
+    let expense = this.state.expense;
     expense.friends = expense.friends.filter(item => item.id !== removeId);
+    if (this.state.selectedSplitOption === options.SPLIT_EQUALLY) {
+      expense = this.updateByCalculator(options.SPLIT_EQUALLY, expense);
+    }
+
     this.setState({ selectedOptions, expense });
   }
 
@@ -279,7 +283,7 @@ class Calculator extends React.Component {
     let selectedOptions = this.state.selectedOptions;
     const add = this.props.friends.filter(item => item.id === addId);
     selectedOptions = selectedOptions.concat(add);
-    const expense = this.state.expense;
+    let expense = this.state.expense;
     const exists = expense.friends.some(item => item.id === addId);
     if (!exists) {
       expense.friends = [
@@ -287,6 +291,10 @@ class Calculator extends React.Component {
         ...add,
       ];
     }
+    if (this.state.selectedSplitOption === options.SPLIT_EQUALLY) {
+      expense = this.updateByCalculator(options.SPLIT_EQUALLY, expense);
+    }
+
     this.setState({ selectedOptions, expense });
   }
 
