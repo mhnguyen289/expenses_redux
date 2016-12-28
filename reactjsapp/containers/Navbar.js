@@ -33,14 +33,20 @@ class Navbar extends React.Component {
     this.setState({ invite });
   }
 
+  validEmail(email) {
+    const pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regex = new RegExp(pattern);
+    return regex.test(email);
+  }
+
   invalidForm() {
     let error = this.state.error;
     const invite = this.state.invite;
-    if (invite && invite.email.length < 6) {
-      error = 'Enter an email address (min. 6)';
+    if (invite && invite.email.length <= 0) {
+      error = 'Enter an email address';
       this.props.showMessage(error);
-    } else if (invite.email.indexOf('@') === -1) {
-      error = 'Email should contain @ symbol';
+    } else if (!this.validEmail(invite.email)) {
+      error = 'Enter a valid email address';
       this.props.showMessage(error);
     }
     const isInvalid = error && error.length > 0;
