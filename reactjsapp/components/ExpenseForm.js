@@ -73,6 +73,7 @@ class ExpenseForm extends React.Component {
   renderSubview(splitProps) {
     const {
       friends,
+      split,
       handleChange,
       selectedSplitOption,
       owed,
@@ -87,6 +88,7 @@ class ExpenseForm extends React.Component {
           <SubviewSplitByPercent
             handleChange={handleChange}
             friends={friends}
+            split={split}
             owed={owed}
             remaining={remaining}
           />
@@ -143,6 +145,7 @@ class ExpenseForm extends React.Component {
       handleChange,
       handleSave,
       friends,
+      split,
       owed,
       remaining,
       error,
@@ -156,6 +159,7 @@ class ExpenseForm extends React.Component {
     } = this.props;
     const splitProps = {
       friends,
+      split,
       handleChange,
       selectedSplitOption,
       owed,
@@ -198,6 +202,7 @@ ExpenseForm.propTypes = {
   title: PropTypes.string,
   amount: PropTypes.string,
   friends: PropTypes.array,
+  split: PropTypes.object,
   owed: PropTypes.string,
   remaining: PropTypes.string,
   expenseDate: PropTypes.string,

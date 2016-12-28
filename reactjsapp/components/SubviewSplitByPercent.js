@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const SubviewSplitByPercent = ({ handleChange, friends, owed, remaining }) => (
+const SubviewSplitByPercent = ({ handleChange, friends, split, owed, remaining }) => (
   <div className="split-method split-method-percent">
     <h3>Split by percentages</h3>
     <ul>
@@ -13,6 +13,9 @@ const SubviewSplitByPercent = ({ handleChange, friends, owed, remaining }) => (
               </strong>
             </span>
             <div className="amount">
+              <span className="secondary-text">
+                ${split[friend.id]} &nbsp;
+              </span>
               <input
                 name={friend.id}
                 autoFocus="true"
@@ -46,6 +49,7 @@ const SubviewSplitByPercent = ({ handleChange, friends, owed, remaining }) => (
 
 SubviewSplitByPercent.propTypes = {
   friends: PropTypes.array,
+  split: PropTypes.object,
   owed: PropTypes.string,
   remaining: PropTypes.string,
   handleChange: PropTypes.func.isRequired,

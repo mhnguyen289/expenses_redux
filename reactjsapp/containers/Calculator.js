@@ -27,8 +27,8 @@ class Calculator extends React.Component {
       selectedOptions: [],
       expenseDate: new Date().toISOString(),
       error: '',
-      nameOfButtonClicked: 'exact',
-      selectedSplitOption: options.SPLIT_EXACT_AMOUNT,
+      nameOfButtonClicked: 'equal',
+      selectedSplitOption: options.SPLIT_EQUALLY,
       splitOptions,
       expense: {
         friends: [you],
@@ -354,7 +354,7 @@ class Calculator extends React.Component {
   }
 
   render() {
-    const { title, amount, friends, owed, remaining } = this.state.expense;
+    const { title, amount, friends, owed, remaining, split } = this.state.expense;
     const { error } = this.state;
     return (
       <ExpenseForm
@@ -363,6 +363,7 @@ class Calculator extends React.Component {
         handleChange={this.handleChange}
         handleSave={this.handleSave}
         friends={friends}
+        split={split}
         owed={owed}
         remaining={remaining}
         handleClick={this.handleSplitButtonClick}
