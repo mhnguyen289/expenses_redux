@@ -120,33 +120,27 @@ class Calculator extends React.Component {
     }
   }
 
-  formatOwed(owed) {
-    const str = owed.toString();
-    const withDecimal = this.makeDecimal(str);
-    return this.addZeroToDecimalEnding(withDecimal);
-  }
-
   distributeRemainingCents(expense) {
     let remaining = expense.remaining;
-    let owed = 0;
+    let owed = 0.00;
     expense.friends.forEach(friend => {
       if (remaining > 0.00) {
         owed = Number(friend.owed);
         owed += 0.01;
-        friend.owed = this.formatOwed(owed);
+        friend.owed = this.roundUpFromThousandths(owed);
         remaining -= 0.01;
       }
     });
     expense.remaining = remaining.toString();
     expense.split = expense.friends.reduce((acc, item) => {
-      acc[item.id] = this.addZeroToDecimalEnding(item.owed);
+      acc[item.id] = item.owed;
       return acc;
     }, {});
     return expense;
   }
 
-  roundUpRemainingToThousands(remaining) {
-    return (Math.round(remaining * 1000) / 1000).toString();
+  roundUpFromThousandths(value) {
+    return (Math.round(value * 1000) / 1000).toString();
   }
 
   percentDistributeRemainingCents(expense) {
@@ -158,21 +152,26 @@ class Calculator extends React.Component {
     }
     let owed = 0;
     let remaining = Number(expense.amount) - totalOwed;
-    remaining = this.roundUpRemainingToThousands(remaining);
+    remaining = this.roundUpFromThousandths(remaining);
+    console.log(`distribute remaining ${remaining}`);
+
     keys.forEach(key => {
       if (remaining > 0.00) {
         owed = Number(split[key]);
+        console.log(`friend owed ${owed}`);
         owed += 0.01;
-        split[key] = this.formatOwed(owed);
+        split[key] = this.roundUpFromThousandths(owed);
+        console.log(`after adding cent: ${owed}`);
         remaining -= 0.01;
       }
     });
+    this.logSplit();
     return expense.split;
   }
 
   calculateRemaining(expense, initialRemaining) {
     let totalOwed = 0;
-    let owedNum = 0.00;
+    const owedNum = 0.00;
     expense.friends.forEach((item) => {
       if (item.owed.length == 0) {
         totalOwed += owedNum;
@@ -181,8 +180,10 @@ class Calculator extends React.Component {
       }
     });
     const remaining = Number(initialRemaining) - totalOwed;
+    console.log(remaining);
     expense.owed = totalOwed.toString();
-    expense.remaining = this.roundUpRemainingToThousands(remaining);
+    expense.remaining = this.roundUpFromThousandths(remaining);
+    console.log(expense.remaining);
     return expense;
   }
 
@@ -193,7 +194,7 @@ class Calculator extends React.Component {
     });
     const initialRemaining = expense.amount;
     expense = this.calculateRemaining(expense, initialRemaining);
-    if (expense.remaining !== 0.00) {
+    if (expense.remaining > 0.00) {
       expense = this.distributeRemainingCents(expense);
     }
     return expense;
@@ -342,15 +343,15 @@ class Calculator extends React.Component {
     this.props.addExpense(expense);
   }
 
-  // logSplit() {
-  //   const lookupTable = this.state.expense.split;
-  //   const keys = Object.keys(lookupTable);
-  //   for (let i = 0; i < keys.length; i++) {
-  //     const debt = lookupTable[keys[i]];
-  //     const id = keys[i];
-  //     console.log(`${id} owed ${debt}`);
-  //   }
-  // }
+  logSplit() {
+    const lookupTable = this.state.expense.split;
+    const keys = Object.keys(lookupTable);
+    for (let i = 0; i < keys.length; i++) {
+      const debt = lookupTable[keys[i]];
+      const id = keys[i];
+      console.log(`${id} owed ${debt}`);
+    }
+  }
 
   render() {
     const { title, amount, friends, owed, remaining } = this.state.expense;
