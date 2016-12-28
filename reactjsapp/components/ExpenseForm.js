@@ -111,7 +111,6 @@ class ExpenseForm extends React.Component {
   renderFooter(handleSave) {
     return (
       <footer>
-        <button className="btn btn-large btn-cancel">Cancel</button>
         <button
           onClick={handleSave}
           className="btn btn-large btn-min submit"

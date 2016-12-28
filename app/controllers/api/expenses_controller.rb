@@ -29,13 +29,15 @@ class Api::ExpensesController < ApplicationController
     )
     if expense.valid?
       if expense.save
-        debts.each_with_index do |debt, index|
-          borrower = User.find_by_id(ids[index])
-          debt = Debt.create!(
-            expense_id: expense.id,
-            debt_amount: debt,
-            borrower_id: borrower.id
-          )
+        if debts && debts.length > 0
+          debts.each_with_index do |debt, index|
+            borrower = User.find_by_id(ids[index])
+            debt = Debt.create!(
+              expense_id: expense.id,
+              debt_amount: debt,
+              borrower_id: borrower.id
+            )
+          end
         end
         render json: expense
       else

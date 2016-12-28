@@ -8,7 +8,7 @@ class Session extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      isLogin: props.location.pathname == '/login',
+      isLogin: props.location.pathname === '/login',
       errors: {},
       person: {
         email: '',
@@ -31,8 +31,8 @@ class Session extends Component {
     }
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.props.clearMessage();
-      const isLogin = this.props.location.pathname == '/login';
-      this.setState({ isLogin });
+      const isLogin = this.props.location.pathname === '/login';
+      this.setState({ isLogin, errors: {} });
     }
   }
 
@@ -40,7 +40,8 @@ class Session extends Component {
     const person = this.state.person;
     const field = e.target.name;
     person[field] = e.target.value;
-    this.setState({ person });
+    const errors = {};
+    this.setState({ person, errors });
   }
 
   validForm() {

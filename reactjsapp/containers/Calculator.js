@@ -88,7 +88,8 @@ class Calculator extends React.Component {
     return split;
   }
 
-  addZeroToDecimalEnding(amount) {
+  addZeroToDecimalEnding(withDecimal) {
+    let amount = withDecimal.toString();
     const idx = amount.indexOf('.');
     if (idx !== -1) {
       const decimal = amount.slice(idx + 1);
@@ -122,6 +123,12 @@ class Calculator extends React.Component {
     }
   }
 
+  formatOwed(owed) {
+    const str = owed.toString();
+    const withDecimal = this.makeDecimal(str);
+    return this.addZeroToDecimalEnding(withDecimal);
+  }
+
   distributeRemainingCents(expense) {
     let remaining = expense.remaining;
     let owed = 0;
@@ -129,7 +136,7 @@ class Calculator extends React.Component {
       if (remaining > 0.00) {
         owed = Number(friend.owed);
         owed += 0.01;
-        friend.owed = this.addZeroToDecimalEnding(this.makeDecimal(owed).toString());
+        friend.owed = this.formatOwed(owed);
         remaining -= 0.01;
       }
     });
@@ -141,6 +148,10 @@ class Calculator extends React.Component {
     return expense;
   }
 
+  roundUpRemainingToThousands(remaining) {
+    return (Math.round(remaining * 1000) / 1000).toString();
+  }
+
   percentDistributeRemainingCents(expense) {
     const split = expense.split;
     const keys = Object.keys(expense.split);
@@ -148,13 +159,14 @@ class Calculator extends React.Component {
     for (let i = 0; i < keys.length; i++) {
       totalOwed += Number(split[keys[i]]);
     }
-    let remaining = Number(expense.amount) - totalOwed;
     let owed = 0;
+    let remaining = Number(expense.amount) - totalOwed;
+    remaining = this.roundUpRemainingToThousands(remaining);
     keys.forEach(key => {
       if (remaining > 0.00) {
         owed = Number(split[key]);
         owed += 0.01;
-        split[key] = this.makeDecimal(owed).toString();
+        split[key] = this.formatOwed(owed);
         remaining -= 0.01;
       }
     });
@@ -167,10 +179,8 @@ class Calculator extends React.Component {
       totalOwed += Number(item.owed);
     });
     const remaining = Number(initialRemaining) - totalOwed;
-    console.log(remaining);
     expense.owed = totalOwed.toString();
-    expense.remaining = (Math.round(remaining * 1000) / 1000).toString();
-    console.log(remaining);
+    expense.remaining = this.roundUpRemainingToThousands(remaining);
     return expense;
   }
 
@@ -293,8 +303,8 @@ class Calculator extends React.Component {
       error = 'Enter a title (min. 2)';
     } else if (amount <= 0) {
       error = 'Enter an amount.';
-    } else if (expense.friends.length <= 0) {
-      error = 'Select a friend.';
+    } else if (this.state.selectedOptions.length <= 0) {
+      error = 'Select who you are splitting the expense with.';
     } else if (expense.remaining > 0) {
       error = 'Total remaining should be zero.';
     } else if (expenseDate.length <= 0) {
