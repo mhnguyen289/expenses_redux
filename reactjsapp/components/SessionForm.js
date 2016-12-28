@@ -23,7 +23,7 @@ const SessionForm = ({
         }
         <div className="post-content">
           <label htmlFor="email" className="post-field">
-            <span className="label-text">Username</span>
+            <span className="label-text">Email</span>
             <div className="group">
               <TextInput
                 type="text"

@@ -20,7 +20,6 @@ class Relationship < ApplicationRecord
     else
       result = []
     end
-    puts "#{result[0].id}"
   end
 
   private

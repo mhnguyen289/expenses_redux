@@ -6,8 +6,7 @@ class Api::UsersController < ApplicationController
     invite_email = invite_params[:email]
     user = User.find_by(email: invite_email)
     unless !!user
-      index = invite_email.index('@') - 1
-      username = invite_email[0..index]
+      username = createUsernameFrom(invite_email)
       user = User.create!(email: invite_email, username: username)
     end
     relationship = Relationship.new(
@@ -21,12 +20,18 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def createUsernameFrom(email)
+    index = email.index('@') - 1
+    username = email[0..index]
+  end
+
   def create
     params_email = user_params[:email]
-    user = User.find_by(email: params_email)
+    username = createUsernameFrom(params_email)
+    user = User.find_by(email: params_email) || User.find_by(username: username)
     if !!user
       if !!user.password_digest
-        render json: { unique: "Email already belongs to an account."}
+        render json: { unique: "Email/Username already belongs to an account."}
       else
         user.password = user_params[:password]
         render json: token_and_user(user)
