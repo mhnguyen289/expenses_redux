@@ -60,9 +60,6 @@ class Options extends React.Component {
     return (
       <nav className="navigation">
         <ol>
-          <li>
-            With you and :
-          </li>
           {selectedOptions.map(item =>
             <li key={item.id}>
               <Token
@@ -98,16 +95,21 @@ class Options extends React.Component {
     );
   }
 
-  renderInput() {
+  renderInput(placeholder) {
     return (
-      <input
-        type="text"
-        name="filter"
-        placeholder=""
-        className=""
-        value={this.state.filter}
-        onChange={this.handleChange}
-      />
+      <div>
+        <p>
+          With you and :
+        </p>
+        <input
+          type="text"
+          name="filter"
+          placeholder={placeholder}
+          className="input-text"
+          value={this.state.filter}
+          onChange={this.handleChange}
+        />
+      </div>
     );
   }
 
@@ -116,10 +118,11 @@ class Options extends React.Component {
       selectedOptions,
       handleAddToken,
       handleRemoveToken,
+      placeholder,
     } = this.props;
     return (
       <div>
-        {this.renderInput()}
+        {this.renderInput(placeholder)}
         {this.renderSuggestions(handleAddToken)}
         {this.renderSelectedOptions(selectedOptions, handleRemoveToken)}
       </div>
@@ -132,6 +135,7 @@ Options.propTypes = {
   selectedOptions: PropTypes.array,
   handleAddToken: PropTypes.func.isRequired,
   handleRemoveToken: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };
 
 export default Options;

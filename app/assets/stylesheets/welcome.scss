@@ -289,16 +289,18 @@ ul, ol {
 /* add friends to bill
 ========================================================================== */
 .add-friends {
-  flex: 1;
+  flex: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 5px 20px;
+  margin: 0 10px;
+  align-items: flex-end;
 }
 
 /* add notes to bill
   ========================================================================== */
 .add-bill {
+  flex: 0 0 70%;
 }
 
 .add-notes {
@@ -672,6 +674,14 @@ footer button {
   font-size: 12px;
   letter-spacing: .6px;
   text-transform: lowercase;
+}
+
+.input-text {
+  line-height: 16px;
+  font-size: 12px;
+  height: 24px;
+  width: 150px;
+  padding: 3px 5px;
 }
 
 /* user-message

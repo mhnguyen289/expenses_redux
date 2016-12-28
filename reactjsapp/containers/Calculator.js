@@ -64,11 +64,8 @@ class Calculator extends React.Component {
   }
 
   makeDecimal(number) {
-    console.log(number);
     let num = Math.trunc(number * 100);
-    console.log(number);
     num /= 100;
-    console.log(number);
     return num;
   }
 
@@ -234,7 +231,7 @@ class Calculator extends React.Component {
     const friendId = e.target.name;
     const owedValue = e.target.value.trim();
     expense = this.updateExpense(splitOption, expense, friendId, owedValue);
-    this.logSplit();
+    // this.logSplit();
     this.setState({ expense, error: '' });
   }
 
@@ -253,7 +250,7 @@ class Calculator extends React.Component {
       expense.owed = '0.00';
       expense.remaining = this.getInitialRemaining(selectedSplitOption, expense);
     }
-    this.logSplit();
+    // this.logSplit();
     this.setState({
       nameOfButtonClicked,
       selectedSplitOption,
@@ -336,15 +333,15 @@ class Calculator extends React.Component {
     this.props.addExpense(expense);
   }
 
-  logSplit() {
-    const lookupTable = this.state.expense.split;
-    const keys = Object.keys(lookupTable);
-    for (let i = 0; i < keys.length; i++) {
-      const debt = lookupTable[keys[i]];
-      const id = keys[i];
-      console.log(`${id} owed ${debt}`);
-    }
-  }
+  // logSplit() {
+  //   const lookupTable = this.state.expense.split;
+  //   const keys = Object.keys(lookupTable);
+  //   for (let i = 0; i < keys.length; i++) {
+  //     const debt = lookupTable[keys[i]];
+  //     const id = keys[i];
+  //     console.log(`${id} owed ${debt}`);
+  //   }
+  // }
 
   render() {
     const { title, amount, friends, owed, remaining } = this.state.expense;
