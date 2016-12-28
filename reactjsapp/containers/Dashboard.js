@@ -18,6 +18,7 @@ class Dashboard extends React.Component {
     const selectedIdChanged = prevProps.selectedId !== selectedId;
     const selectedIdExists = selectedId && selectedId.length >= 0;
     if (selectedIdExists && selectedIdChanged) {
+      this.props.fetchFriendsList();
       this.props.fetchExpensesWith(selectedId);
     } else if (!selectedIdExists && selectedIdChanged) {
       this.props.fetchAllExpenses();
@@ -50,10 +51,10 @@ Dashboard.propTypes = {
   debts: PropTypes.arrayOf(PropTypes.object),
   expenses: PropTypes.arrayOf(PropTypes.object),
   friends: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    username: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    username: PropTypes.string,
     owed: PropTypes.string,
-  })).isRequired,
+  })),
   fetchFriendsList: PropTypes.func.isRequired,
   fetchExpensesWith: PropTypes.func.isRequired,
   fetchAllExpenses: PropTypes.func.isRequired,

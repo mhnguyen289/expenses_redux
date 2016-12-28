@@ -76,6 +76,8 @@ export const signUp = (person) => (dispatch) => {
        dispatch(clearMessage());
      } else if (response.unique) {
        dispatch(showMessage(response.unique));
+     } else if (response.invalid) {
+       dispatch(showMessage(response.invalid));
      }
    })
    .fail(error => {

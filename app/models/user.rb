@@ -4,7 +4,8 @@ class User < ApplicationRecord
   has_many :expenses, foreign_key: :paid_by_id
   has_many :debts, foreign_key: :borrower_id
   validates :email, length: { minimum: 6 }, uniqueness: true
-
+  validates :username, presence: true
+  
   attr_reader :password
 
   def as_json(option={})

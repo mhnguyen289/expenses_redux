@@ -16,10 +16,11 @@ class Relationship < ApplicationRecord
     end
     list = friends_ids.join(", ");
     if list.length > 0
-      connection.select_all(sql_username_of(list))
+      result = connection.select_all(sql_username_of(list))
     else
-      []
+      result = []
     end
+    puts "#{result[0].id}"
   end
 
   private
