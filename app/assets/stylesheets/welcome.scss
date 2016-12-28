@@ -36,9 +36,21 @@ input {
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 }
 
-input:-webkit-autofill {
-  background-color: #f9f9f9 !important;
-  background-image: none;
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: #000;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 ul, ol {
@@ -875,9 +887,9 @@ label {
   outline: 0;
   padding: 0;
   width: 100%;
-  background: #f9f9f9 !important;
+  background: transparent;
   border-bottom: 1px solid #f2f2f2;
-  width: 40%;
+  width: 50%;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.0);
 }
 
