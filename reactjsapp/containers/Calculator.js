@@ -64,8 +64,11 @@ class Calculator extends React.Component {
   }
 
   makeDecimal(number) {
+    console.log(number);
     let num = Math.trunc(number * 100);
+    console.log(number);
     num /= 100;
+    console.log(number);
     return num;
   }
 
@@ -85,9 +88,21 @@ class Calculator extends React.Component {
     return split;
   }
 
+  addZeroToDecimalEnding(amount) {
+    const idx = amount.indexOf('.');
+    if (idx !== -1) {
+      const decimal = amount.slice(idx + 1);
+      if (decimal.length === 1) {
+        amount = `${amount}0`;
+      }
+    }
+    return amount;
+  }
+
   splitEqually(friends, amount) {
     const split = friends.reduce((acc, item, index, array) => {
-      acc[item.id] = this.makeDecimal(amount / array.length);
+      const equalShare = (this.makeDecimal(amount / array.length)).toString();
+      acc[item.id] = this.addZeroToDecimalEnding(equalShare);
       return acc;
     }, {});
     return split;
@@ -111,16 +126,16 @@ class Calculator extends React.Component {
     let remaining = expense.remaining;
     let owed = 0;
     expense.friends.forEach(friend => {
-      if (remaining > 0) {
-        owed = this.makeDecimal(Number(friend.owed));
+      if (remaining > 0.00) {
+        owed = Number(friend.owed);
         owed += 0.01;
-        friend.owed = this.makeDecimal(owed).toString();
+        friend.owed = this.addZeroToDecimalEnding(this.makeDecimal(owed).toString());
         remaining -= 0.01;
       }
     });
     expense.remaining = remaining.toString();
     expense.split = expense.friends.reduce((acc, item) => {
-      acc[item.id] = item.owed.toString();
+      acc[item.id] = this.addZeroToDecimalEnding(item.owed);
       return acc;
     }, {});
     return expense;
@@ -136,8 +151,8 @@ class Calculator extends React.Component {
     let remaining = Number(expense.amount) - totalOwed;
     let owed = 0;
     keys.forEach(key => {
-      if (remaining > 0) {
-        owed = this.makeDecimal(Number(split[key]));
+      if (remaining > 0.00) {
+        owed = Number(split[key]);
         owed += 0.01;
         split[key] = this.makeDecimal(owed).toString();
         remaining -= 0.01;
@@ -151,9 +166,11 @@ class Calculator extends React.Component {
     expense.friends.forEach((item) => {
       totalOwed += Number(item.owed);
     });
-    const remaining = this.makeDecimal(Number(initialRemaining) - totalOwed);
+    const remaining = Number(initialRemaining) - totalOwed;
+    console.log(remaining);
     expense.owed = totalOwed.toString();
-    expense.remaining = remaining.toString();
+    expense.remaining = (Math.round(remaining * 1000) / 1000).toString();
+    console.log(remaining);
     return expense;
   }
 
@@ -164,7 +181,7 @@ class Calculator extends React.Component {
     });
     const initialRemaining = expense.amount;
     expense = this.calculateRemaining(expense, initialRemaining);
-    if (expense.remaining !== 0) {
+    if (expense.remaining !== 0.00) {
       expense = this.distributeRemainingCents(expense);
     }
     return expense;
