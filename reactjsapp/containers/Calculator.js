@@ -231,7 +231,6 @@ class Calculator extends React.Component {
     const friendId = e.target.name;
     const owedValue = e.target.value.trim();
     expense = this.updateExpense(splitOption, expense, friendId, owedValue);
-    // this.logSplit();
     this.setState({ expense, error: '' });
   }
 
@@ -250,7 +249,6 @@ class Calculator extends React.Component {
       expense.owed = '0.00';
       expense.remaining = this.getInitialRemaining(selectedSplitOption, expense);
     }
-    // this.logSplit();
     this.setState({
       nameOfButtonClicked,
       selectedSplitOption,
@@ -263,7 +261,6 @@ class Calculator extends React.Component {
       expenseDate,
     });
   }
-
 
   handleRemoveToken(e) {
     const removeId = Number(e.target.name);
