@@ -35,7 +35,7 @@ class Calculator extends React.Component {
         owed: '0.00',
         remaining: '0.00',
         title: '',
-        amount: '0.00',
+        amount: '',
         split: {},
       },
     };
