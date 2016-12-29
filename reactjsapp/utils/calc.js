@@ -16,7 +16,7 @@ export const splitExpenses = (splitType, expense) => {
   }
 };
 
-const logSplit = () => {
+export const logSplit = () => {
   const lookupTable = this.state.expense.split;
   const keys = Object.keys(lookupTable);
   for (let i = 0; i < keys.length; i++) {
@@ -26,7 +26,7 @@ const logSplit = () => {
   }
 };
 
-const distributeRemainingCents = (expense) => {
+export const distributeRemainingCents = (expense) => {
   let remaining = expense.remaining;
   let owed = 0.00;
   expense.friends.forEach(friend => {
@@ -46,7 +46,7 @@ const distributeRemainingCents = (expense) => {
   return expense;
 };
 
-const percentDistributeRemainingCents = expense => {
+export const percentDistributeRemainingCents = expense => {
   const split = expense.split;
   const keys = Object.keys(expense.split);
   let totalOwed = 0;
@@ -68,12 +68,12 @@ const percentDistributeRemainingCents = expense => {
   return expense.split;
 };
 
-const getInitialRemaining = (selectedSplitOption, expense) => {
+export const getInitialRemaining = (selectedSplitOption, expense) => {
   const byPercent = (selectedSplitOption === options.SPLIT_BY_PERCENT);
   return byPercent ? '100.00' : expense.amount;
 };
 
-const calculateRemaining = (expense, initialRemaining) => {
+export const calculateRemaining = (expense, initialRemaining) => {
   let totalOwed = 0;
   const owedNum = 0.00;
   expense.friends.forEach((item) => {
@@ -133,6 +133,7 @@ export const resetExpense = (selectedSplitOption, expense) => {
     return acc;
   }, []);
   expense.friends = reset;
+  expense.split = {};
   expense.owed = '0.00';
   expense.remaining = getInitialRemaining(selectedSplitOption, expense);
   return expense;

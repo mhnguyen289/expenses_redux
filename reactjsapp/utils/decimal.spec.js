@@ -10,7 +10,7 @@ describe('decimal utility functions', () => {
   });
 
   it('should add zero to decimal ending in single digit', () => {
-    const value = '78.9'
+    const value = '78.9';
     const actual = decimalUtil.addZeroToDecimalEnding(value);
     const expected = '78.90';
     expect(actual).toEqual(expected);
