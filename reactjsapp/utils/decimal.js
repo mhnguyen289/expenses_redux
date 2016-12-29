@@ -17,7 +17,6 @@ export const addZeroToDecimalEnding = withDecimal => {
 
 export const makeDecimal = number => {
   let num = Number(number);
-  // num = roundUpFromThousandths(num);
   num = Math.trunc(number * 100);
   num /= 100;
   let str = num.toString();
