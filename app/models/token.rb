@@ -10,6 +10,7 @@ class Token
   end
 
   def self.hmac_secret
-    ENV["hmac_secret"]
+    "abc"
+    # ENV["hmac_secret"]
   end
 end

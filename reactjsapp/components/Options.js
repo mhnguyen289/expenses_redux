@@ -27,7 +27,7 @@ class Options extends React.Component {
   }
 
   handleChange(e) {
-    if (e.target.name == 'filter') {
+    if (e.target.name === 'filter') {
       const filter = e.target.value.trim();
       const regex = new RegExp(`^${filter}`, 'i');
       const updatedFiltered = this.props.list.filter(item => regex.test(item.username));

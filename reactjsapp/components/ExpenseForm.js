@@ -39,7 +39,7 @@ class ExpenseForm extends React.Component {
   }
 
   renderSplitOptionsButtons(handleClick, nameOfButtonClicked) {
-    const className = 'split_button btn btn-gray';
+    const className = 'btn btn-gray';
     const activeClassName = `${className} active`;
     const buttonStyles = {
       equal: className,
@@ -49,7 +49,7 @@ class ExpenseForm extends React.Component {
     buttonStyles[nameOfButtonClicked] = activeClassName;
     return (
       <div className="split-details">
-        <div className="btn-group btn-group-inline" id="split-method">
+        <div className="btn-group btn-group-inline">
           <button
             onClick={handleClick}
             name="equal"
@@ -79,9 +79,9 @@ class ExpenseForm extends React.Component {
       owed,
       remaining,
     } = splitProps;
-    const isSplitByPercent = selectedSplitOption == options.SPLIT_BY_PERCENT;
-    const isSplitByExact = selectedSplitOption == options.SPLIT_EXACT_AMOUNT;
-    const isSplitEqually = selectedSplitOption == options.SPLIT_EQUALLY;
+    const isSplitByPercent = selectedSplitOption === options.SPLIT_BY_PERCENT;
+    const isSplitByExact = selectedSplitOption === options.SPLIT_EXACT_AMOUNT;
+    const isSplitEqually = selectedSplitOption === options.SPLIT_EQUALLY;
     return (
       <div>
         {isSplitByPercent &&
@@ -115,7 +115,7 @@ class ExpenseForm extends React.Component {
       <footer>
         <button
           onClick={handleSave}
-          className="btn btn-large btn-min submit"
+          className="btn btn-large submit"
         >Save</button>
       </footer>
     );
@@ -134,6 +134,18 @@ class ExpenseForm extends React.Component {
 
   renderErrorMessage(error) {
     return <div>{error.length > 0 && <div className="input-error">{error}</div>}</div>;
+  }
+
+  renderSelectFriendsToSplitExpensesWith(list, selectedOptions, handleAddToken, handleRemoveToken) {
+    return (
+      <Options
+        placeholder="Enter email address"
+        list={list}
+        selectedOptions={selectedOptions}
+        handleAddToken={handleAddToken}
+        handleRemoveToken={handleRemoveToken}
+      />
+    );
   }
 
   render() {
@@ -168,13 +180,11 @@ class ExpenseForm extends React.Component {
     return (
       <div className="add container">
         <div className="add-friends">
-          <Options
-            placeholder="Enter email address"
-            list={list}
-            selectedOptions={selectedOptions}
-            handleAddToken={handleAddToken}
-            handleRemoveToken={handleRemoveToken}
-          />
+          {this.renderSelectFriendsToSplitExpensesWith(
+            list,
+            selectedOptions,
+            handleAddToken,
+            handleRemoveToken)}
         </div>
         <div className="add-bill">
           {this.renderErrorMessage(error)}

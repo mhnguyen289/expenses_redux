@@ -4,7 +4,7 @@
   "description": "An app that splits and records expenses, inspired by SplitWise",
   "main": "webpack.config.babel.js",
   "scripts": {
-    "start": "npm-run-all --parallel webpack:watch lint:watch ",
+    "start": "npm-run-all --parallel webpack:watch lint:watch test:watch",
     "webpack": "./node_modules/.bin/webpack -d",
     "webpack:watch": "./node_modules/.bin/webpack -w -d",
     "lint": "node_modules/.bin/esw webpack.config.* reactjsapp",
