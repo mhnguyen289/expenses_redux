@@ -1,5 +1,7 @@
-export const roundUpFromThousandths = value =>
-  (Math.round(value * 1000) / 1000).toString();
+export const roundUpFromThousandths = value => {
+  const num = Number(value);
+  return (Math.round(num * 1000) / 1000).toString();
+};
 
 export const addZeroToDecimalEnding = withDecimal => {
   let amount = withDecimal.toString();
@@ -15,7 +17,7 @@ export const addZeroToDecimalEnding = withDecimal => {
 
 export const makeDecimal = number => {
   let num = Number(number);
-  num = roundUpFromThousandths(num);
+  // num = roundUpFromThousandths(num);
   num = Math.trunc(number * 100);
   num /= 100;
   let str = num.toString();
