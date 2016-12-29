@@ -4,8 +4,8 @@ import ExpenseForm from '../components/ExpenseForm';
 import { addExpense } from '../actions/expenses_actions';
 import { fetchFriendsList } from '../actions/friends_actions';
 import { getAllFriends } from '../reducers';
-import * as calcUtil from '../utils/calc';
 import * as options from '../constants/split_options';
+import * as calcUtil from '../utils/calc';
 
 class Calculator extends React.Component {
   constructor(props, context) {
@@ -81,13 +81,7 @@ class Calculator extends React.Component {
     if (selectedSplitOption === options.SPLIT_EQUALLY) {
       expense = calcUtil.updateByCalculator(selectedSplitOption, expense);
     } else {
-      const reset = expense.friends.reduce((acc, item) => {
-        acc.push({ id: item.id, username: item.username, owed: '' });
-        return acc;
-      }, []);
-      expense.friends = reset;
-      expense.owed = '0.00';
-      expense.remaining = calcUtil.getInitialRemaining(selectedSplitOption, expense);
+      expense = calcUtil.resetExpense(selectedSplitOption, expense);
     }
     this.setState({
       nameOfButtonClicked,
@@ -175,16 +169,6 @@ class Calculator extends React.Component {
     const debts = Object.values(split);
     const expense = { title, amount, expenseDate, ids, debts };
     this.props.addExpense(expense);
-  }
-
-  logSplit() {
-    const lookupTable = this.state.expense.split;
-    const keys = Object.keys(lookupTable);
-    for (let i = 0; i < keys.length; i++) {
-      const debt = lookupTable[keys[i]];
-      const id = keys[i];
-      console.log(`${id} owed ${debt}`);
-    }
   }
 
   render() {

@@ -1,6 +1,30 @@
-import * as splitUtil from '../utils/split';
-import * as decimalUtil from '../utils/decimal';
 import * as options from '../constants/split_options';
+import * as decimalUtil from '../utils/decimal';
+import * as splitUtil from '../utils/split';
+
+export const splitExpenses = (splitType, expense) => {
+  const { friends, amount } = expense;
+  switch (splitType) {
+    case options.SPLIT_BY_PERCENT:
+      return splitUtil.splitByPercent(friends, amount);
+    case options.SPLIT_EXACT_AMOUNT:
+      return splitUtil.splitByExactAmount(friends);
+    case options.SPLIT_EQUALLY:
+      return splitUtil.splitEqually(friends, amount);
+    default:
+      return {};
+  }
+};
+
+const logSplit = () => {
+  const lookupTable = this.state.expense.split;
+  const keys = Object.keys(lookupTable);
+  for (let i = 0; i < keys.length; i++) {
+    const debt = lookupTable[keys[i]];
+    const id = keys[i];
+    console.log(`${id} owed ${debt}`);
+  }
+};
 
 const distributeRemainingCents = (expense) => {
   let remaining = expense.remaining;
@@ -44,8 +68,7 @@ const percentDistributeRemainingCents = expense => {
   return expense.split;
 };
 
-// do not export this get initial remaining, place the code that needs it, here,
-export const getInitialRemaining = (selectedSplitOption, expense) => {
+const getInitialRemaining = (selectedSplitOption, expense) => {
   const byPercent = (selectedSplitOption === options.SPLIT_BY_PERCENT);
   return byPercent ? '100.00' : expense.amount;
 };
@@ -67,7 +90,7 @@ const calculateRemaining = (expense, initialRemaining) => {
 };
 
 export const updateByCalculator = (splitOption, expense) => {
-  expense.split = splitUtil.splitExpenses(splitOption, expense);
+  expense.split = splitExpenses(splitOption, expense);
   expense.friends.forEach(friend => {
     friend.owed = expense.split[friend.id];
   });
@@ -87,7 +110,7 @@ export const updateByInput = (splitOption, expense, friendId, owedValue) => {
   });
   const initialRemaining = getInitialRemaining(splitOption, expense);
   expense = calculateRemaining(expense, initialRemaining);
-  expense.split = splitUtil.splitExpenses(splitOption, expense);
+  expense.split = splitExpenses(splitOption, expense);
   expense.split = percentDistributeRemainingCents(expense);
   return expense;
 };
@@ -102,4 +125,15 @@ export const updateExpense = (splitOption, expense, friendId, owedValue) => {
     default:
       return {};
   }
+};
+
+export const resetExpense = (selectedSplitOption, expense) => {
+  const reset = expense.friends.reduce((acc, item) => {
+    acc.push({ id: item.id, username: item.username, owed: '' });
+    return acc;
+  }, []);
+  expense.friends = reset;
+  expense.owed = '0.00';
+  expense.remaining = getInitialRemaining(selectedSplitOption, expense);
+  return expense;
 };
