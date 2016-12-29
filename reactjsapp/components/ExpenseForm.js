@@ -136,18 +136,6 @@ class ExpenseForm extends React.Component {
     return <div>{error.length > 0 && <div className="input-error">{error}</div>}</div>;
   }
 
-  renderSelectFriendsToSplitExpensesWith(list, selectedOptions, handleAddToken, handleRemoveToken) {
-    return (
-      <Options
-        placeholder="Enter email address"
-        list={list}
-        selectedOptions={selectedOptions}
-        handleAddToken={handleAddToken}
-        handleRemoveToken={handleRemoveToken}
-      />
-    );
-  }
-
   render() {
     const {
       title,
@@ -180,11 +168,13 @@ class ExpenseForm extends React.Component {
     return (
       <div className="add container">
         <div className="add-friends">
-          {this.renderSelectFriendsToSplitExpensesWith(
-            list,
-            selectedOptions,
-            handleAddToken,
-            handleRemoveToken)}
+          <Options
+            placeholder="Enter email address"
+            list={list}
+            selectedOptions={selectedOptions}
+            handleAddToken={handleAddToken}
+            handleRemoveToken={handleRemoveToken}
+          />
         </div>
         <div className="add-bill">
           {this.renderErrorMessage(error)}

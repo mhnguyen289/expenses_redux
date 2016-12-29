@@ -5,6 +5,8 @@ import { addExpense } from '../actions/expenses_actions';
 import { fetchFriendsList } from '../actions/friends_actions';
 import { getAllFriends } from '../reducers';
 import * as options from '../constants/split_options';
+import * as splitUtil from '../utils/split';
+import * as decimalUtil from '../utils/decimal';
 
 class Calculator extends React.Component {
   constructor(props, context) {
@@ -58,70 +60,15 @@ class Calculator extends React.Component {
     }
   }
 
-  getInitialRemaining(selectedSplitOption, expense) {
-    const byPercent = (selectedSplitOption === options.SPLIT_BY_PERCENT);
-    return byPercent ? '100.00' : expense.amount;
-  }
-
-  roundUpFromThousandths(value) {
-    return (Math.round(value * 1000) / 1000).toString();
-  }
-
-  makeDecimal(number) {
-    let num = Number(number);
-    num = this.roundUpFromThousandths(num);
-    num = Math.trunc(number * 100);
-    num /= 100;
-    let str = num.toString();
-    str = this.addZeroToDecimalEnding(str);
-    return str;
-  }
-
-  addZeroToDecimalEnding(withDecimal) {
-    let amount = withDecimal.toString();
-    const idx = amount.indexOf('.');
-    if (idx !== -1) {
-      const decimal = amount.slice(idx + 1);
-      if (decimal.length === 1) {
-        amount = `${amount}0`;
-      }
-    }
-    return amount;
-  }
-
-  splitByPercent(friends, amount) {
-    const split = friends.reduce((acc, item) => {
-      acc[item.id] = this.makeDecimal(amount * item.owed / 100);
-      return acc;
-    }, {});
-    return split;
-  }
-
-  splitByExactAmount(friends) {
-    const split = friends.reduce((acc, item) => {
-      acc[item.id] = this.makeDecimal(item.owed);
-      return acc;
-    }, {});
-    return split;
-  }
-
-  splitEqually(friends, amount) {
-    const split = friends.reduce((acc, item, index, array) => {
-      acc[item.id] = this.makeDecimal(amount / array.length);
-      return acc;
-    }, {});
-    return split;
-  }
-
   splitExpenses(splitType, expense) {
     const { friends, amount } = expense;
     switch (splitType) {
       case options.SPLIT_BY_PERCENT:
-        return this.splitByPercent(friends, amount);
+        return splitUtil.splitByPercent(friends, amount);
       case options.SPLIT_EXACT_AMOUNT:
-        return this.splitByExactAmount(friends);
+        return splitUtil.splitByExactAmount(friends);
       case options.SPLIT_EQUALLY:
-        return this.splitEqually(friends, amount);
+        return splitUtil.splitEqually(friends, amount);
       default:
         return {};
     }
@@ -134,8 +81,8 @@ class Calculator extends React.Component {
       if (remaining > 0.00) {
         owed = Number(friend.owed);
         owed += 0.01;
-        owed = this.roundUpFromThousandths(owed);
-        friend.owed = this.addZeroToDecimalEnding(owed);
+        owed = decimalUtil.roundUpFromThousandths(owed);
+        friend.owed = decimalUtil.addZeroToDecimalEnding(owed);
         remaining -= 0.01;
       }
     });
@@ -156,17 +103,22 @@ class Calculator extends React.Component {
     }
     let owed = 0;
     let remaining = Number(expense.amount) - totalOwed;
-    remaining = this.roundUpFromThousandths(remaining);
+    remaining = decimalUtil.roundUpFromThousandths(remaining);
     keys.forEach(key => {
       if (remaining > 0.00) {
         owed = Number(split[key]);
         owed += 0.01;
-        owed = this.roundUpFromThousandths(owed);
-        split[key] = this.addZeroToDecimalEnding(owed);
+        owed = decimalUtil.roundUpFromThousandths(owed);
+        split[key] = decimalUtil.addZeroToDecimalEnding(owed);
         remaining -= 0.01;
       }
     });
     return expense.split;
+  }
+
+  getInitialRemaining(selectedSplitOption, expense) {
+    const byPercent = (selectedSplitOption === options.SPLIT_BY_PERCENT);
+    return byPercent ? '100.00' : expense.amount;
   }
 
   calculateRemaining(expense, initialRemaining) {
@@ -181,7 +133,7 @@ class Calculator extends React.Component {
     });
     const remaining = Number(initialRemaining) - totalOwed;
     expense.owed = totalOwed.toString();
-    expense.remaining = this.roundUpFromThousandths(remaining);
+    expense.remaining = decimalUtil.roundUpFromThousandths(remaining);
     return expense;
   }
 
