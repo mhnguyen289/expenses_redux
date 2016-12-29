@@ -9,7 +9,7 @@
     "webpack:watch": "./node_modules/.bin/webpack -w -d",
     "lint": "node_modules/.bin/esw webpack.config.* reactjsapp",
     "lint:watch": "npm run lint -- --watch",
-    "test": "jest",
+    "test": "mocha './reactjsapp/**/*.spec.js' --compilers js:babel-core/register",
     "test:watch": "npm test -- --watch",
     "build": "babel-node reactjsapp_utility/build.js",
     "heroku-postbuild": "npm run build"
@@ -53,9 +53,13 @@
     "eslint-plugin-react": "5.0.1",
     "eslint-watch": "2.1.11",
     "expect": "1.19.0",
+    "expect-jsx": "2.6.0",
+    "i": "0.3.5",
     "jest": "18.0.0",
+    "mocha": "3.2.0",
     "npm-run-all": "1.8.0",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "react-addons-test-utils": "15.4.1"
   },
   "engines": {
     "node": "6.9.1",
