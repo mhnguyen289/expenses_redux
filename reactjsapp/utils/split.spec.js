@@ -1,7 +1,7 @@
 import expect from 'expect';
 import * as splitUtil from './split';
 
-describe('methods for splitting expenses among members', () => {
+describe('split utility functions', () => {
   it('should handle splitting expenses equally', () => {
     const amount = '360.00';
     const friends = [
