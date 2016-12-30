@@ -1,6 +1,6 @@
 import * as types from '../constants/action_types';
 
-const saved = (state = false, action) => {
+const savedExpense = (state = false, action) => {
   switch (action.type) {
     case types.ADD_EXPENSE:
       return true;
@@ -12,4 +12,4 @@ const saved = (state = false, action) => {
   }
 };
 
-export default saved;
+export default savedExpense;

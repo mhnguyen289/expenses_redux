@@ -54,7 +54,7 @@ class Calculator extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.saved) {
+    if (this.props.savedExpense) {
       this.context.router.push('/dashboard');
     }
   }
@@ -206,12 +206,12 @@ Calculator.contextTypes = {
 Calculator.propTypes = {
   fetchFriendsList: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
-  saved: PropTypes.bool.isRequired,
+  savedExpense: PropTypes.bool.isRequired,
   friends: PropTypes.arrayOf(PropTypes.object),
 };
 
 const mapStateToProps = (state) => ({
-  saved: state.saved,
+  savedExpense: state.savedExpense,
   friends: getAllFriends(state),
 });
 

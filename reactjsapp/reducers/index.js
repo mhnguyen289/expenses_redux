@@ -4,7 +4,7 @@ import message from './message';
 import expenses, * as fromExpenses from './expenses';
 import friends, * as fromFriends from './friends';
 import debts, * as fromDebts from './debts';
-import saved from './saved';
+import savedExpense from './savedExpense';
 
 const rootReducer = combineReducers({
   authenticated,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   friends,
   expenses,
   debts,
-  saved,
+  savedExpense,
 });
 
 export default rootReducer;
