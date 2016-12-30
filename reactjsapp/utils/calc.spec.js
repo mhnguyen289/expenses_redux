@@ -93,3 +93,162 @@ describe('get initial remaining', () => {
     expect(actual).toEqual(expected);
   });
 });
+
+describe('update expense', () => {
+  const getUpdatedExpense = (
+    splitOption,
+    amount,
+    remaining = '0.00',
+    friendId = '',
+    owedValue = '') => {
+    const expense = {
+      friends: [
+        { id: 1, username: 'userone', owed: '' },
+        { id: 2, username: 'usertwo', owed: '' },
+      ],
+      owed: '0.00',
+      remaining,
+      title: 'Lunch',
+      amount,
+      split: {},
+    };
+    return calcUtil.updateExpense(splitOption, expense, friendId, owedValue);
+  };
+
+  it('should update expense split by percent', () => {
+    const friendId = 2;
+    const owedValue = '40';
+    const remaining = '60.00';
+    const amount = '100.00';
+    const actual = getUpdatedExpense(
+      options.SPLIT_BY_PERCENT, amount, remaining, friendId, owedValue);
+    const expected = {
+      friends: [
+        { id: 1, username: 'userone', owed: '' },
+        { id: 2, username: 'usertwo', owed: '40' },
+      ],
+      owed: '40',
+      remaining: '60',
+      title: 'Lunch',
+      amount: '100.00',
+      split: {
+        1: '0.01',
+        2: '40.01',
+      },
+    };
+    expect(actual).toEqual(expected);
+  });
+
+  it('should update expense split by exact amount', () => {
+    const friendId = 2;
+    const owedValue = '23.90';
+    const remaining = '50.00';
+    const amount = '50.00';
+    const actual = getUpdatedExpense(
+      options.SPLIT_EXACT_AMOUNT, remaining, amount, friendId, owedValue);
+    const expected = {
+      friends: [
+        { id: 1, username: 'userone', owed: '' },
+        { id: 2, username: 'usertwo', owed: '23.90' },
+      ],
+      owed: '23.90',
+      remaining: '26.10',
+      title: 'Lunch',
+      amount: '50.00',
+      split: {
+        1: '0.01',
+        2: '23.91',
+      },
+    };
+    expect(actual).toEqual(expected);
+  });
+
+  it('should update expense, split equally', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '30.00');
+    const expected = {
+      friends: [
+        { id: 1, username: 'userone', owed: '15' },
+        { id: 2, username: 'usertwo', owed: '15' },
+      ],
+      owed: '30',
+      remaining: '0',
+      title: 'Lunch',
+      amount: '30.00',
+      split: {
+        1: '15',
+        2: '15',
+      },
+    };
+    expect(actual).toEqual(expected);
+  });
+
+  it('should distribute remaing cents, case .01', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.01');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.01', 2: '39' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+
+  it('should distribute remaing cents, case .02', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.02');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.01', 2: '39.01' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+
+  it('should distribute remaing cents, case .03', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.03');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.02', 2: '39.01' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+
+  it('should distribute remaing cents, case .04', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.04');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.02', 2: '39.02' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+
+  it('should distribute remaing cents, case .05', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.05');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.03', 2: '39.02' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+
+  it('should distribute remaing cents, case .06', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.06');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.03', 2: '39.03' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+
+  it('should distribute remaing cents, case .07', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.07');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.04', 2: '39.03' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+
+  it('should distribute remaing cents, case .08', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.08');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.04', 2: '39.04' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+
+  it('should distribute remaing cents, case .09', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.09');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.05', 2: '39.04' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+
+  it('should distribute remaing cents, case .10', () => {
+    const actual = getUpdatedExpense(options.SPLIT_EQUALLY, '78.10');
+    const actualSplit = actual.split;
+    const expectedSplit = { 1: '39.05', 2: '39.05' };
+    expect(actualSplit).toEqual(expectedSplit);
+  });
+});

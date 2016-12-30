@@ -84,8 +84,9 @@ export const calculateRemaining = (expense, initialRemaining) => {
     }
   });
   const remaining = Number(initialRemaining) - totalOwed;
-  expense.owed = totalOwed.toString();
-  expense.remaining = decimalUtil.roundUpFromThousandths(remaining);
+  expense.owed = decimalUtil.makeDecimal(totalOwed);
+  const formattedRemaining = decimalUtil.roundUpFromThousandths(remaining);
+  expense.remaining = decimalUtil.addZeroToDecimalEnding(formattedRemaining);
   return expense;
 };
 
