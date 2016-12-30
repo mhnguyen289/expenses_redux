@@ -19,5 +19,5 @@ describe('store', () => {
       savedExpense: false,
     };
     expect(actual).toEqual(expected);
-  })
+  });
 })
