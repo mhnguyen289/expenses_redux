@@ -13,7 +13,6 @@ body {
   line-height: 22px;
   color: #333;
   background-color: #f9f9f9;
-  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -428,45 +427,11 @@ input.cost {
   vertical-align: bottom;
 }
 
-.human-summary {
-  clear: both;
-  margin: 15px 0 10px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.human-summary a {
-  display: inline-block;
-  background: #f6f6f6;
-  border-radius: 10px;
-  height: 18px;
-  line-height: 16px;
-  padding: 2px 5px 0px;
-  border: 1px dashed #ccc;
-  vertical-align: middle;
-  color: #5cc5a7;
-  margin: 0;
-  cursor: pointer;
-  text-decoration: none;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.human-summary .details {
-  margin: 3px 0;
-  font-size: 14px;
-}
-
 /* add bill footer buttons
   ========================================================================== */
 
 footer button {
   letter-spacing: 0;
-}
-
-.btn-cancel {
-  background: #f6f6f6;
-  color: #333;
 }
 
 .btn-large {
@@ -484,11 +449,6 @@ footer button {
   vertical-align: middle;
   cursor: pointer;
   outline: 0;
-}
-
-.btn-mint {
-  background: #5cc5a7;
-  color: #fff;
 }
 
 /* choose split button group
