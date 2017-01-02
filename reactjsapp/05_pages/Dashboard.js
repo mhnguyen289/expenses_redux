@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { fetchAllExpenses, fetchExpensesWith, fetchDebts } from '../actions/expenses_actions';
 import { fetchFriendsList } from '../actions/friends_actions';
 import { getAllFriends, getAllExpenses, getAllDebts } from '../reducers';
-import Navbar from '../components/Navbar';
-import ExpensesList from '../components/ExpensesList';
+import Navbar from '../03_organisms/Navbar';
+import ExpensesList from '../03_organisms/ExpensesList';
 
 class Dashboard extends React.Component {
   componentDidMount() {

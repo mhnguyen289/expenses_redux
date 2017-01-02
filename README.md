@@ -1,2 +1,4 @@
-Responsive, custom designed app for splitting expenses with friends.
-Built with Atomic design system, CSS, React, Redux, Rails and PostgreSQL.
+Users can invite friends and record expenses, split equally, by exact amount, or by percent.
+
+Atomic Design + ReactJS,
+Redux, Rails and Postgres.

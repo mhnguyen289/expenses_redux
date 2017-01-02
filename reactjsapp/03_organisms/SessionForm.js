@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import TextInput from './TextInput';
+import TextInput from '../01_atoms/TextInput';
 
 const SessionForm = ({
   email,

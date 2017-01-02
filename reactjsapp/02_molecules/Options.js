@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Token from './Token';
+import Token from '../01_atoms/Token';
 
 class Options extends React.Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Header from '../components/Header';
+import Header from '../03_organisms/Header';
 
 const App = ({ children }) => (
   <div>

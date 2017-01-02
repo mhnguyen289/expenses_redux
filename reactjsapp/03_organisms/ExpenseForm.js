@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import * as options from '../constants/split_options';
-import SubviewSplitEqual from './SubviewSplitEqual';
-import SubviewSplitByExact from './SubviewSplitByExact';
-import SubviewSplitByPercent from './SubviewSplitByPercent';
-import ExpenseDatePicker from './ExpenseDatePicker';
-import Options from './Options';
+import SubviewSplitEqual from '../molecules/SubviewSplitEqual';
+import SubviewSplitByExact from '../molecules/SubviewSplitByExact';
+import SubviewSplitByPercent from '../molecules/SubviewSplitByPercent';
+import ExpenseDatePicker from '../molecules/ExpenseDatePicker';
+import Options from '../molecules/Options';
 
 class ExpenseForm extends React.Component {
   renderAddBillDetails(title, amount, handleChange) {

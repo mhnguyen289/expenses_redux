@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { signUp, login, demo } from '../actions/session_actions';
 import { clearMessage } from '../actions/message_actions';
-import SessionForm from '../components/SessionForm';
+import SessionForm from '../03_organisms/SessionForm';
 
 class Session extends Component {
   constructor(props, context) {

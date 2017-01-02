@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import ExpenseForm from '../components/ExpenseForm';
+import ExpenseForm from '../03_organisms/ExpenseForm';
 import { addExpense } from '../actions/expenses_actions';
 import { fetchFriendsList } from '../actions/friends_actions';
 import { getAllFriends } from '../reducers';
