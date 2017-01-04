@@ -4,7 +4,8 @@ import { Router, IndexRoute, Route, hashHistory, Redirect } from 'react-router';
 import App from './App';
 import Dashboard from '../05_pages/Dashboard';
 import Calculator from '../05_pages/Calculator';
-import Session from '../05_pages//Session';
+import Session from '../05_pages/Session';
+import StyleGuide from '../05_pages/StyleGuide'
 
 const Root = ({ store }) => (
   <Provider store={store} >
@@ -17,6 +18,7 @@ const Root = ({ store }) => (
         <Route path="/calculator" component={Calculator} />
         <Route path="/dashboard/(:selectedId)" component={Dashboard} />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/styleguide" component={StyleGuide} />
       </Route>
     </Router>
   </Provider>

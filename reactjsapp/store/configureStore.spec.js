@@ -1,6 +1,6 @@
 import configureStore from './configureStore';
 import expect from 'expect';
-import * as types from './constants/action_types';
+import * as types from '../constants/action_types';
 
 describe('store', () => {
   it('should handle initial state', () => {
