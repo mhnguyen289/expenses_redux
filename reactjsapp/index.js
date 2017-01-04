@@ -1,8 +1,8 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import Root from './containers/Root';
 import configureStore from './configureStore';
+import Root from './04_templates/Root';
 
 document.addEventListener('DOMContentLoaded', () => {
   const store = configureStore();

@@ -1,10 +1,10 @@
 {
   "name": "expenses-redux",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An app that splits and records expenses, inspired by SplitWise",
   "main": "webpack.config.babel.js",
   "scripts": {
-    "start": "npm-run-all --parallel webpack:watch lint:watch test:watch",
+    "start": "npm-run-all --parallel webpack:watch lint:watch",
     "webpack": "./node_modules/.bin/webpack -d",
     "webpack:watch": "./node_modules/.bin/webpack -w -d",
     "lint": "node_modules/.bin/esw webpack.config.* reactjsapp",
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "https://github.com/evefonwu/expenses-redux.git"
   },
-  "author": "Eve Fon Wu <evefonwu@gmail.com>",
+  "author": "Eve Fon Wu",
   "license": "MIT",
   "dependencies": {
     "babel-cli": "6.8.0",
