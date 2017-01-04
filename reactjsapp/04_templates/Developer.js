@@ -4,7 +4,7 @@ const Developer = ({ children }) => (
   <div>
     <div className="app-header">
       <div className="constraint-width">
-        Developer Style Guide
+        Style Guide
       </div>
     </div>
     <div className="main-section constraint-width">
