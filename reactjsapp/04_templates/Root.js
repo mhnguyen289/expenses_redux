@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import { Router, IndexRoute, Route, hashHistory, Redirect } from 'react-router';
+import Developer from './Developer';
+import StyleGuide from '../06_styleguide';
 import App from './App';
 import Dashboard from '../05_pages/Dashboard';
 import Calculator from '../05_pages/Calculator';
 import Session from '../05_pages/Session';
-import StyleGuide from '../06_styleguide';
 
 const Root = ({ store }) => (
   <Provider store={store} >
@@ -18,7 +19,9 @@ const Root = ({ store }) => (
         <Route path="/calculator" component={Calculator} />
         <Route path="/dashboard/(:selectedId)" component={Dashboard} />
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/styleguide" component={StyleGuide} />
+      </Route>
+      <Route path="/developer" component={Developer}>
+        <IndexRoute component={StyleGuide} />
       </Route>
     </Router>
   </Provider>
