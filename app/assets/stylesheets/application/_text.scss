@@ -1,0 +1,20 @@
+hr {
+  height: 1px;
+  background: $color-light-gray;
+}
+
+.default {
+  font-family: $font;
+}
+
+.header-text {
+  font-size: $font-size-header;
+}
+
+.primary-text {
+  font-size: $font-size-primary-content;
+}
+
+.supporting-text {
+  font-size: $font-size-supporting;
+}

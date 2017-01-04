@@ -2,12 +2,11 @@ import React, { PropTypes } from 'react';
 
 const Developer = ({ children }) => (
   <div>
-    <div className="app-header">
-      <div className="constraint-width">
-        Style Guide
+    <div className="">
+      <div className="">
       </div>
     </div>
-    <div className="main-section constraint-width">
+    <div className="">
       {children}
     </div>
   </div>

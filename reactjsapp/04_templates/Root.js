@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import { Router, IndexRoute, Route, hashHistory, Redirect } from 'react-router';
-import Developer from './Developer';
-import StyleGuide from '../06_styleguide';
 import App from './App';
 import Dashboard from '../05_pages/Dashboard';
 import Calculator from '../05_pages/Calculator';
 import Session from '../05_pages/Session';
+import Developer from './Developer';
+import StyleGuide from '../06_styleguide';
 
 const Root = ({ store }) => (
   <Provider store={store} >
