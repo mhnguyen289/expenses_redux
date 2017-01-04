@@ -5,7 +5,7 @@ import App from './App';
 import Dashboard from '../05_pages/Dashboard';
 import Calculator from '../05_pages/Calculator';
 import Session from '../05_pages/Session';
-import StyleGuide from '../05_pages/StyleGuide'
+import StyleGuide from '../06_styleguide';
 
 const Root = ({ store }) => (
   <Provider store={store} >
