@@ -5,8 +5,6 @@ import App from './App';
 import Dashboard from '../05_pages/Dashboard';
 import Calculator from '../05_pages/Calculator';
 import Session from '../05_pages/Session';
-import Developer from './Developer';
-import StyleGuide from '../06_styleguide';
 
 const Root = ({ store }) => (
   <Provider store={store} >
@@ -19,9 +17,6 @@ const Root = ({ store }) => (
         <Route path="/calculator" component={Calculator} />
         <Route path="/dashboard/(:selectedId)" component={Dashboard} />
         <Route path="/dashboard" component={Dashboard} />
-      </Route>
-      <Route path="/developer" component={Developer}>
-        <IndexRoute component={StyleGuide} />
       </Route>
     </Router>
   </Provider>

@@ -1,3 +1,5 @@
+# http://www.thegreatcodeadventure.com/jwt-auth-in-rails-from-scratch/
+
 require 'jwt'
 
 class Token
@@ -10,7 +12,6 @@ class Token
   end
 
   def self.hmac_secret
-    "abcd"
-    # ENV["hmac_secret"]
+    ENV["hmac_secret"]
   end
 end

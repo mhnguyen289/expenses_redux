@@ -133,7 +133,15 @@ class ExpenseForm extends React.Component {
   }
 
   renderErrorMessage(error) {
-    return <div>{error.length > 0 && <div className="input-error">{error}</div>}</div>;
+    return (
+      <div>
+        {error.length > 0 &&
+          <div className="input-error">
+            {error}
+          </div>
+        }
+      </div>
+    );
   }
 
   render() {

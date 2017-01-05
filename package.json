@@ -1,6 +1,6 @@
 {
   "name": "expenses-redux",
-  "version": "2.0.0",
+  "version": "1.0.4",
   "description": "An app that splits and records expenses, inspired by SplitWise",
   "main": "webpack.config.babel.js",
   "scripts": {

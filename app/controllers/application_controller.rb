@@ -1,3 +1,5 @@
+# http://www.thegreatcodeadventure.com/jwt-auth-in-rails-from-scratch/
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -32,4 +34,5 @@ class ApplicationController < ActionController::Base
   def token
     request.env["HTTP_AUTHORIZATION"].scan(/Bearer (.*)$/).flatten.last
   end
+
 end

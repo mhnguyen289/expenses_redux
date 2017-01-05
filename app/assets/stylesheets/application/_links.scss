@@ -1,9 +1,0 @@
-a {
-  color: $color-text-link;
-  text-decoration: 1px solid $color-text-decoration;
-  transition: all $animation-speed-medium $animation-ease;
-
-  &:hover {
-    color: $color-text-link-hover;
-  }
-}
