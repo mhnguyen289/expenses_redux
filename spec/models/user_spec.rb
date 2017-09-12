@@ -36,24 +36,37 @@ it 'requires that an email is valid (contains an @ symbol and a (.com, .org, etc
       expect(user2.valid?).to equal(false)
       expect(user3.valid?).to equal(false)
     end
-
   end
 
-  describe 'on save' do
+  describe 'on save' do 
 
-    it 'hashes a password' do
+    it 'hashes a password' do 
       user = build(:user)
       user.save
 
       expect(user.password_digest).not_to equal(user.password)
     end
-  end
+  end 
 
-  describe 'relationships' do
+   describe 'relationships' do 
 
-    it 'has one cart'
+    it 'has one cart that is destroyed upon deletion of user' do 
+      user = create(:user)
+      cart = user.create_cart(status: 'Active')
 
-    it 'has many orders'
+      expect(user.cart.id).not_to eq(nil)
 
+      user.destroy
+      cart = Cart.find_by(id: cart.id)
+      
+      expect(cart).to eq(nil)
+    end
+
+    it 'has many orders' do
+      user = create(:user)
+      user.orders.create
+
+      expect(user.orders.first.id).not_to eq(nil)
+    end
   end
 end
