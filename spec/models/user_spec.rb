@@ -10,7 +10,8 @@ RSpec.describe User, type: :model do
       expect(user.valid?).to equal(false)
       expect(user.errors.full_messages).to eq([
         "Password can't be blank",
-        "Email can't be blank"
+        "Email can't be blank",
+        "Email is invalid"
       ])
     end
 
@@ -20,8 +21,7 @@ RSpec.describe User, type: :model do
 
       expect(user.valid?).to equal(false)
       expect(user.errors.full_messages).to eq([
-        "Password can't be blank",
-        "Email can't be blank"
+        "Email has already been taken"
       ])
     end
 it 'requires that an email is valid (contains an @ symbol and a (.com, .org, etc...)' do 
