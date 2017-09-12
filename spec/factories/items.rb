@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :item do
-    title "MyString"
+    title "Legendary Link Hoodie"
     inventory 1
-    price "9.99"
-    category nil
+    price "54.99"
+    category 
   end
 end
