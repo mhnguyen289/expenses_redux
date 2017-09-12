@@ -1,5 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe 'validations' do
+
+    it 'requires a email and password when created'
+
+    it 'requires that an email is unique'
+
+  describe 'relationships' do
+
+    it 'has one cart'
+
+    it 'has many orders'
+    
+  end
 end
