@@ -41,8 +41,12 @@ it 'requires that an email is valid (contains an @ symbol and a (.com, .org, etc
 
   describe 'on save' do
 
-    it 'hashes a password'
+    it 'hashes a password' do
+      user = build(:user)
+      user.save
 
+      expect(user.password_digest).not_to equal(user.password)
+    end
   end
 
   describe 'relationships' do
