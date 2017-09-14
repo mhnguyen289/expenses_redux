@@ -38,7 +38,7 @@ RSpec.describe Cart, type: :model do
     it 'belongs to a user' do 
       cart = create(:cart)
       
-      expect(cart.user.email).to eq("avi@flatironschool.com")
+      expect(cart.user.email).to eq("minh.nguyen@shipt.com")
     end
   end
   end
